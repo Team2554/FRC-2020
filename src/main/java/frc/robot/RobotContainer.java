@@ -10,6 +10,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.ColorWheel.GetColor;
+import frc.robot.subsystems.ColorWheel;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -19,6 +21,8 @@ import edu.wpi.first.wpilibj2.command.Command;
  * commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+  private final ColorWheel m_colorWheel = new ColorWheel();
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
