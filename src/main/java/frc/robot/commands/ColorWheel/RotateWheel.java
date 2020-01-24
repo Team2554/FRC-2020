@@ -10,16 +10,15 @@ package frc.robot.commands.ColorWheel;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ColorWheel;
 
-public class GetColor extends CommandBase {
+public class RotateWheel extends CommandBase {
   private final ColorWheel m_colorWheel;
 
   /**
-   * Creates a new GetColor.
+   * Creates a new RotateWheel.
    */
-  public GetColor(ColorWheel colorWheel) {
+  public RotateWheel(ColorWheel colorWheel) {
     m_colorWheel = colorWheel;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_colorWheel);
   }
 
   // Called when the command is initially scheduled.
@@ -30,7 +29,7 @@ public class GetColor extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_colorWheel.getColor();
+    m_colorWheel.rotate();
   }
 
   // Called once the command ends or is interrupted.
@@ -41,6 +40,6 @@ public class GetColor extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }
