@@ -23,14 +23,18 @@ public class ColorWheel extends SubsystemBase {
   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
   private final ColorMatch m_colorMatcher = new ColorMatch();
 
-  private final Color kBlueTarget = ColorMatch.makeColor(0.135, 0.433, 0.4257);
+  private final Color kBlueTarget = ColorMatch.makeColor(0.135, 0.433, 0.4257); // (R, G, B)
   private final Color kGreenTarget = ColorMatch.makeColor(0.176, 0.565, 0.258);
   private final Color kRedTarget = ColorMatch.makeColor(0.49, 0.311, 0.145);
   private final Color kYellowTarget = ColorMatch.makeColor(0.33, 0.55, 0.13);
   private final Color kWhiteTarget = ColorMatch.makeColor(0.267, 0.475, 0.25);
   private final Color kBlackTarget = ColorMatch.makeColor(0.0, 0.0, 0.0);
-  private final double encoderStopValue = 5;
-  private final double encoderOneEighth = 7;
+  private final double circumOfColorWheel = 100 / 12; // circumfrence of color wheel (feet)
+  private final double circumOfMotorWheel = Math.PI * 4 / 12; // circumference of motor (feet)
+  private final double pulsesPerRev = 120;
+  private final double distancePerpulse = circumOfMotorWheel / pulsesPerRev;
+  private final double encoderStopValue = circumOfColorWheel * 4;
+  private final double encoderOneEighth = circumOfColorWheel / 8;
 
   public Encoder colorEncoder = new Encoder(0, 1);
 
@@ -42,9 +46,6 @@ public class ColorWheel extends SubsystemBase {
     // m_colorMatcher.addColorMatch(kWhiteTarget);
     m_colorMatcher.addColorMatch(kBlackTarget);
 
-    final double distancePerRev = 100 / 12;
-    final double pulsesPerRev = 5;
-    final double distancePerpulse = distancePerRev / pulsesPerRev;
     colorEncoder.setDistancePerPulse(distancePerpulse);
     colorEncoder.setReverseDirection(false);
     colorEncoder.reset();
@@ -81,6 +82,7 @@ public class ColorWheel extends SubsystemBase {
   }
 
   public void rotate() {
+    colorEncoder.reset();
     colorMotor.set(0.3);
     while (colorEncoder.getDistance() < encoderStopValue) {
 
@@ -88,15 +90,17 @@ public class ColorWheel extends SubsystemBase {
     stopMotor();
   }
 
+  double distanceNeeded;
+
   public void rotateToColor(String inputColor) {
     colorEncoder.reset();
-    double distanceNeeded = 0;
+
     if (this.getColor().equals("Red")) {
       if (inputColor.equals("Green")) {
         distanceNeeded = encoderOneEighth;
       } else if (inputColor.equals("Blue")) {
         distanceNeeded = 2 * encoderOneEighth;
-      } else {
+      } else if (inputColor.equals("Yellow")) {
         distanceNeeded = -encoderOneEighth;
       }
     }
@@ -106,7 +110,7 @@ public class ColorWheel extends SubsystemBase {
         distanceNeeded = encoderOneEighth;
       } else if (inputColor.equals("Green")) {
         distanceNeeded = 2 * encoderOneEighth;
-      } else {
+      } else if (inputColor.equals("Blue")) {
         distanceNeeded = -encoderOneEighth;
       }
     }
@@ -132,7 +136,7 @@ public class ColorWheel extends SubsystemBase {
     }
 
     else {
-      System.out.println("Incorrect color detectedt");
+      System.out.println("Incorrect color detected");
       return;
     }
 
