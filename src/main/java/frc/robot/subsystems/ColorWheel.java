@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.util.Color;
 
 import com.revrobotics.ColorSensorV3;
@@ -18,7 +19,7 @@ import com.revrobotics.ColorMatch;
 public class ColorWheel extends SubsystemBase {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  Victor colorMotor = new Victor(0);
+  PWMVictorSPX colorMotor = new PWMVictorSPX(4);
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
   private final ColorMatch m_colorMatcher = new ColorMatch();
@@ -36,7 +37,7 @@ public class ColorWheel extends SubsystemBase {
   private final double encoderStopValue = circumOfColorWheel * 4;
   private final double encoderOneEighth = circumOfColorWheel / 8;
 
-  public Encoder colorEncoder = new Encoder(0, 1);
+  public Encoder colorEncoder = new Encoder(1, 2);
 
   public ColorWheel() {
     m_colorMatcher.addColorMatch(kBlueTarget);
