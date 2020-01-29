@@ -9,7 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
-import frc.robot.Robot;
+import frc.robot.subsystems.DriveTrain;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -18,20 +18,24 @@ public class RotateToAngleNEW extends PIDCommand {
   /**
    * Creates a new DriveStraightNEW.
    */
-  public RotateToAngleNEW(double targetAngle, double speed) {
+  private final DriveTrain m_driveTrain;
+
+  public RotateToAngleNEW(double targetAngle, double speed, DriveTrain driveTrain) {
     super(
         // The controller that the command will use
         new PIDController(0.1, 0.01, 0),
         // This should return the measurement
-        () -> Robot.m_driveTrain.getGyroAngle(),
+        () -> driveTrain.getGyroAngle(),
         // This should return the setpoint (can also be a constant)
         () -> targetAngle,
         // This uses the output
         output -> {
-          Robot.m_driveTrain.arcadeDrive(0, speed);
-        });
+          driveTrain.arcadeDrive(0, speed);
+        }, driveTrain);
 
-    addRequirements(Robot.m_driveTrain);
+    m_driveTrain = driveTrain;
+
+    addRequirements(m_driveTrain);
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
     getController().setTolerance(2.5);
@@ -50,6 +54,6 @@ public class RotateToAngleNEW extends PIDCommand {
 
   public void stop() {
     getController().close();
-    Robot.m_driveTrain.stop();
+    m_driveTrain.stop();
   }
 }
