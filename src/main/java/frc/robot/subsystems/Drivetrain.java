@@ -23,7 +23,6 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveTrain extends SubsystemBase {
@@ -56,6 +55,8 @@ public class DriveTrain extends SubsystemBase {
     Pose2d pose = new Pose2d();
 
     double[] ypr = new double[3];
+
+    boolean isInverted = false;
 
     /**
      * Creates a new DriveTrain.
@@ -99,7 +100,7 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public void curvatureDrive(double xSpeed, double zRotation, boolean isQuickTurn) {
-        driveTrain.curvatureDrive(xSpeed, zRotation, isQuickTurn);
+        driveTrain.curvatureDrive(xSpeed * (isInverted ? -1 : 1), zRotation, isQuickTurn);
     }
 
     public DifferentialDriveKinematics getKinematics() {
@@ -153,6 +154,10 @@ public class DriveTrain extends SubsystemBase {
 
     public Pose2d getPose() {
         return pose;
+    }
+
+    public void inverseInput() {
+        isInverted = !isInverted;
     }
 
 }

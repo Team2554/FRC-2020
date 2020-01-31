@@ -25,12 +25,12 @@ public class RotateToAngleNEW extends PIDCommand {
         // The controller that the command will use
         new PIDController(0.1, 0.01, 0),
         // This should return the measurement
-        () -> driveTrain.getGyroAngle(),
+        () -> driveTrain.getHeading().getDegrees(),
         // This should return the setpoint (can also be a constant)
         () -> targetAngle,
         // This uses the output
         output -> {
-          driveTrain.arcadeDrive(0, speed);
+          driveTrain.curvatureDrive(0, speed, true);
         }, driveTrain);
 
     m_driveTrain = driveTrain;
@@ -49,11 +49,11 @@ public class RotateToAngleNEW extends PIDCommand {
   }
 
   public void initialize() {
-    // Robot.m_driveTrain.gyro.setYaw(0);
+    m_driveTrain.resetGyro();
   }
 
   public void stop() {
     getController().close();
-    m_driveTrain.stop();
+    m_driveTrain.curvatureDrive(0, 0, true);
   }
 }

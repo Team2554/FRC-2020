@@ -24,12 +24,12 @@ public class DriveStraightNEW extends PIDCommand {
         // The controller that the command will use
         new PIDController(0.1, 0, .225, 0.02),
         // This should return the measurement
-        () -> driveTrain.getGyroAngle(),
+        () -> driveTrain.getHeading().getDegrees(),
         // This should return the setpoint (can also be a constant)
-        () -> heading, // <--- I think this should be Robot.m_driveTrain.getGyroAngle()
+        () -> heading,
         // This uses the output
         output -> {
-          driveTrain.arcadeDrive(speed, 0);
+          driveTrain.curvatureDrive(speed, 0, true);
         }, driveTrain);
 
     m_driveTrain = driveTrain;
@@ -44,18 +44,18 @@ public class DriveStraightNEW extends PIDCommand {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Math.abs((m_driveTrain.getDistance())) >= Math.abs(distance));
+    return (Math.abs((m_driveTrain.getAverageEncoderDistance())) >= Math.abs(distance));
   }
 
   public void initialize() {
-    m_driveTrain.resetDriveTrain();
+    m_driveTrain.resetEncoders();
   }
 
   public double returnPIDInput() {
-    return m_driveTrain.getDistance() - distance;
+    return m_driveTrain.getAverageEncoderDistance() - distance;
   }
 
   protected void end() {
-    m_driveTrain.stop();
+    m_driveTrain.curvatureDrive(0, 0, true);
   }
 }
