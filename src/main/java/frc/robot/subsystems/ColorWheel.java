@@ -44,7 +44,7 @@ public class ColorWheel extends SubsystemBase {
     m_colorMatcher.addColorMatch(kGreenTarget);
     m_colorMatcher.addColorMatch(kRedTarget);
     m_colorMatcher.addColorMatch(kYellowTarget);
-    // m_colorMatcher.addColorMatch(kWhiteTarget);
+    m_colorMatcher.addColorMatch(kWhiteTarget);
     m_colorMatcher.addColorMatch(kBlackTarget);
 
     colorEncoder.setDistancePerPulse(distancePerpulse);
@@ -101,7 +101,7 @@ public class ColorWheel extends SubsystemBase {
         distanceNeeded = encoderOneEighth;
       } else if (inputColor.equals("Blue")) {
         distanceNeeded = 2 * encoderOneEighth;
-      } else if (inputColor.equals("Yellow")) {
+      } else { // If inputColor is Yellow
         distanceNeeded = -encoderOneEighth;
       }
     }
@@ -111,7 +111,7 @@ public class ColorWheel extends SubsystemBase {
         distanceNeeded = encoderOneEighth;
       } else if (inputColor.equals("Green")) {
         distanceNeeded = 2 * encoderOneEighth;
-      } else if (inputColor.equals("Blue")) {
+      } else { // If inputColor is Blue
         distanceNeeded = -encoderOneEighth;
       }
     }
@@ -121,7 +121,7 @@ public class ColorWheel extends SubsystemBase {
         distanceNeeded = encoderOneEighth;
       } else if (inputColor.equals("Red")) {
         distanceNeeded = 2 * encoderOneEighth;
-      } else {
+      } else { // If inputColor is Green
         distanceNeeded = -encoderOneEighth;
       }
     }
@@ -131,7 +131,7 @@ public class ColorWheel extends SubsystemBase {
         distanceNeeded = encoderOneEighth;
       } else if (inputColor.equals("Yellow")) {
         distanceNeeded = 2 * encoderOneEighth;
-      } else {
+      } else { // If inputColor is Red
         distanceNeeded = -encoderOneEighth;
       }
     }
