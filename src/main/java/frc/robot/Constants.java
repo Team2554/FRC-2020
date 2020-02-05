@@ -20,5 +20,29 @@ package frc.robot;
 public final class Constants {
     public static final class FlywheelConstants {
         public static final int TALON_PORT = 0;
+        public static final int kSlotIdx = 0;
+        public static final int kPIDLoopIdx = 0;
+        public static final int kTimeoutMs = 30;
+
+        public final FlywheelGains gains = new FlywheelGains(0.25, 0.001, 20, 1023.0 / 7200.0, 300, 1.00);
+
+    }
+}
+
+final class FlywheelGains {
+    public final double kP;
+    public final double kI;
+    public final double kD;
+    public final double kF;
+    public final int kIzone;
+    public final double kPeakOutput;
+
+    public FlywheelGains(double _kP, double _kI, double _kD, double _kF, int _kIzone, double _kPeakOutput) {
+        kP = _kP;
+        kI = _kI;
+        kD = _kD;
+        kF = _kF;
+        kIzone = _kIzone;
+        kPeakOutput = _kPeakOutput;
     }
 }
