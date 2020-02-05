@@ -18,12 +18,4 @@ package frc.robot;
  * wherever the constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final double kMaxSpeedMetersPerSecond = 10;
-    public static final double kMaxAccelerationMetersPerSecondSquared = 20;
-    public static final double kRamseteB;
-    public static final double kRamseteZeta;
-    public static final double ksVolts;
-    public static final double kvVoltSecondsPerMeter;
-    public static final double kaVoltSecondsSquaredPerMeter;
-    public static final double kPDriveVel;
 }
