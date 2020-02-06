@@ -11,11 +11,10 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Constants.ButtonJoystickMappings;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.commands.Flywheel.RunFlywheel;
-import frc.robot.commands.Flywheel.ToggleClosedLoop;;
+import frc.robot.commands.Flywheel.ToggleClosedLoop;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
