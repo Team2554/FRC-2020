@@ -29,6 +29,8 @@ public class Flywheel extends SubsystemBase {
 
     // May need to be changed depending on green light direction
     talon.setSensorPhase(true);
+    talon.enableVoltageCompensation(true);
+    talon.configVoltageCompSaturation(11);
 
     talon.configNominalOutputForward(0, FlywheelConstants.kTimeoutMs);
     talon.configNominalOutputReverse(0, FlywheelConstants.kTimeoutMs);
