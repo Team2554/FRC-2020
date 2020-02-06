@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.ColorWheel.GetColor;
 import frc.robot.commands.ColorWheel.RotateWheel;
 import frc.robot.subsystems.ColorWheel;
 
@@ -26,7 +25,7 @@ import frc.robot.subsystems.ColorWheel;
 public class RobotContainer {
   private final ColorWheel m_colorWheel = new ColorWheel();
   private final Joystick m_joystick = new Joystick(0);
-  private final JoystickButton button1 = new JoystickButton(m_joystick, 0);
+  private final JoystickButton button1 = new JoystickButton(m_joystick, 1);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.

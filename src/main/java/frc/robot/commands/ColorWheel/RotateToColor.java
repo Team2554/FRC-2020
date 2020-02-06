@@ -12,10 +12,10 @@ import frc.robot.subsystems.ColorWheel;
 
 public class RotateToColor extends CommandBase {
   private final ColorWheel m_colorWheel;
-
   private boolean m_isFinished = false;
-
   private String m_inputColor;
+  private String m_prevColor;
+  private double m_runningTime = 0.0;
 
   /**
    * Creates a new RotateToColor.
@@ -30,23 +30,28 @@ public class RotateToColor extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_prevColor = m_colorWheel.getColor();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_colorWheel.rotateToColor(m_inputColor);
-    m_isFinished = true;
+    double startTime = System.currentTimeMillis();
+    m_colorWheel.setMotor(0.3);
+    m_runningTime += System.currentTimeMillis() - startTime;
+    if (m_colorWheel.getColor() != m_prevColor)
+      m_runningTime = 0;
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_colorWheel.stopMotor();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_isFinished;
+    return m_colorWheel.getColor() == m_inputColor && m_runningTime >= 100;
   }
 }

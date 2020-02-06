@@ -24,22 +24,24 @@ public class RotateWheel extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_colorWheel.resetEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_colorWheel.rotate();
+    m_colorWheel.setMotor(0.3);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_colorWheel.stopMotor();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return m_colorWheel.getDistance() >= m_colorWheel.encoderStopValue;
   }
 }

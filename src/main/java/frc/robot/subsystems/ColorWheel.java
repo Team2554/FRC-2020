@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -11,6 +12,7 @@ import edu.wpi.first.wpilibj.util.Color;
 
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.ColorMatch;
 
 /**
@@ -19,7 +21,7 @@ import com.revrobotics.ColorMatch;
 public class ColorWheel extends SubsystemBase {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  PWMVictorSPX colorMotor = new PWMVictorSPX(4);
+  VictorSP colorMotor = new VictorSP(0);
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
   private final ColorMatch m_colorMatcher = new ColorMatch();
@@ -32,9 +34,9 @@ public class ColorWheel extends SubsystemBase {
   private final Color kBlackTarget = ColorMatch.makeColor(0.0, 0.0, 0.0);
   private final double circumOfColorWheel = 100 / 12; // circumfrence of color wheel (feet)
   private final double circumOfMotorWheel = Math.PI * 4 / 12; // circumference of motor (feet)
-  private final double pulsesPerRev = 120;
+  private final double pulsesPerRev = 300;
   private final double distancePerpulse = circumOfMotorWheel / pulsesPerRev;
-  private final double encoderStopValue = circumOfColorWheel * 4;
+  public final double encoderStopValue = circumOfColorWheel * 4;
   private final double encoderOneEighth = circumOfColorWheel / 8;
 
   public Encoder colorEncoder = new Encoder(1, 2);
@@ -72,86 +74,95 @@ public class ColorWheel extends SubsystemBase {
     } else {
       colorString = "Unknown";
     }
-    SmartDashboard.putString("Detected Color", colorString);
     return colorString;
   }
 
-  public double getIR() {
-    final double IR = m_colorSensor.getIR();
-    SmartDashboard.putNumber("IR Value", IR);
-    return IR;
+  @Override
+  public void periodic() {
+    SmartDashboard.putString("Detected Color", getColor());
+  }
+
+  public void resetEncoder() {
+    colorEncoder.reset();
+  }
+
+  public void setMotor(double speed) {
+    colorMotor.set(speed);
+  }
+
+  public double getDistance() {
+    return colorEncoder.getDistance();
   }
 
   public void rotate() {
-    colorEncoder.reset();
     colorMotor.set(0.3);
     while (colorEncoder.getDistance() < encoderStopValue) {
-
+      SmartDashboard.putNumber("Distance rotated", colorEncoder.getDistance());
     }
     stopMotor();
   }
 
-  double distanceNeeded;
+  // double distanceNeeded;
 
-  public void rotateToColor(String inputColor) {
-    colorEncoder.reset();
+  // public void rotateToColor(String inputColor) {
+  // colorEncoder.reset();
 
-    if (this.getColor().equals("Red")) {
-      if (inputColor.equals("Green")) {
-        distanceNeeded = encoderOneEighth;
-      } else if (inputColor.equals("Blue")) {
-        distanceNeeded = 2 * encoderOneEighth;
-      } else { // If inputColor is Yellow
-        distanceNeeded = -encoderOneEighth;
-      }
-    }
+  // if (this.getColor().equals("Red")) {
+  // if (inputColor.equals("Green")) {
+  // distanceNeeded = encoderOneEighth;
+  // } else if (inputColor.equals("Blue")) {
+  // distanceNeeded = 2 * encoderOneEighth;
+  // } else { // If inputColor is Yellow
+  // distanceNeeded = -encoderOneEighth;
+  // }
+  // }
 
-    else if (this.getColor().equals("Yellow")) {
-      if (inputColor.equals("Red")) {
-        distanceNeeded = encoderOneEighth;
-      } else if (inputColor.equals("Green")) {
-        distanceNeeded = 2 * encoderOneEighth;
-      } else { // If inputColor is Blue
-        distanceNeeded = -encoderOneEighth;
-      }
-    }
+  // else if (this.getColor().equals("Yellow")) {
+  // if (inputColor.equals("Red")) {
+  // distanceNeeded = encoderOneEighth;
+  // } else if (inputColor.equals("Green")) {
+  // distanceNeeded = 2 * encoderOneEighth;
+  // } else { // If inputColor is Blue
+  // distanceNeeded = -encoderOneEighth;
+  // }
+  // }
 
-    else if (this.getColor().equals("Blue")) {
-      if (inputColor.equals("Yellow")) {
-        distanceNeeded = encoderOneEighth;
-      } else if (inputColor.equals("Red")) {
-        distanceNeeded = 2 * encoderOneEighth;
-      } else { // If inputColor is Green
-        distanceNeeded = -encoderOneEighth;
-      }
-    }
+  // else if (this.getColor().equals("Blue")) {
+  // if (inputColor.equals("Yellow")) {
+  // distanceNeeded = encoderOneEighth;
+  // } else if (inputColor.equals("Red")) {
+  // distanceNeeded = 2 * encoderOneEighth;
+  // } else { // If inputColor is Green
+  // distanceNeeded = -encoderOneEighth;
+  // }
+  // }
 
-    else if (this.getColor().equals("Green")) {
-      if (inputColor.equals("Blue")) {
-        distanceNeeded = encoderOneEighth;
-      } else if (inputColor.equals("Yellow")) {
-        distanceNeeded = 2 * encoderOneEighth;
-      } else { // If inputColor is Red
-        distanceNeeded = -encoderOneEighth;
-      }
-    }
+  // else if (this.getColor().equals("Green")) {
+  // if (inputColor.equals("Blue")) {
+  // distanceNeeded = encoderOneEighth;
+  // } else if (inputColor.equals("Yellow")) {
+  // distanceNeeded = 2 * encoderOneEighth;
+  // } else { // If inputColor is Red
+  // distanceNeeded = -encoderOneEighth;
+  // }
+  // }
 
-    else {
-      System.out.println("Incorrect color detected");
-      return;
-    }
+  // else {
+  // System.out.println("Incorrect color detected");
+  // return;
+  // }
 
-    if (distanceNeeded < 0) {
-      colorMotor.set(-0.3);
-    } else {
-      colorMotor.set(0.3);
-    }
+  // if (distanceNeeded < 0) {
+  // colorMotor.set(-0.3);
+  // } else {
+  // colorMotor.set(0.3);
+  // }
 
-    while (colorEncoder.getDistance() < Math.abs(distanceNeeded)) {
+  // while (colorEncoder.getDistance() < Math.abs(distanceNeeded)) {
 
-    }
-    stopMotor();
-  }
+  // }
+  // stopMotor();
+  // }
 
   public void stopMotor() {
     colorMotor.set(0);
