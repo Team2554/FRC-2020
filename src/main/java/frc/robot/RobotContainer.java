@@ -8,8 +8,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.Flywheel.ToggleClosedLoop;
+import frc.robot.subsystems.Flywheel;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -19,12 +23,18 @@ import edu.wpi.first.wpilibj2.command.Command;
  * commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+  Joystick joystick = new Joystick(0);
+
+  private final Flywheel m_flywheel = new Flywheel();
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+
+    // By default, allow stick to control flywheel
   }
 
   /**
@@ -34,6 +44,10 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    // Nivedha put your button stuff here
+
+    // Velocity closed loop for flywheel
+    new JoystickButton(joystick, 1).toggleWhenPressed(new ToggleClosedLoop(m_flywheel));
   }
 
   /**

@@ -5,20 +5,18 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
+package frc.robot.commands.Flywheel;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Flywheel;
 
-public class FlywheelVelocityClosedLoop extends CommandBase {
-  Flywheel m_flywheel;
+public class ToggleClosedLoop extends CommandBase {
+  private final Flywheel m_flywheel;
 
   /**
-   * Creates a new FlywheelVelocityClosedLoop.
+   * Creates a new ToggleClosedLoop.
    */
-  public FlywheelVelocityClosedLoop(Flywheel flywheel) {
+  public ToggleClosedLoop(Flywheel flywheel) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_flywheel = flywheel;
     addRequirements(m_flywheel);
@@ -32,8 +30,7 @@ public class FlywheelVelocityClosedLoop extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double targetVelocity = m_flywheel.getDoubleSupplier().getAsDouble() * 500.0 * 4096 / 600;
-    m_flywheel.getTalon().set(ControlMode.Velocity, targetVelocity);
+    m_flywheel.toggleClosedLoop();
   }
 
   // Called once the command ends or is interrupted.
@@ -44,6 +41,6 @@ public class FlywheelVelocityClosedLoop extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

@@ -7,8 +7,6 @@
 
 package frc.robot.subsystems;
 
-import java.util.function.DoubleSupplier;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -17,16 +15,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.FlywheelConstants;
 
 public class Flywheel extends SubsystemBase {
-  TalonSRX talon = new TalonSRX(FlywheelConstants.TALON_PORT);
-  DoubleSupplier leftStickY;
-  boolean inClosedLoop = false;
+  private final TalonSRX talon = new TalonSRX(FlywheelConstants.TALON_PORT);
+  private ControlMode controlMode = ControlMode.PercentOutput;
 
   /**
    * Creates a new Flywheel.
    */
-  public Flywheel(DoubleSupplier leftStickY) {
-    inClosedLoop = false;
-    this.leftStickY = leftStickY;
+  public Flywheel() {
     talon.configFactoryDefault();
 
     talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, FlywheelConstants.kPIDLoopIdx,
@@ -45,25 +40,29 @@ public class Flywheel extends SubsystemBase {
     talon.config_kD(FlywheelConstants.kPIDLoopIdx, FlywheelConstants.gains.kD, FlywheelConstants.kTimeoutMs);
   }
 
-  public void enterClosedLoop() {
-    inClosedLoop = true;
+  /**
+   * Toggle Talon control mode
+   */
+  public void toggleClosedLoop() {
+    if (controlMode == ControlMode.PercentOutput) {
+      controlMode = ControlMode.Velocity;
+    } else {
+      controlMode = ControlMode.PercentOutput;
+    }
   }
 
-  public void exitClosedLoop() {
-    inClosedLoop = false;
-  }
-
-  public DoubleSupplier getDoubleSupplier() {
-    return leftStickY;
-  }
-
-  public TalonSRX getTalon() {
-    return talon;
-  }
-
-  public void closedLoopMode() {
-    double targetVelocity_UnitsPer100ms = leftStickY.getAsDouble() * 500.0 * 4096 / 600;
-    talon.set(ControlMode.Velocity, targetVelocity_UnitsPer100ms);
+  /**
+   * Depending on the mode of the talon, set the motor accordingly. If in
+   * ControlMode.Velocity, appropriately handle Velocity PID, otherwise just set
+   * talon directly
+   * 
+   * @param target
+   */
+  public void setTalon(double target) {
+    if (controlMode == ControlMode.Velocity) {
+      target *= 500.0 * 4096 / 600;
+    }
+    talon.set(controlMode, target);
   }
 
   @Override
