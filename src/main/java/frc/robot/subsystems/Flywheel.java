@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.FlywheelConstants;
 
 public class Flywheel extends SubsystemBase {
-  private final TalonSRX talon = new TalonSRX(FlywheelConstants.TALON_PORT);
+  private final TalonSRX talon = new TalonSRX(FlywheelConstants.talonPort);
   private ControlMode controlMode = ControlMode.PercentOutput;
 
   /**

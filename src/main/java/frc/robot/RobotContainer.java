@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Constants.ButtonJoystickConstants;
 import frc.robot.commands.Flywheel.RunFlywheel;
 import frc.robot.commands.Flywheel.ToggleClosedLoop;
 import frc.robot.subsystems.Flywheel;
@@ -24,7 +25,7 @@ import frc.robot.subsystems.Flywheel;
  * commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  Joystick joystick = new Joystick(0);
+  Joystick joystick = new Joystick(ButtonJoystickConstants.flywheelJoystick);
 
   private final Flywheel m_flywheel = new Flywheel();
 
@@ -45,10 +46,12 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // When a button is held down, set the flywheel motor to some double supplier
     // (TBD)
-    new JoystickButton(joystick, 0).whenHeld(new RunFlywheel(m_flywheel, () -> joystick.getY()));
+    new JoystickButton(joystick, ButtonJoystickConstants.flywheelJoystickMainButton)
+        .whenHeld(new RunFlywheel(m_flywheel, () -> joystick.getY()));
 
     // Velocity closed loop for flywheel is toggled when a button is pressed
-    new JoystickButton(joystick, 1).toggleWhenPressed(new ToggleClosedLoop(m_flywheel));
+    new JoystickButton(joystick, ButtonJoystickConstants.flywheelJoystickMainButton)
+        .toggleWhenPressed(new ToggleClosedLoop(m_flywheel));
   }
 
   /**

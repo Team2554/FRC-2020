@@ -19,7 +19,7 @@ package frc.robot;
  */
 public final class Constants {
     public static final class FlywheelConstants {
-        public static final int TALON_PORT = 0;
+        public static final int talonPort = 0;
         public static final int kSlotIdx = 0;
         public static final int kPIDLoopIdx = 0;
         public static final int kTimeoutMs = 30;
@@ -31,5 +31,11 @@ public final class Constants {
         public static final double kF = 1023.0 / 7200.0;
         public static final int kIzone = 300;
         public static final double kPeakOutput = 1.00;
+    }
+
+    public static final class ButtonJoystickConstants {
+        public static final int flywheelJoystick = 0;
+        public static final int flywheelJoystickMainButton = 1;
+        public static final int flywheelJoystickClosedLoopButton = 2;
     }
 }
