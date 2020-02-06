@@ -64,7 +64,7 @@ public class Flywheel extends SubsystemBase {
       target *= 500.0 * 4096 / 600; // This formula was copied from the example
                                     // it may need to be changed
     } else {
-      target *= 10;
+      target *= FlywheelConstants.maxVoltage;
     }
     talon.set(controlMode, target);
   }
