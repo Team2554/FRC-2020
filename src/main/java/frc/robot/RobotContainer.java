@@ -45,9 +45,11 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    // When a button is held down, set the flywheel motor to some double supplier
+    // (TBD)
     new JoystickButton(joystick, 0).whenHeld(new RunFlywheel(m_flywheel, () -> joystick.getY()));
 
-    // Velocity closed loop for flywheel
+    // Velocity closed loop for flywheel is toggled when a button is pressed
     new JoystickButton(joystick, 1).toggleWhenPressed(new ToggleClosedLoop(m_flywheel));
   }
 
