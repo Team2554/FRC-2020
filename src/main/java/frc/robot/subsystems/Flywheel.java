@@ -16,7 +16,7 @@ import frc.robot.Constants.FlywheelConstants;
 
 public class Flywheel extends SubsystemBase {
   private final TalonSRX talon = new TalonSRX(FlywheelConstants.talonPort);
-  private ControlMode controlMode = ControlMode.PercentOutput;
+  private ControlMode controlMode = ControlMode.Velocity;
 
   /**
    * Creates a new Flywheel.
@@ -63,6 +63,8 @@ public class Flywheel extends SubsystemBase {
     if (controlMode == ControlMode.Velocity) {
       target *= 500.0 * 4096 / 600; // This formula was copied from the example
                                     // it may need to be changed
+    } else {
+      target *= 10;
     }
     talon.set(controlMode, target);
   }
