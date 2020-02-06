@@ -23,6 +23,7 @@ public class RunFlywheel extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     m_flywheel = flywheel;
     m_doubleSupplier = doubleSupplier;
+    addRequirements(m_flywheel);
   }
 
   // Called when the command is initially scheduled.

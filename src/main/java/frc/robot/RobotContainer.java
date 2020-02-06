@@ -34,8 +34,6 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-
-    // By default, allow stick to control flywheel
   }
 
   /**

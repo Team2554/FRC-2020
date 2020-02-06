@@ -27,6 +27,7 @@ public class Flywheel extends SubsystemBase {
     talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, FlywheelConstants.kPIDLoopIdx,
         FlywheelConstants.kTimeoutMs);
 
+    // May need to be changed depending on green light direction
     talon.setSensorPhase(true);
 
     talon.configNominalOutputForward(0, FlywheelConstants.kTimeoutMs);
@@ -56,11 +57,12 @@ public class Flywheel extends SubsystemBase {
    * ControlMode.Velocity, appropriately handle Velocity PID, otherwise just set
    * talon directly
    * 
-   * @param target
+   * @param target The raw value provided by whatever DobuleSupplier is used
    */
   public void setTalon(double target) {
     if (controlMode == ControlMode.Velocity) {
-      target *= 500.0 * 4096 / 600;
+      target *= 500.0 * 4096 / 600; // This formula was copied from the example
+                                    // it may need to be changed
     }
     talon.set(controlMode, target);
   }
