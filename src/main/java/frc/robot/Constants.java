@@ -25,7 +25,6 @@ public final class Constants {
         public static final int kTimeoutMs = 30;
 
         public static final FlywheelGains gains = new FlywheelGains(0.25, 0.001, 20, 1023.0 / 7200.0, 300, 1.00);
-
     }
 
     public static final class FlywheelGains {

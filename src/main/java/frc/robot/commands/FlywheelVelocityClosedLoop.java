@@ -7,8 +7,6 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -23,6 +21,7 @@ public class FlywheelVelocityClosedLoop extends CommandBase {
   public FlywheelVelocityClosedLoop(Flywheel flywheel) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_flywheel = flywheel;
+    addRequirements(m_flywheel);
   }
 
   // Called when the command is initially scheduled.

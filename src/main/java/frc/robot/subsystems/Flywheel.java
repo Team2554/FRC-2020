@@ -14,10 +14,10 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.Constants.FlywheelConstants;
 
 public class Flywheel extends SubsystemBase {
-  TalonSRX talon = new TalonSRX(Constants.FlywheelConstants.TALON_PORT);
+  TalonSRX talon = new TalonSRX(FlywheelConstants.TALON_PORT);
   DoubleSupplier leftStickY;
   boolean inClosedLoop = false;
 
@@ -29,25 +29,20 @@ public class Flywheel extends SubsystemBase {
     this.leftStickY = leftStickY;
     talon.configFactoryDefault();
 
-    talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, Constants.FlywheelConstants.kPIDLoopIdx,
-        Constants.FlywheelConstants.kTimeoutMs);
+    talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, FlywheelConstants.kPIDLoopIdx,
+        FlywheelConstants.kTimeoutMs);
 
     talon.setSensorPhase(true);
 
-    // talon.configNominalOutputForward(0, )
-    talon.configNominalOutputForward(0, Constants.FlywheelConstants.kTimeoutMs);
-    talon.configNominalOutputReverse(0, Constants.FlywheelConstants.kTimeoutMs);
-    talon.configPeakOutputForward(1, Constants.FlywheelConstants.kTimeoutMs);
-    talon.configPeakOutputReverse(-1, Constants.FlywheelConstants.kTimeoutMs);
+    talon.configNominalOutputForward(0, FlywheelConstants.kTimeoutMs);
+    talon.configNominalOutputReverse(0, FlywheelConstants.kTimeoutMs);
+    talon.configPeakOutputForward(1, FlywheelConstants.kTimeoutMs);
+    talon.configPeakOutputReverse(-1, FlywheelConstants.kTimeoutMs);
 
-    talon.config_kF(Constants.FlywheelConstants.kPIDLoopIdx, Constants.FlywheelConstants.gains.kF,
-        Constants.FlywheelConstants.kTimeoutMs);
-    talon.config_kP(Constants.FlywheelConstants.kPIDLoopIdx, Constants.FlywheelConstants.gains.kP,
-        Constants.FlywheelConstants.kTimeoutMs);
-    talon.config_kI(Constants.FlywheelConstants.kPIDLoopIdx, Constants.FlywheelConstants.gains.kI,
-        Constants.FlywheelConstants.kTimeoutMs);
-    talon.config_kD(Constants.FlywheelConstants.kPIDLoopIdx, Constants.FlywheelConstants.gains.kD,
-        Constants.FlywheelConstants.kTimeoutMs);
+    talon.config_kF(FlywheelConstants.kPIDLoopIdx, FlywheelConstants.gains.kF, FlywheelConstants.kTimeoutMs);
+    talon.config_kP(FlywheelConstants.kPIDLoopIdx, FlywheelConstants.gains.kP, FlywheelConstants.kTimeoutMs);
+    talon.config_kI(FlywheelConstants.kPIDLoopIdx, FlywheelConstants.gains.kI, FlywheelConstants.kTimeoutMs);
+    talon.config_kD(FlywheelConstants.kPIDLoopIdx, FlywheelConstants.gains.kD, FlywheelConstants.kTimeoutMs);
   }
 
   public void enterClosedLoop() {
@@ -69,7 +64,6 @@ public class Flywheel extends SubsystemBase {
   public void closedLoopMode() {
     double targetVelocity_UnitsPer100ms = leftStickY.getAsDouble() * 500.0 * 4096 / 600;
     talon.set(ControlMode.Velocity, targetVelocity_UnitsPer100ms);
-
   }
 
   @Override
