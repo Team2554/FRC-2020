@@ -35,10 +35,10 @@ public class Flywheel extends SubsystemBase {
     talon.configPeakOutputForward(1, FlywheelConstants.kTimeoutMs);
     talon.configPeakOutputReverse(-1, FlywheelConstants.kTimeoutMs);
 
-    talon.config_kF(FlywheelConstants.kPIDLoopIdx, FlywheelConstants.gains.kF, FlywheelConstants.kTimeoutMs);
-    talon.config_kP(FlywheelConstants.kPIDLoopIdx, FlywheelConstants.gains.kP, FlywheelConstants.kTimeoutMs);
-    talon.config_kI(FlywheelConstants.kPIDLoopIdx, FlywheelConstants.gains.kI, FlywheelConstants.kTimeoutMs);
-    talon.config_kD(FlywheelConstants.kPIDLoopIdx, FlywheelConstants.gains.kD, FlywheelConstants.kTimeoutMs);
+    talon.config_kF(FlywheelConstants.kPIDLoopIdx, FlywheelConstants.kF, FlywheelConstants.kTimeoutMs);
+    talon.config_kP(FlywheelConstants.kPIDLoopIdx, FlywheelConstants.kP, FlywheelConstants.kTimeoutMs);
+    talon.config_kI(FlywheelConstants.kPIDLoopIdx, FlywheelConstants.kI, FlywheelConstants.kTimeoutMs);
+    talon.config_kD(FlywheelConstants.kPIDLoopIdx, FlywheelConstants.kD, FlywheelConstants.kTimeoutMs);
   }
 
   /**

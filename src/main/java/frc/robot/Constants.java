@@ -24,24 +24,12 @@ public final class Constants {
         public static final int kPIDLoopIdx = 0;
         public static final int kTimeoutMs = 30;
 
-        public static final FlywheelGains gains = new FlywheelGains(0.25, 0.001, 20, 1023.0 / 7200.0, 300, 1.00);
-    }
-
-    public static final class FlywheelGains {
-        public final double kP;
-        public final double kI;
-        public final double kD;
-        public final double kF;
-        public final int kIzone;
-        public final double kPeakOutput;
-
-        public FlywheelGains(double _kP, double _kI, double _kD, double _kF, int _kIzone, double _kPeakOutput) {
-            kP = _kP;
-            kI = _kI;
-            kD = _kD;
-            kF = _kF;
-            kIzone = _kIzone;
-            kPeakOutput = _kPeakOutput;
-        }
+        // Gains
+        public static final double kP = 0.25;
+        public static final double kI = 0.01;
+        public static final double kD = 20;
+        public static final double kF = 1023.0 / 7200.0;
+        public static final int kIzone = 300;
+        public static final double kPeakOutput = 1.00;
     }
 }
