@@ -26,14 +26,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  public final Conveyer m_Conveyer = new Conveyer();
+  public final Conveyer m_conveyer = new Conveyer();
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   Joystick joyStick = new Joystick(1);
-  JoystickButton Button1 = new JoystickButton(joyStick, 1);
-  JoystickButton Button2 = new JoystickButton(joyStick, 2);
 
   public RobotContainer() {
 
@@ -48,8 +46,8 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    Button1.whenPressed(new WhenShooting(m_Conveyer));
-    Button2.whenPressed(new WhenTakingIn(m_Conveyer));
+    new JoystickButton(joyStick, 1).whenPressed(new WhenShooting(m_conveyer));
+    new JoystickButton(joyStick, 2).whenPressed(new WhenTakingIn(m_conveyer));
 
   }
 

@@ -16,9 +16,9 @@ public class WhenShooting extends CommandBase {
   /**
    * Creates a new NegativeMovement.
    */
-  public WhenShooting(Conveyer Conveyer) {
-    m_Conveyer = Conveyer;
-    addRequirements(Conveyer);
+  public WhenShooting(Conveyer conveyer) {
+    m_Conveyer = conveyer;
+    addRequirements(conveyer);
   }
 
   // Called when the command is initially scheduled.
@@ -30,7 +30,7 @@ public class WhenShooting extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Conveyer.ConveyerSetSpeedNegative();
+    m_Conveyer.conveyerSetSpeedNegative();
   }
 
   // Called once the command ends or is interrupted.

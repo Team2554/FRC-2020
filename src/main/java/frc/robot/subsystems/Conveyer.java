@@ -14,25 +14,23 @@ public class Conveyer extends SubsystemBase {
   /**
    * Creates a new Conveyer.
    */
-  VictorSP BottomConveyer = new VictorSP(0);
-  VictorSP TopConveyer = new VictorSP(1);
+  VictorSP bottomConveyer = new VictorSP(0);
+  VictorSP topConveyer = new VictorSP(1);
 
   public Conveyer() {
-
   }
 
-  public void ConveyerRunFirst() {
-    BottomConveyer.set(0.45);
-    TopConveyer.set(0.45);
+  public void conveyerRunFirst() {
+    bottomConveyer.set(0.45);
+    topConveyer.set(0.45);
   }
 
-  public void ConveyerSetSpeedNegative() {
-    BottomConveyer.set(-0.45);
-    TopConveyer.set(-0.45);
+  public void conveyerSetSpeedNegative() {
+    bottomConveyer.set(-0.45);
+    topConveyer.set(-0.45);
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
   }
 }

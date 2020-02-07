@@ -12,14 +12,17 @@ import frc.robot.subsystems.Conveyer;
 
 public class WhenTakingIn extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-  private final Conveyer m_Conveyer;
+  private final Conveyer m_conveyer;
+  // one two three --> variables/functions/parameters: oneTwoThree, Classes:
+  // OneTwoThree,
+  // instance vars: m_oneTwoThree
 
   /**
    * Creates a new NegativeMovement.
    */
-  public WhenTakingIn(Conveyer Conveyer) {
-    m_Conveyer = Conveyer;
-    addRequirements(Conveyer);
+  public WhenTakingIn(Conveyer conveyer) {
+    m_conveyer = conveyer;
+    addRequirements(conveyer);
   }
 
   // Called when the command is initially scheduled.
@@ -31,7 +34,7 @@ public class WhenTakingIn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Conveyer.ConveyerRunFirst();
+    m_conveyer.conveyerRunFirst();
   }
 
   // Called once the command ends or is interrupted.
