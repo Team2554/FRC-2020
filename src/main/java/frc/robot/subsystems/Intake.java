@@ -12,8 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
 
-  private VictorSP rightIntake = new VictorSP(0);
-  private VictorSP leftIntake = new VictorSP(1);
+  private VictorSP intake = new VictorSP(0);
   private double multiplier = 1;
 
   /**
@@ -34,12 +33,10 @@ public class Intake extends SubsystemBase {
 
   public void intake(boolean inverse) {
     double speed = inverse ? multiplier * -1 : multiplier;
-    rightIntake.setVoltage(speed * 10);
-    leftIntake.setVoltage(speed * 10);
+    intake.setVoltage(speed * 10);
   }
 
   public void stop() {
-    rightIntake.set(0);
-    leftIntake.set(0);
+    intake.set(0);
   }
 }
