@@ -31,7 +31,8 @@ public class RobotContainer {
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
-  Joystick joyStick = new Joystick(1);
+  Joystick driveJoystick = new Joystick(0);
+  Joystick buttonJoystick = new Joystick(1);
 
   public RobotContainer() {
 
@@ -46,8 +47,10 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(joyStick, 1).whenPressed(new WhenShooting(m_conveyer));
-    new JoystickButton(joyStick, 2).whenPressed(new WhenTakingIn(m_conveyer));
+    new JoystickButton(buttonJoystick, Constants.ButtonJoystickMappings.conveyorOut)
+        .whenPressed(new WhenShooting(m_conveyer));
+    new JoystickButton(buttonJoystick, Constants.ButtonJoystickMappings.conveyorIn)
+        .whenPressed(new WhenTakingIn(m_conveyer));
 
   }
 
