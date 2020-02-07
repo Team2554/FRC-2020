@@ -7,12 +7,14 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.whenshooting;
+import frc.robot.commands.whenTakingIn;
+import frc.robot.subsystems.Conveyer;
+import edu.wpi.first.wpilibj2.command.Command;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -21,15 +23,20 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  * scheduler calls). Instead, the structure of the robot (including subsystems,
  * commands, and button mappings) should be declared here.
  */
+
 public class RobotContainer {
+  // The robot's subsystems and commands are defined here...
+  public final Conveyer m_Conveyer = new Conveyer();
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
-
-  Joystick driveJoystick = new Joystick(0);
-  Joystick buttonJoystick = new Joystick(1);
+  Joystick joyStick = new Joystick(1);
+  JoystickButton Button1 = new JoystickButton(joyStick, 1);
+  JoystickButton Button2 = new JoystickButton(joyStick, 2);
 
   public RobotContainer() {
+
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -41,9 +48,9 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    // example on how to use the drive mappings in constants class:
-    // new JoystickButton(buttonJoystick,
-    // Constants.ButtonJoystickMappings.intakeIn).whileHeld(new InstantCommand());
+    Button1.whenPressed(new whenshooting(m_Conveyer));
+    Button2.whenPressed(new whenTakingIn(m_Conveyer));
+
   }
 
   /**
@@ -53,6 +60,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null; // Change this when autonomous command configured
+    return null;
   }
 }
