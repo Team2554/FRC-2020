@@ -13,6 +13,11 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.Elevator.ElevatorDown;
+import frc.robot.commands.Elevator.ElevatorUp;
+import frc.robot.commands.Elevator.WhenHeldDown;
+import frc.robot.commands.Elevator.WhenHeldUp;
+import frc.robot.subsystems.Elevator;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -29,6 +34,8 @@ public class RobotContainer {
   Joystick driveJoystick = new Joystick(0);
   Joystick buttonJoystick = new Joystick(1);
 
+  public final Elevator m_elevator = new Elevator();
+
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
@@ -41,6 +48,17 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    new JoystickButton(buttonJoystick, Constants.ButtonJoystickMappings.elevatorUp)
+        .whenHeld(new WhenHeldUp(m_elevator));
+    new JoystickButton(buttonJoystick, Constants.ButtonJoystickMappings.elevatorDown)
+        .whenHeld(new WhenHeldDown(m_elevator));
+
+    new JoystickButton(buttonJoystick, Constants.ButtonJoystickMappings.setElevatorTop)
+        .whenPressed(new ElevatorUp(m_elevator));
+
+    new JoystickButton(buttonJoystick, Constants.ButtonJoystickMappings.setElevatorButtom)
+        .whenPressed(new ElevatorDown(m_elevator));
+
     // example on how to use the drive mappings in constants class:
     // new JoystickButton(buttonJoystick,
     // Constants.ButtonJoystickMappings.intakeIn).whileHeld(new InstantCommand());
