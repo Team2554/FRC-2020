@@ -10,13 +10,13 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Conveyer;
 
-public class WhenShooting extends CommandBase {
+public class WhenConveyorOut extends CommandBase {
   private final Conveyer m_Conveyer;
 
   /**
    * Creates a new NegativeMovement.
    */
-  public WhenShooting(Conveyer conveyer) {
+  public WhenConveyorOut(Conveyer conveyer) {
     m_Conveyer = conveyer;
     addRequirements(conveyer);
   }

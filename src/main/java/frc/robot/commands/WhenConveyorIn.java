@@ -10,7 +10,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Conveyer;
 
-public class WhenTakingIn extends CommandBase {
+public class WhenConveyorIn extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final Conveyer m_conveyer;
   // one two three --> variables/functions/parameters: oneTwoThree, Classes:
@@ -20,7 +20,7 @@ public class WhenTakingIn extends CommandBase {
   /**
    * Creates a new NegativeMovement.
    */
-  public WhenTakingIn(Conveyer conveyer) {
+  public WhenConveyorIn(Conveyer conveyer) {
     m_conveyer = conveyer;
     addRequirements(conveyer);
   }
