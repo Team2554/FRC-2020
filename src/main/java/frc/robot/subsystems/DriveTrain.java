@@ -29,7 +29,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class DriveTrain extends SubsystemBase {
 
   final WPI_TalonSRX tRF = new WPI_TalonSRX(1);
-  Encoder encoder = new Encoder(1, 2);
   final VictorSPX vRB = new VictorSPX(3);
 
   final WPI_TalonSRX tLF = new WPI_TalonSRX(2);
