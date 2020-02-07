@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.whenshooting;
-import frc.robot.commands.whenTakingIn;
+import frc.robot.commands.WhenShooting;
+import frc.robot.commands.WhenTakingIn;
 import frc.robot.subsystems.Conveyer;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -48,8 +48,8 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    Button1.whenPressed(new whenshooting(m_Conveyer));
-    Button2.whenPressed(new whenTakingIn(m_Conveyer));
+    Button1.whenPressed(new WhenShooting(m_Conveyer));
+    Button2.whenPressed(new WhenTakingIn(m_Conveyer));
 
   }
 

@@ -10,13 +10,13 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Conveyer;
 
-public class whenshooting extends CommandBase {
+public class WhenShooting extends CommandBase {
   private final Conveyer m_Conveyer;
 
   /**
    * Creates a new NegativeMovement.
    */
-  public whenshooting(Conveyer Conveyer) {
+  public WhenShooting(Conveyer Conveyer) {
     m_Conveyer = Conveyer;
     addRequirements(Conveyer);
   }
@@ -30,7 +30,7 @@ public class whenshooting extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Conveyer.conveyerRunFirst();
+    m_Conveyer.ConveyerSetSpeedNegative();
   }
 
   // Called once the command ends or is interrupted.

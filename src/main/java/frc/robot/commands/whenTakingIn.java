@@ -10,14 +10,14 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Conveyer;
 
-public class whenTakingIn extends CommandBase {
+public class WhenTakingIn extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final Conveyer m_Conveyer;
 
   /**
    * Creates a new NegativeMovement.
    */
-  public whenTakingIn(Conveyer Conveyer) {
+  public WhenTakingIn(Conveyer Conveyer) {
     m_Conveyer = Conveyer;
     addRequirements(Conveyer);
   }
@@ -31,7 +31,7 @@ public class whenTakingIn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Conveyer.conveyerRunFirst();
+    m_Conveyer.ConveyerRunFirst();
   }
 
   // Called once the command ends or is interrupted.
