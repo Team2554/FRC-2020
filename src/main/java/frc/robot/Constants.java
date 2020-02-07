@@ -44,4 +44,8 @@ public final class Constants {
         public static final int colorWheelColorTurn = 10; // press to spin the color wheel to a certain color
         public static final int colorWheelSpinTurn = 11; // press to spin the color wheel 4 times
     }
+
+    public static final class ShooterConstants {
+        public static final int victorPort = 2; // port for victorsp
+    }
 }
