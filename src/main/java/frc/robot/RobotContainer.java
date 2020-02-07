@@ -44,7 +44,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     new JoystickButton(buttonJoystick, Constants.ButtonJoystickMappings.runFlywheel)
-        .whenHeld(new ShootCommand(shooter, () -> 1));
+        .whenHeld(new ShootCommand(shooter, () -> 10.5));
     // example on how to use the drive mappings in constants class:
     // new JoystickButton(buttonJoystick,
     // Constants.ButtonJoystickMappings.intakeIn).whileHeld(new InstantCommand());
