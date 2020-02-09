@@ -12,7 +12,6 @@ import frc.robot.subsystems.ColorWheel;
 
 public class RotateToColor extends CommandBase {
   private final ColorWheel m_colorWheel;
-  private boolean m_isFinished = false;
   private String m_inputColor;
   private String m_prevColor;
   private double m_runningTime = 0.0;

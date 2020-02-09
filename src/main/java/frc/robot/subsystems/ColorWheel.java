@@ -1,18 +1,15 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.util.Color;
 
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.ColorMatch;
 
 /**
@@ -37,7 +34,7 @@ public class ColorWheel extends SubsystemBase {
   private final double pulsesPerRev = 300;
   private final double distancePerpulse = circumOfMotorWheel / pulsesPerRev;
   public final double encoderStopValue = circumOfColorWheel * 4;
-  private final double encoderOneEighth = circumOfColorWheel / 8;
+  // private final double encoderOneEighth = circumOfColorWheel / 8;
 
   public Encoder colorEncoder = new Encoder(1, 2);
 
