@@ -21,7 +21,8 @@ public class ShootCommand extends CommandBase {
    */
   public ShootCommand(Shooter shooter, DoubleSupplier voltageSupplier) {
     m_shooter = shooter;
-    this.m_voltageSupplier = voltageSupplier;
+    m_voltageSupplier = voltageSupplier;
+
     addRequirements(m_shooter);
   }
 

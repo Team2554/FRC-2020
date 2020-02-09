@@ -44,7 +44,7 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.runFlywheel)
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.runShooter)
         .whenHeld(new ShootCommand(m_shooter, () -> 10.5));
     // example on how to use the drive mappings in constants class:
     // new JoystickButton(buttonJoystick,

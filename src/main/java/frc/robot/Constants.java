@@ -33,8 +33,7 @@ public final class Constants {
         // TODO: define actual button ids later
         public static final int intakeIn = 0; // hold to intake ball
         public static final int intakeOut = 1; // hold to release ball in intake
-        public static final int setFlywheelClosedLoop = 2; // toggle if flywheel should be velocity closed loop or not
-        public static final int runFlywheel = 3; // hold to spin the flywheel
+        public static final int runShooter = 3; // hold to run the shooter
         public static final int conveyorIn = 4; // hold to make conveyor go in
         public static final int conveyorOut = 5; // hold to make conveyor go out
         public static final int elevatorUp = 6; // hold to make elevator go up
@@ -46,6 +45,6 @@ public final class Constants {
     }
 
     public static final class ShooterConstants {
-        public static final int victorPort = 2; // port for victorsp
+        public static final int victorPort = 2;
     }
 }
