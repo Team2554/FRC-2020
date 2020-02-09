@@ -26,11 +26,11 @@ public class RobotContainer {
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
-  Joystick driveJoystick = new Joystick(0);
-  Joystick buttonJoystick = new Joystick(1);
+  Joystick m_driveJoystick = new Joystick(0);
+  Joystick m_buttonJoystick = new Joystick(1);
 
   // Subsystems
-  Shooter shooter = new Shooter();
+  Shooter m_shooter = new Shooter();
 
   public RobotContainer() {
     // Configure the button bindings
@@ -44,8 +44,8 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(buttonJoystick, Constants.ButtonJoystickMappings.runFlywheel)
-        .whenHeld(new ShootCommand(shooter, () -> 10.5));
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.runFlywheel)
+        .whenHeld(new ShootCommand(m_shooter, () -> 10.5));
     // example on how to use the drive mappings in constants class:
     // new JoystickButton(buttonJoystick,
     // Constants.ButtonJoystickMappings.intakeIn).whileHeld(new InstantCommand());

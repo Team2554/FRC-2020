@@ -12,20 +12,20 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase {
-  VictorSP shootMotor;
+  VictorSP m_shootMotor;
 
   /**
    * Creates a new Shooter.
    */
   public Shooter() {
-    shootMotor = new VictorSP(Constants.ShooterConstants.victorPort);
+    m_shootMotor = new VictorSP(Constants.ShooterConstants.victorPort);
   }
 
-  public void startMotor(double voltage) {
-    shootMotor.setVoltage(voltage);
+  public void setVoltage(double voltage) {
+    m_shootMotor.setVoltage(voltage);
   }
 
-  public void stop() {
-    shootMotor.setVoltage(0);
+  public void stopMotor() {
+    setVoltage(0);
   }
 }
