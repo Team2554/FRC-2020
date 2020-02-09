@@ -22,17 +22,15 @@ public class Elevator extends SubsystemBase {
   }
 
   public void stopElevator() {
-
     motor1.set(0);
-
   }
 
   public void startElevator() {
-    motor1.set(goingUp ? 1 : -1);
-    // if (atTop() || atBottom()) {
-    // motor1.set(0);
-    // }
-
+    if (!atTop() && !atBottom()) {
+      motor1.set(goingUp ? 1 : -1);
+    } else {
+      stopElevator();
+    }
   }
 
   public boolean atTop() {
@@ -43,14 +41,6 @@ public class Elevator extends SubsystemBase {
     return bottomSwitch.get();
   }
 
-  // public void reverseElevator() {
-  // // motor1.set(-1);
-  // // if (topSwitch.get() || bottomSwitch.get()) {
-  // // motor1.set(0);
-  // // }
-  // goingUp = !goingUp;
-  // }
-
   public void goDown() {
     goingUp = false;
   }
@@ -58,5 +48,4 @@ public class Elevator extends SubsystemBase {
   public void goUp() {
     goingUp = true;
   }
-
 }

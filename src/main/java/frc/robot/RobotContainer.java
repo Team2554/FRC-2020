@@ -52,9 +52,9 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Elevator buttons
     new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.elevatorUp)
-        .whenHeld(new WhenHeldUp(m_elevator));
+        .whileHeld(new WhenHeldUp(m_elevator));
     new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.elevatorDown)
-        .whenHeld(new WhenHeldDown(m_elevator));
+        .whileHeld(new WhenHeldDown(m_elevator));
 
     new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.setElevatorTop)
         .whenPressed(new ElevatorUp(m_elevator));

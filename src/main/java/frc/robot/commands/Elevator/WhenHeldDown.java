@@ -17,7 +17,6 @@ public class WhenHeldDown extends CommandBase {
    * Creates a new WhenHeldDown.
    */
   public WhenHeldDown(Elevator elevator) {
-
     m_elevator = elevator;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_elevator);

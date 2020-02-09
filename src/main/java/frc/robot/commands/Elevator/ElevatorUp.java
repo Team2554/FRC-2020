@@ -18,8 +18,8 @@ public class ElevatorUp extends CommandBase {
    */
   public ElevatorUp(Elevator elevator) {
     m_elevator = elevator;
-    addRequirements(m_elevator);
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(m_elevator);
   }
 
   // Called when the command is initially scheduled.
