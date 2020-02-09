@@ -11,13 +11,17 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+<<<<<<< HEAD
 import frc.robot.commands.Elevator.ElevatorDown;
 import frc.robot.commands.Elevator.ElevatorUp;
 import frc.robot.commands.Elevator.WhenHeldDown;
 import frc.robot.commands.Elevator.WhenHeldUp;
 import frc.robot.subsystems.Elevator;
+=======
+import frc.robot.commands.ShootCommand;
+import frc.robot.subsystems.Shooter;
+>>>>>>> master
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -30,10 +34,11 @@ public class RobotContainer {
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
+  Joystick m_driveJoystick = new Joystick(0);
+  Joystick m_buttonJoystick = new Joystick(1);
 
-  Joystick driveJoystick = new Joystick(0);
-  Joystick buttonJoystick = new Joystick(1);
-
+  // Subsystems
+  Shooter m_shooter = new Shooter();
   public final Elevator m_elevator = new Elevator();
 
   public RobotContainer() {
@@ -48,17 +53,20 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(buttonJoystick, Constants.ButtonJoystickMappings.elevatorUp)
+    // Elevator buttons
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.elevatorUp)
         .whenHeld(new WhenHeldUp(m_elevator));
-    new JoystickButton(buttonJoystick, Constants.ButtonJoystickMappings.elevatorDown)
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.elevatorDown)
         .whenHeld(new WhenHeldDown(m_elevator));
 
-    new JoystickButton(buttonJoystick, Constants.ButtonJoystickMappings.setElevatorTop)
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.setElevatorTop)
         .whenPressed(new ElevatorUp(m_elevator));
-
-    new JoystickButton(buttonJoystick, Constants.ButtonJoystickMappings.setElevatorButtom)
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.setElevatorButtom)
         .whenPressed(new ElevatorDown(m_elevator));
-
+    
+    // Shooter button
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.runShooter)
+        .whenHeld(new ShootCommand(m_shooter, () -> 10.5));
     // example on how to use the drive mappings in constants class:
     // new JoystickButton(buttonJoystick,
     // Constants.ButtonJoystickMappings.intakeIn).whileHeld(new InstantCommand());
@@ -70,7 +78,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
     return null; // Change this when autonomous command configured
   }
 }
