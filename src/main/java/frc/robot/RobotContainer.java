@@ -26,9 +26,10 @@ public class RobotContainer {
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
-
   Joystick driveJoystick = new Joystick(0);
   Joystick buttonJoystick = new Joystick(1);
+
+  // Subsystems
   Shooter shooter = new Shooter();
 
   public RobotContainer() {
@@ -56,7 +57,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
     return null; // Change this when autonomous command configured
   }
 }
