@@ -29,10 +29,8 @@ public class ElevatorDown extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled
   public void execute(boolean reverse) {
-
     m_elevator.goDown();
     m_elevator.startElevator();
-
   }
 
   // Called once the command ends or is interrupted.
@@ -43,6 +41,6 @@ public class ElevatorDown extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return m_elevator.atTop();
   }
 }
