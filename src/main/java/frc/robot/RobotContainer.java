@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ColorWheel.RotateWheel;
 import frc.robot.subsystems.ColorWheel;
+import frc.robot.commands.ShootCommand;
+import frc.robot.subsystems.Shooter;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -23,13 +25,16 @@ import frc.robot.subsystems.ColorWheel;
  * commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  private final ColorWheel m_colorWheel = new ColorWheel();
-  private final Joystick m_joystick = new Joystick(0);
-  private final JoystickButton button1 = new JoystickButton(m_joystick, 1);
-
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
+  Joystick m_driveJoystick = new Joystick(0);
+  Joystick m_buttonJoystick = new Joystick(1);
+
+  // Subsystems
+  Shooter m_shooter = new Shooter();
+  private final ColorWheel m_colorWheel = new ColorWheel();
+
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
@@ -42,7 +47,15 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    button1.whenPressed(new RotateWheel(m_colorWheel));
+    // Color wheel buttons
+    new JoystickButton(m_buttonJoystick, 1).whenPressed(new RotateWheel(m_colorWheel));
+
+    // Shooter button
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.runShooter)
+        .whenHeld(new ShootCommand(m_shooter, () -> 10.5));
+    // example on how to use the drive mappings in constants class:
+    // new JoystickButton(buttonJoystick,
+    // Constants.ButtonJoystickMappings.intakeIn).whileHeld(new InstantCommand());
   }
 
   /**
@@ -51,7 +64,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
     return null; // Change this when autonomous command configured
   }
 }
