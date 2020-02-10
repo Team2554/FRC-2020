@@ -8,11 +8,11 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Conveyer;
+import frc.robot.subsystems.Conveyor;
 
 public class WhenConveyorIn extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-  private final Conveyer m_conveyer;
+  private final Conveyor m_conveyor;
   // one two three --> variables/functions/parameters: oneTwoThree, Classes:
   // OneTwoThree,
   // instance vars: m_oneTwoThree
@@ -20,9 +20,9 @@ public class WhenConveyorIn extends CommandBase {
   /**
    * Creates a new NegativeMovement.
    */
-  public WhenConveyorIn(Conveyer conveyer) {
-    m_conveyer = conveyer;
-    addRequirements(conveyer);
+  public WhenConveyorIn(Conveyor Conveyor) {
+    m_conveyor = Conveyor;
+    addRequirements(Conveyor);
   }
 
   // Called when the command is initially scheduled.
@@ -34,12 +34,13 @@ public class WhenConveyorIn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_conveyer.conveyerRunFirst();
+    m_conveyor.conveyorRunFirst();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_conveyor.stopConveyor();
 
   }
 

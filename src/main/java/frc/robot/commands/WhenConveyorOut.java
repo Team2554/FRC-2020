@@ -8,17 +8,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Conveyer;
+import frc.robot.subsystems.Conveyor;
 
 public class WhenConveyorOut extends CommandBase {
-  private final Conveyer m_Conveyer;
+  private final Conveyor m_Conveyor;
 
   /**
    * Creates a new NegativeMovement.
    */
-  public WhenConveyorOut(Conveyer conveyer) {
-    m_Conveyer = conveyer;
-    addRequirements(conveyer);
+  public WhenConveyorOut(Conveyor Conveyor) {
+    m_Conveyor = Conveyor;
+    addRequirements(Conveyor);
   }
 
   // Called when the command is initially scheduled.
@@ -30,13 +30,13 @@ public class WhenConveyorOut extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Conveyer.conveyerSetSpeedNegative();
+    m_Conveyor.conveyorSetSpeedNegative();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-
+    m_Conveyor.stopConveyor();
   }
 
   // Returns true when the command should end.

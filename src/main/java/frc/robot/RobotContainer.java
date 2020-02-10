@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.WhenConveyorIn;
 import frc.robot.commands.WhenConveyorOut;
-import frc.robot.subsystems.Conveyer;
+import frc.robot.subsystems.Conveyor;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -26,7 +26,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  public final Conveyer m_conveyer = new Conveyer();
+  public final Conveyor m_Conveyer = new Conveyor();
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -48,9 +48,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     new JoystickButton(buttonJoystick, Constants.ButtonJoystickMappings.conveyorOut)
-        .whenPressed(new WhenConveyorOut(m_conveyer));
+        .whenPressed(new WhenConveyorOut(m_Conveyer));
     new JoystickButton(buttonJoystick, Constants.ButtonJoystickMappings.conveyorIn)
-        .whenPressed(new WhenConveyorIn(m_conveyer));
+        .whenPressed(new WhenConveyorIn(m_Conveyer));
 
   }
 

@@ -10,24 +10,29 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.VictorSP;
 
-public class Conveyer extends SubsystemBase {
+public class Conveyor extends SubsystemBase {
   /**
-   * Creates a new Conveyer.
+   * Creates a new Conveyor.
    */
-  VictorSP bottomConveyer = new VictorSP(0);
-  VictorSP topConveyer = new VictorSP(1);
+  VictorSP bottomConveyor = new VictorSP(0);
+  VictorSP topConveyor = new VictorSP(1);
 
-  public Conveyer() {
+  public Conveyor() {
   }
 
-  public void conveyerRunFirst() {
-    bottomConveyer.set(0.45);
-    topConveyer.set(0.45);
+  public void conveyorRunFirst() {
+    bottomConveyor.set(0.45);
+    topConveyor.set(0.45);
   }
 
-  public void conveyerSetSpeedNegative() {
-    bottomConveyer.set(-0.45);
-    topConveyer.set(-0.45);
+  public void conveyorSetSpeedNegative() {
+    bottomConveyor.set(-0.45);
+    topConveyor.set(-0.45);
+  }
+
+  public void stopConveyor() {
+    bottomConveyor.set(0);
+    topConveyor.set(0.);
   }
 
   @Override
