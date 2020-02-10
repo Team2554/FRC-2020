@@ -32,7 +32,7 @@ public class Conveyor extends SubsystemBase {
 
   public void stopConveyor() {
     bottomConveyor.set(0);
-    topConveyor.set(0.);
+    topConveyor.set(0);
   }
 
   @Override
