@@ -26,8 +26,10 @@ public class Elevator extends SubsystemBase {
   }
 
   public void startElevator() {
-    if (!atTop() && !atBottom()) {
-      motor1.set(goingUp ? 1 : -1);
+    if (goingUp && !atTop()) {
+      motor1.set(1);
+    } else if (!goingUp && !atBottom()) {
+      motor1.set(-1);
     } else {
       stopElevator();
     }

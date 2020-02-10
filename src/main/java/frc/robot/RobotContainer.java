@@ -17,8 +17,6 @@ import frc.robot.commands.Elevator.ElevatorUp;
 import frc.robot.commands.Elevator.WhenHeldDown;
 import frc.robot.commands.Elevator.WhenHeldUp;
 import frc.robot.subsystems.Elevator;
-import frc.robot.commands.ShootCommand;
-import frc.robot.subsystems.Shooter;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -35,7 +33,6 @@ public class RobotContainer {
   Joystick m_buttonJoystick = new Joystick(1);
 
   // Subsystems
-  Shooter m_shooter = new Shooter();
   public final Elevator m_elevator = new Elevator();
 
   public RobotContainer() {
@@ -61,9 +58,6 @@ public class RobotContainer {
     new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.setElevatorButtom)
         .whenPressed(new ElevatorDown(m_elevator));
 
-    // Shooter button
-    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.runShooter)
-        .whenHeld(new ShootCommand(m_shooter, () -> 10.5));
     // example on how to use the drive mappings in constants class:
     // new JoystickButton(buttonJoystick,
     // Constants.ButtonJoystickMappings.intakeIn).whileHeld(new InstantCommand());
