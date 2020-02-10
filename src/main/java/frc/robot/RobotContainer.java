@@ -15,6 +15,8 @@ import frc.robot.commands.WhenConveyorIn;
 import frc.robot.commands.WhenConveyorOut;
 import frc.robot.subsystems.Conveyor;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.ShootCommand;
+import frc.robot.subsystems.Shooter;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -25,14 +27,15 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  public final Conveyor m_Conveyer = new Conveyor();
-
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
-  Joystick driveJoystick = new Joystick(0);
-  Joystick buttonJoystick = new Joystick(1);
+  Joystick m_driveJoystick = new Joystick(0);
+  Joystick m_buttonJoystick = new Joystick(1);
+
+  // Subsystems
+  Shooter m_shooter = new Shooter();
+  public final Conveyor m_conveyor = new Conveyor();
 
   public RobotContainer() {
 
@@ -47,11 +50,18 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(buttonJoystick, Constants.ButtonJoystickMappings.conveyorOut)
-        .whenPressed(new WhenConveyorOut(m_Conveyer));
-    new JoystickButton(buttonJoystick, Constants.ButtonJoystickMappings.conveyorIn)
-        .whenPressed(new WhenConveyorIn(m_Conveyer));
+    // Conveyor buttons
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.conveyorOut)
+        .whenPressed(new WhenConveyorOut(m_conveyor));
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.conveyorIn)
+        .whenPressed(new WhenConveyorIn(m_conveyor));
 
+    // Shooter button
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.runShooter)
+        .whenHeld(new ShootCommand(m_shooter, () -> 10.5));
+    // example on how to use the drive mappings in constants class:
+    // new JoystickButton(buttonJoystick,
+    // Constants.ButtonJoystickMappings.intakeIn).whileHeld(new InstantCommand());
   }
 
   /**
@@ -60,7 +70,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return null;
+    return null; // Change this when autonomous command configured
   }
 }
