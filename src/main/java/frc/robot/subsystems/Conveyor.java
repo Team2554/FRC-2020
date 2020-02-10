@@ -8,26 +8,27 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.ConveyorConstants;
 import edu.wpi.first.wpilibj.VictorSP;
 
 public class Conveyor extends SubsystemBase {
   /**
    * Creates a new Conveyor.
    */
-  VictorSP bottomConveyor = new VictorSP(0);
-  VictorSP topConveyor = new VictorSP(1);
+  VictorSP bottomConveyor = new VictorSP(ConveyorConstants.bottomConveyorPort);
+  VictorSP topConveyor = new VictorSP(ConveyorConstants.topConveyorPort);
 
   public Conveyor() {
   }
 
   public void conveyorIn() {
-    bottomConveyor.set(0.45);
-    topConveyor.set(0.45);
+    bottomConveyor.set(ConveyorConstants.conveyorSpeed);
+    topConveyor.set(ConveyorConstants.conveyorSpeed);
   }
 
   public void conveyorOut() {
-    bottomConveyor.set(-0.45);
-    topConveyor.set(-0.45);
+    bottomConveyor.set(-ConveyorConstants.conveyorSpeed);
+    topConveyor.set(-ConveyorConstants.conveyorSpeed);
   }
 
   public void stopConveyor() {
