@@ -20,12 +20,12 @@ public class Conveyor extends SubsystemBase {
   public Conveyor() {
   }
 
-  public void conveyorRunFirst() {
+  public void conveyorIn() {
     bottomConveyor.set(0.45);
     topConveyor.set(0.45);
   }
 
-  public void conveyorSetSpeedNegative() {
+  public void conveyorOut() {
     bottomConveyor.set(-0.45);
     topConveyor.set(-0.45);
   }
