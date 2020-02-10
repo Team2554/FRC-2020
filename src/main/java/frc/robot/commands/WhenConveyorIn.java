@@ -14,7 +14,7 @@ public class WhenConveyorIn extends CommandBase {
   private final Conveyor m_conveyor;
 
   /**
-   * Creates a new Conveyor.
+   * Creates a new WhenConveyorIn.
    */
   public WhenConveyorIn(Conveyor conveyor) {
     m_conveyor = conveyor;
