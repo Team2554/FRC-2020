@@ -11,14 +11,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Conveyor;
 
 public class WhenConveyorIn extends CommandBase {
-  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final Conveyor m_conveyor;
-  // one two three --> variables/functions/parameters: oneTwoThree, Classes:
-  // OneTwoThree,
-  // instance vars: m_oneTwoThree
 
   /**
-   * Creates a new NegativeMovement.
+   * Creates a new Conveyor.
    */
   public WhenConveyorIn(Conveyor conveyor) {
     m_conveyor = conveyor;
