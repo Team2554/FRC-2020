@@ -5,20 +5,20 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Intake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
 
-public class IntakeCommand extends CommandBase {
-  Intake intakeSystem;
+public class IntakeIn extends CommandBase {
+  Intake m_intake;
 
   /**
    * Creates a new IntakeCommand.
    */
-  public IntakeCommand(Intake intake) {
-    intakeSystem = intake;
-    addRequirements(intakeSystem);
+  public IntakeIn(Intake intake) {
+    m_intake = intake;
+    addRequirements(m_intake);
   }
 
   // Called when the command is initially scheduled.
@@ -27,18 +27,14 @@ public class IntakeCommand extends CommandBase {
   }
 
   // Called every time the scheduler runs while the command is scheduled.
-  public void execute(boolean inverse) {
-    intakeSystem.intake(inverse);
-  }
-
-  public void changeMultiplier(double multiplier) {
-    intakeSystem.setMultiplier(multiplier);
+  public void execute() {
+    m_intake.start(true);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intakeSystem.stop();
+    m_intake.stop();
   }
 
   // Returns true when the command should end.

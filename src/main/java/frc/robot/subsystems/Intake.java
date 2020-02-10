@@ -8,18 +8,18 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
 
   private VictorSP intake = new VictorSP(0);
-  private double multiplier = 1;
 
   /**
    * Creates a new Intake.
    */
   public Intake() {
-    // nothing
+    SmartDashboard.putNumber("Intake Multiplier", 1);
   }
 
   @Override
@@ -27,12 +27,9 @@ public class Intake extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void setMultiplier(double newMultiplier) {
-    multiplier = newMultiplier;
-  }
-
-  public void intake(boolean inverse) {
-    double speed = inverse ? multiplier * -1 : multiplier;
+  public void start(boolean inverse) {
+    double multiplier = SmartDashboard.getNumber("Intake Multiplier", 1);
+    double speed = inverse ? -multiplier : multiplier;
     intake.setVoltage(speed * 10);
   }
 
