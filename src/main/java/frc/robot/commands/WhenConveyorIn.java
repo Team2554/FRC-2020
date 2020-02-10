@@ -20,9 +20,9 @@ public class WhenConveyorIn extends CommandBase {
   /**
    * Creates a new NegativeMovement.
    */
-  public WhenConveyorIn(Conveyor Conveyor) {
-    m_conveyor = Conveyor;
-    addRequirements(Conveyor);
+  public WhenConveyorIn(Conveyor conveyor) {
+    m_conveyor = conveyor;
+    addRequirements(m_conveyor);
   }
 
   // Called when the command is initially scheduled.

@@ -16,9 +16,9 @@ public class WhenConveyorOut extends CommandBase {
   /**
    * Creates a new NegativeMovement.
    */
-  public WhenConveyorOut(Conveyor Conveyor) {
-    m_Conveyor = Conveyor;
-    addRequirements(Conveyor);
+  public WhenConveyorOut(Conveyor conveyor) {
+    m_Conveyor = conveyor;
+    addRequirements(conveyor);
   }
 
   // Called when the command is initially scheduled.
