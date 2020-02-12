@@ -39,7 +39,7 @@ public class RotateToColor extends CommandBase {
     public void initialize() {
         m_colorWheel.resetEncoder();
         m_prevColor = m_colorWheel.getColor();
-        distanceNeeded = m_colorWheel.getRequiredDistance(m_inputColor, m_prevColor);
+        distanceNeeded = m_colorWheel.getRequiredDistance("Red", m_prevColor);
 
         // if (m_prevColor.equals("Red")) {
         // if (m_inputColor.equals("Green")) {
@@ -92,9 +92,9 @@ public class RotateToColor extends CommandBase {
     @Override
     public void execute() {
         if (distanceNeeded < 0) {
-            m_colorWheel.setMotor(-0.3);
+            m_colorWheel.setMotor(-0.07);
         } else {
-            m_colorWheel.setMotor(0.3);
+            m_colorWheel.setMotor(0.07);
         }
         double startTime = System.currentTimeMillis();
         m_runningTime += System.currentTimeMillis() - startTime;
@@ -110,6 +110,6 @@ public class RotateToColor extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return (m_colorWheel.getColor() == m_inputColor && m_colorWheel.getDistance() >= distanceNeeded);
+        return (Math.abs(m_colorWheel.getDistance()) >= Math.abs(distanceNeeded));
     }
 }

@@ -32,7 +32,7 @@ public class ColorWheel extends SubsystemBase {
   private final Color kBlackTarget = ColorMatch.makeColor(0.0, 0.0, 0.0);
   private final double circumOfColorWheel = 100 / 12; // circumfrence of color wheel (feet)
   private final double circumOfMotorWheel = Math.PI * 4 / 12; // circumference of motor (feet)
-  private final double pulsesPerRev = 48;
+  private final double pulsesPerRev = 12;
   private final double distancePerpulse = circumOfMotorWheel / pulsesPerRev;
   public final double encoderStopValue = circumOfColorWheel * 4;
   // private final double encoderOneEighth = circumOfColorWheel / 8;
@@ -78,10 +78,11 @@ public class ColorWheel extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putString("Detected Color", getColor());
     SmartDashboard.putNumber("Get Distance", getDistance());
+    SmartDashboard.putNumber("Get Raw", colorEncoder.getRaw());
   }
 
   public void resetEncoder() {
-    // colorEncoder.reset();
+    colorEncoder.reset();
   }
 
   public void stopMotor() {
@@ -142,6 +143,7 @@ public class ColorWheel extends SubsystemBase {
       System.out.println("Incorrect color detected");
       distanceNeeded = 0;
     }
+    SmartDashboard.putNumber("distance needed", distanceNeeded);
     return distanceNeeded;
   }
 

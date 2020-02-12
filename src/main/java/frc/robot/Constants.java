@@ -29,12 +29,12 @@ public final class Constants {
         public static final Color kYellowTarget = ColorMatch.makeColor(0.33, 0.55, 0.13);
         public static final Color kWhiteTarget = ColorMatch.makeColor(0.267, 0.475, 0.25);
         public static final Color kBlackTarget = ColorMatch.makeColor(0.0, 0.0, 0.0);
-        public static final double circumOfColorWheel = 100 / 12; // circumfrence of color wheel (feet)
-        public static final double circumOfMotorWheel = Math.PI * 4 / 12; // circumference of motor (feet)
-        public static final double pulsesPerRev = 300;
+        public static final double circumOfColorWheel = 100.0 / 12; // circumfrence of color wheel (feet)
+        public static final double circumOfMotorWheel = (Math.PI * 4) / 12.0; // circumference of motor (feet)
+        public static final double pulsesPerRev = 32.0;
         public static final double distancePerpulse = circumOfMotorWheel / pulsesPerRev;
-        public static final double encoderStopValue = circumOfColorWheel * 4;
-        public static final double encoderOneEighth = circumOfColorWheel / 8;
+        public static final double encoderStopValue = circumOfColorWheel * 3.0;
+        public static final double encoderOneEighth = circumOfColorWheel / 8.0;
     }
 
     public static final class DriveJoystickMappings {

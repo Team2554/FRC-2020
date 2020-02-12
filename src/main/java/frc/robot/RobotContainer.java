@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.ColorWheel.RotateToColor;
 import frc.robot.commands.ColorWheel.RotateWheel;
 import frc.robot.subsystems.ColorWheel;
 import frc.robot.commands.ShootCommand;
@@ -49,6 +50,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Color wheel buttons
     new JoystickButton(m_buttonJoystick, 1).whenPressed(new RotateWheel(m_colorWheel));
+    new JoystickButton(m_buttonJoystick, 2).whenPressed(new RotateToColor(m_colorWheel, "Red"));
 
     // Shooter button
     new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.runShooter)
