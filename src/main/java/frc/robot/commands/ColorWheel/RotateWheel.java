@@ -19,6 +19,7 @@ public class RotateWheel extends CommandBase {
    */
   public RotateWheel(ColorWheel colorWheel) {
     m_colorWheel = colorWheel;
+    addRequirements(m_colorWheel);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
