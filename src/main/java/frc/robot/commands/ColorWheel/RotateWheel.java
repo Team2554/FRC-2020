@@ -8,6 +8,7 @@
 package frc.robot.commands.ColorWheel;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.ColorWheelConstants;
 import frc.robot.subsystems.ColorWheel;
 
 public class RotateWheel extends CommandBase {
@@ -42,6 +43,6 @@ public class RotateWheel extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_colorWheel.getDistance() >= m_colorWheel.encoderStopValue;
+    return m_colorWheel.getDistance() >= ColorWheelConstants.encoderStopValue;
   }
 }

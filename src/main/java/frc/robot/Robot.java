@@ -24,10 +24,6 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
-  private final double circumOfMotorWheel = Math.PI * 4 / 12; // circumference of motor (feet)
-  private final double pulsesPerRev = 300;
-  private final double distancePerpulse = circumOfMotorWheel / pulsesPerRev;
-  private Encoder encoder = new Encoder(1, 2);
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -39,7 +35,6 @@ public class Robot extends TimedRobot {
     // and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    encoder.setDistancePerPulse(distancePerpulse);
   }
 
   /**
@@ -111,7 +106,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    SmartDashboard.putNumber("Encoder val", encoder.getDistance());
   }
 
   @Override
