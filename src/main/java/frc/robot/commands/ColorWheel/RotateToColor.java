@@ -18,7 +18,7 @@ import frc.robot.subsystems.ColorWheel;
 public class RotateToColor extends CommandBase {
     private final ColorWheel m_colorWheel;
     private String m_inputColor;
-    private String m_prevColor;
+    private String m_currentColor;
     // private double m_runningTime = 0.0;
     private double m_distanceNeeded;
 
@@ -29,7 +29,7 @@ public class RotateToColor extends CommandBase {
         m_colorWheel = colorWheel;
         m_inputColor = inputColor;
         addRequirements(m_colorWheel);
-        m_prevColor = m_colorWheel.getColor();
+        m_currentColor = m_colorWheel.getColor();
         // Use addRequirements() here to declare subsystem dependencies.
     }
 
@@ -37,8 +37,8 @@ public class RotateToColor extends CommandBase {
     @Override
     public void initialize() {
         m_colorWheel.resetEncoder();
-        m_prevColor = m_colorWheel.getColor();
-        m_distanceNeeded = m_colorWheel.getRequiredDistance(m_inputColor, m_prevColor);
+        m_currentColor = m_colorWheel.getColor();
+        m_distanceNeeded = m_colorWheel.getRequiredDistance(m_inputColor, m_currentColor);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -57,11 +57,13 @@ public class RotateToColor extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         m_colorWheel.stopMotor();
+        m_colorWheel.resetEncoder();
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
+        // Need to take absolute value because these distances can be negative
         return (Math.abs(m_colorWheel.getDistance()) >= Math.abs(m_distanceNeeded));
     }
 }

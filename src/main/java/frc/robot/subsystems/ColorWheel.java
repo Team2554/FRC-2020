@@ -13,17 +13,14 @@ import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorMatch;
 
-/**
- * An example subsystem. You can replace with me with your own subsystem.
- */
 public class ColorWheel extends SubsystemBase {
   // Color motor and encoder
-  VictorSP colorMotor = new VictorSP(ColorWheelConstants.colorMotorPort);
-  public Encoder colorEncoder = new Encoder(ColorWheelConstants.encoderPorts[0], ColorWheelConstants.encoderPorts[1]);
+  VictorSP m_colorMotor = new VictorSP(ColorWheelConstants.colorMotorPort);
+  public Encoder m_colorEncoder = new Encoder(ColorWheelConstants.encoderPorts[0], ColorWheelConstants.encoderPorts[1]);
 
   // Color sensor and matcher
-  private final I2C.Port i2cPort = I2C.Port.kOnboard;
-  private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
+  private final I2C.Port m_i2cPort = I2C.Port.kOnboard;
+  private final ColorSensorV3 m_colorSensor = new ColorSensorV3(m_i2cPort);
   private final ColorMatch m_colorMatcher = new ColorMatch();
 
   public ColorWheel() {
@@ -33,8 +30,8 @@ public class ColorWheel extends SubsystemBase {
     m_colorMatcher.addColorMatch(ColorWheelConstants.kYellowTarget);
     m_colorMatcher.addColorMatch(ColorWheelConstants.kWhiteTarget);
 
-    colorEncoder.setDistancePerPulse(ColorWheelConstants.distancePerPulse);
-    colorEncoder.setReverseDirection(false);
+    m_colorEncoder.setDistancePerPulse(ColorWheelConstants.distancePerPulse);
+    m_colorEncoder.setReverseDirection(false);
     resetEncoder();
   }
 
@@ -65,28 +62,28 @@ public class ColorWheel extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putString("Detected Color", getColor());
     SmartDashboard.putNumber("Encoder Distance", getDistance());
-    SmartDashboard.putNumber("Encoder Raw Value", colorEncoder.getRaw());
+    SmartDashboard.putNumber("Encoder Raw Value", m_colorEncoder.getRaw());
   }
 
   public void resetEncoder() {
-    colorEncoder.reset();
+    m_colorEncoder.reset();
   }
 
   public void stopMotor() {
-    colorMotor.set(0);
+    m_colorMotor.set(0);
   }
 
   public void setMotor(double speed) {
-    colorMotor.set(speed);
+    m_colorMotor.set(speed);
   }
 
   public double getDistance() {
-    return colorEncoder.getDistance();
+    return m_colorEncoder.getDistance();
   }
 
-  public double getRequiredDistance(String inputColor, String m_prevColor) {
+  public double getRequiredDistance(String inputColor, String currentColor) {
     double distanceNeeded;
-    if (m_prevColor.equals("Red")) {
+    if (currentColor.equals("Red")) {
       if (inputColor.equals("Green")) {
         distanceNeeded = ColorWheelConstants.encoderOneEighth;
       } else if (inputColor.equals("Blue")) {
@@ -96,7 +93,7 @@ public class ColorWheel extends SubsystemBase {
       }
     }
 
-    else if (m_prevColor.equals("Yellow")) {
+    else if (currentColor.equals("Yellow")) {
       if (inputColor.equals("Red")) {
         distanceNeeded = ColorWheelConstants.encoderOneEighth;
       } else if (inputColor.equals("Green")) {
@@ -106,7 +103,7 @@ public class ColorWheel extends SubsystemBase {
       }
     }
 
-    else if (m_prevColor.equals("Blue")) {
+    else if (currentColor.equals("Blue")) {
       if (inputColor.equals("Yellow")) {
         distanceNeeded = ColorWheelConstants.encoderOneEighth;
       } else if (inputColor.equals("Red")) {
@@ -116,7 +113,7 @@ public class ColorWheel extends SubsystemBase {
       }
     }
 
-    else if (m_prevColor.equals("Green")) {
+    else if (currentColor.equals("Green")) {
       if (inputColor.equals("Blue")) {
         distanceNeeded = ColorWheelConstants.encoderOneEighth;
       } else if (inputColor.equals("Yellow")) {
