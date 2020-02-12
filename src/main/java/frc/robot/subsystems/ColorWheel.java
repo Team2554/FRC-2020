@@ -18,8 +18,8 @@ import com.revrobotics.ColorMatch;
  */
 public class ColorWheel extends SubsystemBase {
   // Color motor and encoder
-  VictorSP colorMotor = new VictorSP(1);
-  public Encoder colorEncoder = new Encoder(1, 2);
+  VictorSP colorMotor = new VictorSP(ColorWheelConstants.colorMotorPort);
+  public Encoder colorEncoder = new Encoder(ColorWheelConstants.encoderPorts[0], ColorWheelConstants.encoderPorts[1]);
 
   // Color sensor and matcher
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
@@ -33,7 +33,7 @@ public class ColorWheel extends SubsystemBase {
     m_colorMatcher.addColorMatch(ColorWheelConstants.kYellowTarget);
     m_colorMatcher.addColorMatch(ColorWheelConstants.kWhiteTarget);
 
-    colorEncoder.setDistancePerPulse(ColorWheelConstants.distancePerpulse);
+    colorEncoder.setDistancePerPulse(ColorWheelConstants.distancePerPulse);
     colorEncoder.setReverseDirection(false);
     resetEncoder();
   }

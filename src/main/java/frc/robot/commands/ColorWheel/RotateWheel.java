@@ -32,7 +32,7 @@ public class RotateWheel extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_colorWheel.setMotor(0.1);
+    m_colorWheel.setMotor(ColorWheelConstants.rotateWheelSpeed);
   }
 
   // Called once the command ends or is interrupted.

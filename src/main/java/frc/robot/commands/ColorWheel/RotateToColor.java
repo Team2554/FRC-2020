@@ -45,13 +45,12 @@ public class RotateToColor extends CommandBase {
     @Override
     public void execute() {
         if (m_distanceNeeded < 0) {
-            m_colorWheel.setMotor(-0.07);
+            m_colorWheel.setMotor(-ColorWheelConstants.rotateToColorSpeed);
         } else {
-            m_colorWheel.setMotor(0.07);
+            m_colorWheel.setMotor(ColorWheelConstants.rotateToColorSpeed);
         }
         double startTime = System.currentTimeMillis();
         m_runningTime += System.currentTimeMillis() - startTime;
-
     }
 
     // Called once the command ends or is interrupted.
