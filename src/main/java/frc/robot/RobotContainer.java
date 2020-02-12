@@ -12,6 +12,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.ColorWheel.RotateToColor;
+import frc.robot.commands.ColorWheel.RotateWheel;
+import frc.robot.subsystems.ColorWheel;
 import frc.robot.commands.ShootCommand;
 import frc.robot.subsystems.Shooter;
 
@@ -31,6 +34,7 @@ public class RobotContainer {
 
   // Subsystems
   Shooter m_shooter = new Shooter();
+  private final ColorWheel m_colorWheel = new ColorWheel();
 
   public RobotContainer() {
     // Configure the button bindings
@@ -44,6 +48,11 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    // Color wheel buttons
+    new JoystickButton(m_buttonJoystick, 1).whenPressed(new RotateWheel(m_colorWheel));
+    new JoystickButton(m_buttonJoystick, 2).whenPressed(new RotateToColor(m_colorWheel, "Red"));
+
+    // Shooter button
     new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.runShooter)
         .whenHeld(new ShootCommand(m_shooter, () -> 10.5));
     // example on how to use the drive mappings in constants class:
