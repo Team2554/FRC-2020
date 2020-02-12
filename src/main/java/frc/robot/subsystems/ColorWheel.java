@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.ColorWheelConstants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import edu.wpi.first.wpilibj.I2C;
@@ -23,7 +24,7 @@ public class ColorWheel extends SubsystemBase {
   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
   private final ColorMatch m_colorMatcher = new ColorMatch();
 
-  private final Color kBlueTarget = ColorMatch.makeColor(0.135, 0.433, 0.4257); // (R, G, B)
+  private final Color kBlueTarget = ColorMatch.makeColor(0.135, 0.433, 0.4257);
   private final Color kGreenTarget = ColorMatch.makeColor(0.176, 0.565, 0.258);
   private final Color kRedTarget = ColorMatch.makeColor(0.49, 0.311, 0.145);
   private final Color kYellowTarget = ColorMatch.makeColor(0.33, 0.55, 0.13);
@@ -39,14 +40,13 @@ public class ColorWheel extends SubsystemBase {
   public Encoder colorEncoder = new Encoder(1, 2);
 
   public ColorWheel() {
-    m_colorMatcher.addColorMatch(kBlueTarget);
-    m_colorMatcher.addColorMatch(kGreenTarget);
-    m_colorMatcher.addColorMatch(kRedTarget);
-    m_colorMatcher.addColorMatch(kYellowTarget);
-    m_colorMatcher.addColorMatch(kWhiteTarget);
-    m_colorMatcher.addColorMatch(kBlackTarget);
+    m_colorMatcher.addColorMatch(ColorWheelConstants.kBlueTarget);
+    m_colorMatcher.addColorMatch(ColorWheelConstants.kGreenTarget);
+    m_colorMatcher.addColorMatch(ColorWheelConstants.kRedTarget);
+    m_colorMatcher.addColorMatch(ColorWheelConstants.kYellowTarget);
+    m_colorMatcher.addColorMatch(ColorWheelConstants.kWhiteTarget);
 
-    colorEncoder.setDistancePerPulse(distancePerpulse);
+    colorEncoder.setDistancePerPulse(ColorWheelConstants.distancePerpulse);
     colorEncoder.setReverseDirection(false);
     colorEncoder.reset();
   }
@@ -56,17 +56,17 @@ public class ColorWheel extends SubsystemBase {
     final ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
 
     String colorString;
-    if (match.color == kBlueTarget) {
+    if (match.color == ColorWheelConstants.kBlueTarget) {
       colorString = "Blue";
-    } else if (match.color == kRedTarget) {
+    } else if (match.color == ColorWheelConstants.kRedTarget) {
       colorString = "Red";
-    } else if (match.color == kGreenTarget) {
+    } else if (match.color == ColorWheelConstants.kGreenTarget) {
       colorString = "Green";
-    } else if (match.color == kYellowTarget) {
+    } else if (match.color == ColorWheelConstants.kYellowTarget) {
       colorString = "Yellow";
-    } else if (match.color == kWhiteTarget) {
+    } else if (match.color == ColorWheelConstants.kWhiteTarget) {
       colorString = "White";
-    } else if (match.color == kBlackTarget) {
+    } else if (match.color == ColorWheelConstants.kBlackTarget) {
       colorString = "Black";
     } else {
       colorString = "Unknown";
@@ -84,6 +84,10 @@ public class ColorWheel extends SubsystemBase {
     // colorEncoder.reset();
   }
 
+  public void stopMotor() {
+    colorMotor.set(0);
+  }
+
   public void setMotor(double speed) {
     colorMotor.set(speed);
   }
@@ -92,77 +96,53 @@ public class ColorWheel extends SubsystemBase {
     return colorEncoder.getDistance();
   }
 
-  public void rotate() {
-    colorMotor.set(0.3);
-    while (colorEncoder.getDistance() < encoderStopValue) {
-      SmartDashboard.putNumber("Distance rotated", colorEncoder.getDistance());
+  public double getRequiredDistance(String inputColor, String m_prevColor) {
+    double distanceNeeded;
+    if (m_prevColor.equals("Red")) {
+      if (inputColor.equals("Green")) {
+        distanceNeeded = ColorWheelConstants.encoderOneEighth;
+      } else if (inputColor.equals("Blue")) {
+        distanceNeeded = 2 * ColorWheelConstants.encoderOneEighth;
+      } else { // If inputColor is Yellow
+        distanceNeeded = -ColorWheelConstants.encoderOneEighth;
+      }
     }
-    stopMotor();
+
+    else if (m_prevColor.equals("Yellow")) {
+      if (inputColor.equals("Red")) {
+        distanceNeeded = ColorWheelConstants.encoderOneEighth;
+      } else if (inputColor.equals("Green")) {
+        distanceNeeded = 2 * ColorWheelConstants.encoderOneEighth;
+      } else { // If inputColor is Blue
+        distanceNeeded = -ColorWheelConstants.encoderOneEighth;
+      }
+    }
+
+    else if (m_prevColor.equals("Blue")) {
+      if (inputColor.equals("Yellow")) {
+        distanceNeeded = ColorWheelConstants.encoderOneEighth;
+      } else if (inputColor.equals("Red")) {
+        distanceNeeded = 2 * ColorWheelConstants.encoderOneEighth;
+      } else { // If inputColor is Green
+        distanceNeeded = -ColorWheelConstants.encoderOneEighth;
+      }
+    }
+
+    else if (m_prevColor.equals("Green")) {
+      if (inputColor.equals("Blue")) {
+        distanceNeeded = ColorWheelConstants.encoderOneEighth;
+      } else if (inputColor.equals("Yellow")) {
+        distanceNeeded = 2 * ColorWheelConstants.encoderOneEighth;
+      } else { // If inputColor is Red
+        distanceNeeded = -ColorWheelConstants.encoderOneEighth;
+      }
+    }
+
+    else {
+      System.out.println("Incorrect color detected");
+      distanceNeeded = 0;
+    }
+    return distanceNeeded;
   }
 
-  // double distanceNeeded;
-
-  // public void rotateToColor(String inputColor) {
-  // colorEncoder.reset();
-
-  // if (this.getColor().equals("Red")) {
-  // if (inputColor.equals("Green")) {
-  // distanceNeeded = encoderOneEighth;
-  // } else if (inputColor.equals("Blue")) {
-  // distanceNeeded = 2 * encoderOneEighth;
-  // } else { // If inputColor is Yellow
-  // distanceNeeded = -encoderOneEighth;
-  // }
-  // }
-
-  // else if (this.getColor().equals("Yellow")) {
-  // if (inputColor.equals("Red")) {
-  // distanceNeeded = encoderOneEighth;
-  // } else if (inputColor.equals("Green")) {
-  // distanceNeeded = 2 * encoderOneEighth;
-  // } else { // If inputColor is Blue
-  // distanceNeeded = -encoderOneEighth;
-  // }
-  // }
-
-  // else if (this.getColor().equals("Blue")) {
-  // if (inputColor.equals("Yellow")) {
-  // distanceNeeded = encoderOneEighth;
-  // } else if (inputColor.equals("Red")) {
-  // distanceNeeded = 2 * encoderOneEighth;
-  // } else { // If inputColor is Green
-  // distanceNeeded = -encoderOneEighth;
-  // }
-  // }
-
-  // else if (this.getColor().equals("Green")) {
-  // if (inputColor.equals("Blue")) {
-  // distanceNeeded = encoderOneEighth;
-  // } else if (inputColor.equals("Yellow")) {
-  // distanceNeeded = 2 * encoderOneEighth;
-  // } else { // If inputColor is Red
-  // distanceNeeded = -encoderOneEighth;
-  // }
-  // }
-
-  // else {
-  // System.out.println("Incorrect color detected");
-  // return;
-  // }
-
-  // if (distanceNeeded < 0) {
-  // colorMotor.set(-0.3);
-  // } else {
-  // colorMotor.set(0.3);
-  // }
-
-  // while (colorEncoder.getDistance() < Math.abs(distanceNeeded)) {
-
-  // }
-  // stopMotor();
-  // }
-
-  public void stopMotor() {
-    colorMotor.set(0);
-  }
 }
