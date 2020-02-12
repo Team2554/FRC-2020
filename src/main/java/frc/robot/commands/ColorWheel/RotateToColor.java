@@ -19,7 +19,7 @@ public class RotateToColor extends CommandBase {
     private final ColorWheel m_colorWheel;
     private String m_inputColor;
     private String m_prevColor;
-    private double m_runningTime = 0.0;
+    // private double m_runningTime = 0.0;
     private double m_distanceNeeded;
 
     /**
@@ -38,7 +38,7 @@ public class RotateToColor extends CommandBase {
     public void initialize() {
         m_colorWheel.resetEncoder();
         m_prevColor = m_colorWheel.getColor();
-        m_distanceNeeded = m_colorWheel.getRequiredDistance("Red", m_prevColor);
+        m_distanceNeeded = m_colorWheel.getRequiredDistance(m_inputColor, m_prevColor);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -49,8 +49,8 @@ public class RotateToColor extends CommandBase {
         } else {
             m_colorWheel.setMotor(ColorWheelConstants.rotateToColorSpeed);
         }
-        double startTime = System.currentTimeMillis();
-        m_runningTime += System.currentTimeMillis() - startTime;
+        // double startTime = System.currentTimeMillis();
+        // m_runningTime += System.currentTimeMillis() - startTime;
     }
 
     // Called once the command ends or is interrupted.

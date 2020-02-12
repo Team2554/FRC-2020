@@ -66,7 +66,7 @@ public final class Constants {
         public static final Color kBlackTarget = ColorMatch.makeColor(0.0, 0.0, 0.0);
 
         // Encoder related calculations
-        public static final double circumOfColorWheel = 100.0 / 12; // circumfrence of color wheel (feet)
+        public static final double circumOfColorWheel = 100.0 / 12; // circumference of color wheel (feet)
         public static final double circumOfMotorWheel = (Math.PI * 4) / 12.0; // circumference of motor (feet)
         public static final double pulsesPerRev = 32.0;
         public static final double distancePerPulse = circumOfMotorWheel / pulsesPerRev;
