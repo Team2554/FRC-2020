@@ -17,27 +17,14 @@ import com.revrobotics.ColorMatch;
  * An example subsystem. You can replace with me with your own subsystem.
  */
 public class ColorWheel extends SubsystemBase {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+  // Color motor and encoder
   VictorSP colorMotor = new VictorSP(1);
+  public Encoder colorEncoder = new Encoder(1, 2);
+
+  // Color sensor and matcher
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
   private final ColorMatch m_colorMatcher = new ColorMatch();
-
-  private final Color kBlueTarget = ColorMatch.makeColor(0.135, 0.433, 0.4257);
-  private final Color kGreenTarget = ColorMatch.makeColor(0.176, 0.565, 0.258);
-  private final Color kRedTarget = ColorMatch.makeColor(0.49, 0.311, 0.145);
-  private final Color kYellowTarget = ColorMatch.makeColor(0.33, 0.55, 0.13);
-  private final Color kWhiteTarget = ColorMatch.makeColor(0.267, 0.475, 0.25);
-  private final Color kBlackTarget = ColorMatch.makeColor(0.0, 0.0, 0.0);
-  private final double circumOfColorWheel = 100 / 12; // circumfrence of color wheel (feet)
-  private final double circumOfMotorWheel = Math.PI * 4 / 12; // circumference of motor (feet)
-  private final double pulsesPerRev = 12;
-  private final double distancePerpulse = circumOfMotorWheel / pulsesPerRev;
-  public final double encoderStopValue = circumOfColorWheel * 4;
-  // private final double encoderOneEighth = circumOfColorWheel / 8;
-
-  public Encoder colorEncoder = new Encoder(1, 2);
 
   public ColorWheel() {
     m_colorMatcher.addColorMatch(ColorWheelConstants.kBlueTarget);
@@ -48,7 +35,7 @@ public class ColorWheel extends SubsystemBase {
 
     colorEncoder.setDistancePerPulse(ColorWheelConstants.distancePerpulse);
     colorEncoder.setReverseDirection(false);
-    colorEncoder.reset();
+    resetEncoder();
   }
 
   public String getColor() {
@@ -77,8 +64,8 @@ public class ColorWheel extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putString("Detected Color", getColor());
-    SmartDashboard.putNumber("Get Distance", getDistance());
-    SmartDashboard.putNumber("Get Raw", colorEncoder.getRaw());
+    SmartDashboard.putNumber("Encoder Distance", getDistance());
+    SmartDashboard.putNumber("Encoder Raw Value", colorEncoder.getRaw());
   }
 
   public void resetEncoder() {
@@ -146,5 +133,4 @@ public class ColorWheel extends SubsystemBase {
     SmartDashboard.putNumber("distance needed", distanceNeeded);
     return distanceNeeded;
   }
-
 }
