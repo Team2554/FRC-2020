@@ -17,11 +17,10 @@ import frc.robot.subsystems.ColorWheel;
 
 public class RotateToColor extends CommandBase {
     private final ColorWheel m_colorWheel;
-    private boolean m_isFinished = false;
     private String m_inputColor;
     private String m_prevColor;
     private double m_runningTime = 0.0;
-    private double distanceNeeded;
+    private double m_distanceNeeded;
 
     /**
      * Creates a new RotateToColor.
@@ -29,9 +28,9 @@ public class RotateToColor extends CommandBase {
     public RotateToColor(ColorWheel colorWheel, String inputColor) {
         m_colorWheel = colorWheel;
         m_inputColor = inputColor;
+        addRequirements(m_colorWheel);
         m_prevColor = m_colorWheel.getColor();
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(m_colorWheel);
     }
 
     // Called when the command is initially scheduled.
@@ -39,59 +38,13 @@ public class RotateToColor extends CommandBase {
     public void initialize() {
         m_colorWheel.resetEncoder();
         m_prevColor = m_colorWheel.getColor();
-        distanceNeeded = m_colorWheel.getRequiredDistance("Red", m_prevColor);
-
-        // if (m_prevColor.equals("Red")) {
-        // if (m_inputColor.equals("Green")) {
-        // distanceNeeded = ColorWheelConstants.encoderOneEighth;
-        // } else if (m_inputColor.equals("Blue")) {
-        // distanceNeeded = 2 * ColorWheelConstants.encoderOneEighth;
-        // } else { // If inputColor is Yellow
-        // distanceNeeded = -ColorWheelConstants.encoderOneEighth;
-        // }
-        // }
-
-        // else if (m_prevColor.equals("Yellow")) {
-        // if (m_inputColor.equals("Red")) {
-        // distanceNeeded = ColorWheelConstants.encoderOneEighth;
-        // } else if (m_inputColor.equals("Green")) {
-        // distanceNeeded = 2 * ColorWheelConstants.encoderOneEighth;
-        // } else { // If inputColor is Blue
-        // distanceNeeded = -ColorWheelConstants.encoderOneEighth;
-        // }
-        // }
-
-        // else if (m_prevColor.equals("Blue")) {
-        // if (m_inputColor.equals("Yellow")) {
-        // distanceNeeded = ColorWheelConstants.encoderOneEighth;
-        // } else if (m_inputColor.equals("Red")) {
-        // distanceNeeded = 2 * ColorWheelConstants.encoderOneEighth;
-        // } else { // If inputColor is Green
-        // distanceNeeded = -ColorWheelConstants.encoderOneEighth;
-        // }
-        // }
-
-        // else if (m_prevColor.equals("Green")) {
-        // if (m_inputColor.equals("Blue")) {
-        // distanceNeeded = ColorWheelConstants.encoderOneEighth;
-        // } else if (m_inputColor.equals("Yellow")) {
-        // distanceNeeded = 2 * ColorWheelConstants.encoderOneEighth;
-        // } else { // If inputColor is Red
-        // distanceNeeded = -ColorWheelConstants.encoderOneEighth;
-        // }
-        // }
-
-        // else {
-        // System.out.println("Incorrect color detected");
-        // return;
-        // }
-
+        m_distanceNeeded = m_colorWheel.getRequiredDistance("Red", m_prevColor);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (distanceNeeded < 0) {
+        if (m_distanceNeeded < 0) {
             m_colorWheel.setMotor(-0.07);
         } else {
             m_colorWheel.setMotor(0.07);
@@ -110,6 +63,6 @@ public class RotateToColor extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return (Math.abs(m_colorWheel.getDistance()) >= Math.abs(distanceNeeded));
+        return (Math.abs(m_colorWheel.getDistance()) >= Math.abs(m_distanceNeeded));
     }
 }
