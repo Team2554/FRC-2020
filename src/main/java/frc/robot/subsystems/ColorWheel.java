@@ -18,7 +18,7 @@ import com.revrobotics.ColorMatch;
 public class ColorWheel extends SubsystemBase {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  VictorSP colorMotor = new VictorSP(0);
+  VictorSP colorMotor = new VictorSP(1);
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
   private final ColorMatch m_colorMatcher = new ColorMatch();
@@ -31,7 +31,7 @@ public class ColorWheel extends SubsystemBase {
   private final Color kBlackTarget = ColorMatch.makeColor(0.0, 0.0, 0.0);
   private final double circumOfColorWheel = 100 / 12; // circumfrence of color wheel (feet)
   private final double circumOfMotorWheel = Math.PI * 4 / 12; // circumference of motor (feet)
-  private final double pulsesPerRev = 300;
+  private final double pulsesPerRev = 48;
   private final double distancePerpulse = circumOfMotorWheel / pulsesPerRev;
   public final double encoderStopValue = circumOfColorWheel * 4;
   // private final double encoderOneEighth = circumOfColorWheel / 8;
@@ -77,10 +77,11 @@ public class ColorWheel extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putString("Detected Color", getColor());
+    SmartDashboard.putNumber("Get Distance", getDistance());
   }
 
   public void resetEncoder() {
-    colorEncoder.reset();
+    // colorEncoder.reset();
   }
 
   public void setMotor(double speed) {
