@@ -49,8 +49,10 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // Color wheel buttons
-    new JoystickButton(m_buttonJoystick, 1).whenPressed(new RotateWheel(m_colorWheel));
-    new JoystickButton(m_buttonJoystick, 2).whenPressed(new RotateToColor(m_colorWheel, "Red"));
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.colorWheelSpinTurn)
+        .whenPressed(new RotateWheel(m_colorWheel));
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.colorWheelColorTurn)
+        .whenPressed(new RotateToColor(m_colorWheel, "Red"));
 
     // Shooter button
     new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.runShooter)
