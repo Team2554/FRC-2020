@@ -10,6 +10,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ColorWheel.RotateToColor;
@@ -30,13 +32,21 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   Joystick m_driveJoystick = new Joystick(0);
-  Joystick m_buttonJoystick = new Joystick(1);
+  XboxController m_buttonJoystick = new XboxController(1);
+  public String GoalColor;
+  SendableChooser<String> colorchooser = new SendableChooser<>();
 
   // Subsystems
   Shooter m_shooter = new Shooter();
   private final ColorWheel m_colorWheel = new ColorWheel();
 
   public RobotContainer() {
+    colorchooser.addOption("Red", "Red");
+    colorchooser.addOption("Green", "Green");
+    colorchooser.addOption("Yellow", "Yellow");
+    colorchooser.addOption("Blue", "Blue");
+
+    SmartDashboard.putData("Color Chooser", colorchooser);
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -49,10 +59,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // Color wheel buttons
-    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.colorWheelSpinTurn)
-        .whenPressed(new RotateWheel(m_colorWheel));
-    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.colorWheelColorTurn)
-        .whenPressed(new RotateToColor(m_colorWheel, "Red"));
+    new JoystickButton(m_buttonJoystick, 1).whenPressed(new RotateWheel(m_colorWheel));
+    new JoystickButton(m_buttonJoystick, 2)
+        .whenPressed(new RotateToColor(m_colorWheel, () -> colorchooser.getSelected()));
 
     // Shooter button
     new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.runShooter)

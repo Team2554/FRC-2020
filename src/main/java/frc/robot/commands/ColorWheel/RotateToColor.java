@@ -11,13 +11,15 @@
 
 package frc.robot.commands.ColorWheel;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.ColorWheelConstants;
 import frc.robot.subsystems.ColorWheel;
 
 public class RotateToColor extends CommandBase {
     private final ColorWheel m_colorWheel;
-    private String m_inputColor;
+    private Supplier<String> m_inputColor;
     private String m_currentColor;
     // private double m_runningTime = 0.0;
     private double m_distanceNeeded;
@@ -25,7 +27,7 @@ public class RotateToColor extends CommandBase {
     /**
      * Creates a new RotateToColor.
      */
-    public RotateToColor(ColorWheel colorWheel, String inputColor) {
+    public RotateToColor(ColorWheel colorWheel, Supplier<String> inputColor) {
         m_colorWheel = colorWheel;
         m_inputColor = inputColor;
         addRequirements(m_colorWheel);
@@ -38,7 +40,7 @@ public class RotateToColor extends CommandBase {
     public void initialize() {
         m_colorWheel.resetEncoder();
         m_currentColor = m_colorWheel.getColor();
-        m_distanceNeeded = m_colorWheel.getRequiredDistance(m_inputColor, m_currentColor);
+        m_distanceNeeded = m_colorWheel.getRequiredDistance(m_inputColor.get(), m_currentColor);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
