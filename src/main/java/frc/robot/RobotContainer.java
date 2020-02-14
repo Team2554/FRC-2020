@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.WhenConveyorIn;
-import frc.robot.commands.WhenConveyorOut;
+import frc.robot.commands.Conveyor.WhenConveyorIn;
+import frc.robot.commands.Conveyor.WhenConveyorOut;
 import frc.robot.subsystems.Conveyor;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ColorWheel.RotateToColor;
 import frc.robot.commands.ColorWheel.RotateWheel;
 import frc.robot.subsystems.ColorWheel;
-import frc.robot.commands.ShootCommand;
+import frc.robot.commands.Shooter.ShootCommand;
 import frc.robot.subsystems.Shooter;
 
 /**
