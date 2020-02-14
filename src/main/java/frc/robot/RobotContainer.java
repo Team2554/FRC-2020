@@ -7,11 +7,19 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.WhenConveyorIn;
+import frc.robot.commands.WhenConveyorOut;
+import frc.robot.subsystems.Conveyor;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.ColorWheel.RotateToColor;
+import frc.robot.commands.ColorWheel.RotateWheel;
+import frc.robot.subsystems.ColorWheel;
 import frc.robot.commands.ShootCommand;
 import frc.robot.subsystems.Shooter;
 
@@ -22,17 +30,27 @@ import frc.robot.subsystems.Shooter;
  * scheduler calls). Instead, the structure of the robot (including subsystems,
  * commands, and button mappings) should be declared here.
  */
+
 public class RobotContainer {
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   Joystick m_driveJoystick = new Joystick(0);
   Joystick m_buttonJoystick = new Joystick(1);
+  SendableChooser<String> colorchooser = new SendableChooser<>();
 
   // Subsystems
-  Shooter m_shooter = new Shooter();
+  private final Shooter m_shooter = new Shooter();
+  private final Conveyor m_conveyor = new Conveyor();
+  private final ColorWheel m_colorWheel = new ColorWheel();
 
   public RobotContainer() {
+    colorchooser.addOption("Red", "Red");
+    colorchooser.addOption("Green", "Green");
+    colorchooser.addOption("Yellow", "Yellow");
+    colorchooser.addOption("Blue", "Blue");
+
+    SmartDashboard.putData("Color Chooser", colorchooser);
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -44,11 +62,21 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    // Conveyor buttons
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.conveyorOut)
+        .whenPressed(new WhenConveyorOut(m_conveyor));
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.conveyorIn)
+        .whenPressed(new WhenConveyorIn(m_conveyor));
+
+    // Color wheel buttons
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.colorWheelSpinNumberOfTimes)
+        .whenPressed(new RotateWheel(m_colorWheel));
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.colorWheelTurnToColor)
+        .whenPressed(new RotateToColor(m_colorWheel, () -> colorchooser.getSelected()));
+
+    // Shooter button
     new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.runShooter)
         .whenHeld(new ShootCommand(m_shooter, () -> 10.5));
-    // example on how to use the drive mappings in constants class:
-    // new JoystickButton(buttonJoystick,
-    // Constants.ButtonJoystickMappings.intakeIn).whileHeld(new InstantCommand());
   }
 
   /**
