@@ -5,20 +5,20 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Conveyor;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Conveyor;
 
-public class WhenConveyorIn extends CommandBase {
+public class WhenConveyorOut extends CommandBase {
   private final Conveyor m_conveyor;
 
   /**
-   * Creates a new WhenConveyorIn.
+   * Creates a new WhenConveyorOut.
    */
-  public WhenConveyorIn(Conveyor conveyor) {
+  public WhenConveyorOut(Conveyor conveyor) {
     m_conveyor = conveyor;
-    addRequirements(m_conveyor);
+    addRequirements(conveyor);
   }
 
   // Called when the command is initially scheduled.
@@ -30,14 +30,13 @@ public class WhenConveyorIn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_conveyor.conveyorIn();
+    m_conveyor.conveyorOut();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     m_conveyor.stopConveyor();
-
   }
 
   // Returns true when the command should end.

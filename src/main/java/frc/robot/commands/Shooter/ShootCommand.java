@@ -5,43 +5,46 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Shooter;
+
+import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Conveyor;
+import frc.robot.subsystems.Shooter;
 
-public class WhenConveyorOut extends CommandBase {
-  private final Conveyor m_conveyor;
+public class ShootCommand extends CommandBase {
+  Shooter m_shooter;
+  DoubleSupplier m_voltageSupplier;
 
   /**
-   * Creates a new WhenConveyorOut.
+   * Creates a new ShootCommand.
    */
-  public WhenConveyorOut(Conveyor conveyor) {
-    m_conveyor = conveyor;
-    addRequirements(conveyor);
+  public ShootCommand(Shooter shooter, DoubleSupplier voltageSupplier) {
+    m_shooter = shooter;
+    m_voltageSupplier = voltageSupplier;
+
+    addRequirements(m_shooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_conveyor.conveyorOut();
+    m_shooter.setVoltage(m_voltageSupplier.getAsDouble());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_conveyor.stopConveyor();
+    m_shooter.stopMotor();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }
