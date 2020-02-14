@@ -32,7 +32,7 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   Joystick m_driveJoystick = new Joystick(0);
-  XboxController m_buttonJoystick = new XboxController(1);
+  Joystick m_buttonJoystick = new Joystick(1);
   public String GoalColor;
   SendableChooser<String> colorchooser = new SendableChooser<>();
 
@@ -59,8 +59,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // Color wheel buttons
-    new JoystickButton(m_buttonJoystick, 1).whenPressed(new RotateWheel(m_colorWheel));
-    new JoystickButton(m_buttonJoystick, 2)
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.colorWheelSpinNumberOfTimes)
+        .whenPressed(new RotateWheel(m_colorWheel));
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.colorWheelTurnToColor)
         .whenPressed(new RotateToColor(m_colorWheel, () -> colorchooser.getSelected()));
 
     // Shooter button

@@ -21,7 +21,6 @@ public class RotateToColor extends CommandBase {
     private final ColorWheel m_colorWheel;
     private Supplier<String> m_inputColor;
     private String m_currentColor;
-    // private double m_runningTime = 0.0;
     private double m_distanceNeeded;
 
     /**
@@ -32,7 +31,6 @@ public class RotateToColor extends CommandBase {
         m_inputColor = inputColor;
         addRequirements(m_colorWheel);
         m_currentColor = m_colorWheel.getColor();
-        // Use addRequirements() here to declare subsystem dependencies.
     }
 
     // Called when the command is initially scheduled.
@@ -51,8 +49,6 @@ public class RotateToColor extends CommandBase {
         } else {
             m_colorWheel.setMotor(ColorWheelConstants.rotateToColorSpeed);
         }
-        // double startTime = System.currentTimeMillis();
-        // m_runningTime += System.currentTimeMillis() - startTime;
     }
 
     // Called once the command ends or is interrupted.

@@ -44,8 +44,8 @@ public final class Constants {
         public static final int elevatorDown = 7; // hold to make elevator go down
         public static final int setElevatorTop = 8; // press to set elevator to top using limit switch
         public static final int setElevatorButtom = 9; // press to set elevator to bottom using limit switch
-        public static final int colorWheelColorTurn = 10; // press to spin the color wheel to a certain color
-        public static final int colorWheelSpinTurn = 11; // press to spin the color wheel 4 times
+        public static final int colorWheelTurnToColor = 10; // press to spin the color wheel to a certain color
+        public static final int colorWheelSpinNumberOfTimes = 11; // press to spin the color wheel 4 times
     }
 
     public static final class ColorWheelConstants {
