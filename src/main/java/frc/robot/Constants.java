@@ -77,4 +77,10 @@ public final class Constants {
     public static final class ShooterConstants {
         public static final int victorPort = 2;
     }
+
+    public static final class ConveyorConstants {
+        public static final int bottomConveyorPort = 0;
+        public static final int topConveyorPort = 1;
+        public static final double conveyorSpeed = 0.45;
+    }
 }
