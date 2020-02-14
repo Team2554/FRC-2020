@@ -83,4 +83,8 @@ public final class Constants {
         public static final int topConveyorPort = 1;
         public static final double conveyorSpeed = 0.45;
     }
+
+    public static final class IntakeConstants {
+        public static final int intakePort = 0;
+    }
 }
