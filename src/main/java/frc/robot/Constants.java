@@ -50,12 +50,12 @@ public final class Constants {
 
     public static final class ColorWheelConstants {
         // Motors/Encoder ports
-        public static final int colorMotorPort = 1;
+        public static final int colorMotorPort = 9;
         public static final int encoderPorts[] = { 1, 2 };
 
         // Motor speeds for different commands
-        public static final double rotateWheelSpeed = 0.1;
-        public static final double rotateToColorSpeed = 0.07;
+        public static final double rotateWheelSpeed = 0.05;
+        public static final double rotateToColorSpeed = 0.05;
 
         // Colors that can be detected
         public static final Color kBlueTarget = ColorMatch.makeColor(0.135, 0.433, 0.4257); // (R, G, B)
@@ -68,9 +68,9 @@ public final class Constants {
         // Encoder related calculations
         public static final double circumOfColorWheel = 100.0 / 12; // circumference of color wheel (feet)
         public static final double circumOfMotorWheel = (Math.PI * 4) / 12.0; // circumference of motor (feet)
-        public static final double pulsesPerRev = 32.0;
+        public static final double pulsesPerRev = 31.0;
         public static final double distancePerPulse = circumOfMotorWheel / pulsesPerRev;
-        public static final double encoderStopValue = circumOfColorWheel * 3.0;
+        public static final double encoderStopValue = circumOfColorWheel * 1.0;
         public static final double encoderOneEighth = circumOfColorWheel / 8.0;
     }
 
