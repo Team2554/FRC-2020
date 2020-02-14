@@ -36,7 +36,7 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   Joystick m_driveJoystick = new Joystick(0);
-  Joystick m_buttonJoystick = new Joystick(1);
+  XboxController m_buttonJoystick = new XboxController(1);
   SendableChooser<String> colorchooser = new SendableChooser<>();
 
   // Subsystems

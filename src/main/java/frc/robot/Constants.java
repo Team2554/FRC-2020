@@ -44,8 +44,8 @@ public final class Constants {
         public static final int elevatorDown = 7; // hold to make elevator go down
         public static final int setElevatorTop = 8; // press to set elevator to top using limit switch
         public static final int setElevatorButtom = 9; // press to set elevator to bottom using limit switch
-        public static final int colorWheelTurnToColor = 10; // press to spin the color wheel to a certain color
-        public static final int colorWheelSpinNumberOfTimes = 11; // press to spin the color wheel 4 times
+        public static final int colorWheelTurnToColor = 2; // press to spin the color wheel to a certain color
+        public static final int colorWheelSpinNumberOfTimes = 1; // press to spin the color wheel 4 times
     }
 
     public static final class ColorWheelConstants {
@@ -54,8 +54,8 @@ public final class Constants {
         public static final int encoderPorts[] = { 1, 2 };
 
         // Motor speeds for different commands
-        public static final double rotateWheelSpeed = 0.05;
-        public static final double rotateToColorSpeed = 0.05;
+        public static final double rotateWheelSpeed = 0.15;
+        public static final double rotateToColorSpeed = 0.07;
 
         // Colors that can be detected
         public static final Color kBlueTarget = ColorMatch.makeColor(0.135, 0.433, 0.4257); // (R, G, B)
@@ -68,9 +68,9 @@ public final class Constants {
         // Encoder related calculations
         public static final double circumOfColorWheel = 100.0 / 12; // circumference of color wheel (feet)
         public static final double circumOfMotorWheel = (Math.PI * 4) / 12.0; // circumference of motor (feet)
-        public static final double pulsesPerRev = 31.0;
+        public static final double pulsesPerRev = 30;
         public static final double distancePerPulse = circumOfMotorWheel / pulsesPerRev;
-        public static final double encoderStopValue = circumOfColorWheel * 1.0;
+        public static final double encoderStopValue = circumOfColorWheel * 4.0;
         public static final double encoderOneEighth = circumOfColorWheel / 8.0;
     }
 
