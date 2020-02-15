@@ -13,12 +13,12 @@ import frc.robot.subsystems.DriveTrain;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class CloseShootLeft extends SequentialCommandGroup {
+public class MidShootRight extends SequentialCommandGroup {
   /**
-   * Creates a new CloseShootLeft.
+   * Creates a new MidShootLeft.
    */
-  public CloseShootLeft(DriveTrain dT) {
-    super(new DriveStraightNEW(0.9144, 1, 0, dT), new RotateToAngleNEW(-90, 1, dT),
-        new DriveStraightNEW(1.3587984, 1, 0, dT), new RotateToAngleNEW(-180, 1, dT));
+  public MidShootRight(DriveTrain dT) {
+    super(new DriveStraightNEW(0.9144, 1, 0, dT), new RotateToAngleNEW(90, 1, dT),
+        new DriveStraightNEW(1.2192, 1, 0, dT), new RotateToAngleNEW(180, 1, dT));
   }
 }

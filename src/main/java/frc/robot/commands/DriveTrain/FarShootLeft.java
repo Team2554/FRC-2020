@@ -8,7 +8,6 @@
 package frc.robot.commands.DriveTrain;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.subsystems.DriveTrain;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -18,8 +17,8 @@ public class FarShootLeft extends SequentialCommandGroup {
   /**
    * Creates a new FarShootLeft.
    */
-  public FarShootLeft(Subsystem dT) {
-    super(new DriveStraightNEW(0.9144, 1, 0, (DriveTrain) dT), new RotateToAngleNEW(90, 1, (DriveTrain) dT),
-        new DriveStraightNEW(4.6927008, 1, 0, (DriveTrain) dT), new RotateToAngleNEW(180, 1, (DriveTrain) dT));
+  public FarShootLeft(DriveTrain dT) {
+    super(new DriveStraightNEW(0.9144, 1, 0, dT), new RotateToAngleNEW(90, 1, dT),
+        new DriveStraightNEW(4.6927008, 1, 0, dT), new RotateToAngleNEW(180, 1, dT));
   }
 }
