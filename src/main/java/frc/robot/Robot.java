@@ -7,6 +7,9 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -21,7 +24,10 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-  VictorSP motor = new VictorSP(2);
+  VictorSP intake = new VictorSP(1);
+  VictorSP conveyerLeft = new VictorSP(2);
+  VictorSP conveyerRight = new VictorSP(2);
+  WPI_TalonSRX shooter = new WPI_TalonSRX(0);
 
   private RobotContainer m_robotContainer;
 
@@ -31,6 +37,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    shooter.configVoltageCompSaturation(11); // "full output" will now scale to 11 Volts for all control modes when
+    // enabled.
+    shooter.enableVoltageCompensation(true); // turn on/off feature
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our
     // autonomous chooser on the dashboard.
@@ -48,12 +57,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    if (m_robotContainer.joystick.getRawButtonPressed(1)) {
-      motor.set(1);
-    }
-    if (m_robotContainer.joystick.getRawButtonReleased(1)) {
-      motor.set(0);
-    }
     // Runs the Scheduler. This is responsible for polling buttons, adding
     // newly-scheduled
     // commands, running already-scheduled commands, removing finished or
@@ -112,9 +115,27 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    if (m_robotContainer.joystick.getRawButton(1)) {
+    if (m_robotContainer.joystick.getRawButtonPressed(1))
+      shooter.set(ControlMode.PercentOutput, 1);
+    if (m_robotContainer.joystick.getRawButtonReleased(1))
+      shooter.set(ControlMode.PercentOutput, 0);
 
+    if (m_robotContainer.joystick.getRawButtonPressed(3)) {
+      intake.setVoltage(3);
     }
+    if (m_robotContainer.joystick.getRawButtonReleased(3)) {
+      intake.setVoltage(0);
+    }
+
+    if (m_robotContainer.joystick.getRawButtonPressed(2)) {
+      conveyerLeft.setVoltage(-4);
+      conveyerRight.setVoltage(4);
+    }
+    if (m_robotContainer.joystick.getRawButtonReleased(2)) {
+      conveyerLeft.setVoltage(0);
+      conveyerRight.setVoltage(0);
+    }
+
   }
 
   @Override
