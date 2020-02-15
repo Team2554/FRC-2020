@@ -76,7 +76,7 @@ public class RobotContainer {
 
     // Shooter button
     new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.runShooter)
-        .whenHeld(new ShootCommand(m_shooter, () -> 10.5));
+        .whenHeld(new ShootCommand(m_shooter, () -> 1));
   }
 
   /**
