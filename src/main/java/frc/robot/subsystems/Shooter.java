@@ -55,5 +55,6 @@ public class Shooter extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Raw Peak Velocity", m_shootMotor.getSelectedSensorVelocity());
   }
 }
