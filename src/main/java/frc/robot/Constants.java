@@ -7,6 +7,10 @@
 
 package frc.robot;
 
+import com.revrobotics.ColorMatch;
+
+import edu.wpi.first.wpilibj.util.Color;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
  * numerical or boolean constants. This class should not be used for any other
@@ -18,6 +22,7 @@ package frc.robot;
  * wherever the constants are needed, to reduce verbosity.
  */
 public final class Constants {
+<<<<<<< HEAD
     public static final double kMaxSpeedMetersPerSecond = 10;
     public static final double kMaxAccelerationMetersPerSecondSquared = 20;
     public static final double kRamseteB = 0;
@@ -26,4 +31,71 @@ public final class Constants {
     public static final double kvVoltSecondsPerMeter = 0;
     public static final double kaVoltSecondsSquaredPerMeter = 0;
     public static final double kPDriveVel = 0;
+=======
+    public static final class DriveJoystickMappings {
+        // TODO: define actual button ids later
+        public static final int intakeIn = 0; // hold to intake ball
+        public static final int runFlywheel = 1; // hold to spin flywheel
+        public static final int angleToVision = 2; // hold to keep align to vision target
+        public static final int reverseDrivetrain = 3; // toggle reverse the drive direction
+        public static final int quickTurn = 4;
+        // above is for curvature drive. see:
+        // https://first.wpi.edu/FRC/roborio/release/docs/java/edu/wpi/first/wpilibj/drive/DifferentialDrive.html#curvatureDrive(double,double,boolean)
+    }
+
+    public static final class ButtonJoystickMappings {
+        // TODO: define actual button ids later
+        public static final int intakeIn = 0; // hold to intake ball
+        public static final int intakeOut = 1; // hold to release ball in intake
+        public static final int runShooter = 3; // hold to run the shooter
+        public static final int conveyorIn = 4; // hold to make conveyor go in
+        public static final int conveyorOut = 5; // hold to make conveyor go out
+        public static final int elevatorUp = 6; // hold to make elevator go up
+        public static final int elevatorDown = 7; // hold to make elevator go down
+        public static final int setElevatorTop = 8; // press to set elevator to top using limit switch
+        public static final int setElevatorButtom = 9; // press to set elevator to bottom using limit switch
+        public static final int colorWheelTurnToColor = 10; // press to spin the color wheel to a certain color
+        public static final int colorWheelSpinNumberOfTimes = 11; // press to spin the color wheel 4 times
+    }
+
+    public static final class ColorWheelConstants {
+        // Motors/Encoder ports
+        public static final int colorMotorPort = 9;
+        public static final int encoderPorts[] = { 1, 2 };
+
+        // Motor speeds for different commands
+        public static final double rotateWheelSpeed = 0.05;
+        public static final double rotateToColorSpeed = 0.05;
+
+        // Colors that can be detected
+        public static final Color kBlueTarget = ColorMatch.makeColor(0.135, 0.433, 0.4257); // (R, G, B)
+        public static final Color kGreenTarget = ColorMatch.makeColor(0.176, 0.565, 0.258);
+        public static final Color kRedTarget = ColorMatch.makeColor(0.49, 0.311, 0.145);
+        public static final Color kYellowTarget = ColorMatch.makeColor(0.33, 0.55, 0.13);
+        public static final Color kWhiteTarget = ColorMatch.makeColor(0.267, 0.475, 0.25);
+        public static final Color kBlackTarget = ColorMatch.makeColor(0.0, 0.0, 0.0);
+
+        // Encoder related calculations
+        public static final double circumOfColorWheel = 100.0 / 12; // circumference of color wheel (feet)
+        public static final double circumOfMotorWheel = (Math.PI * 4) / 12.0; // circumference of motor (feet)
+        public static final double pulsesPerRev = 31.0;
+        public static final double distancePerPulse = circumOfMotorWheel / pulsesPerRev;
+        public static final double encoderStopValue = circumOfColorWheel * 1.0;
+        public static final double encoderOneEighth = circumOfColorWheel / 8.0;
+    }
+
+    public static final class ShooterConstants {
+        public static final int victorPort = 2;
+    }
+
+    public static final class ConveyorConstants {
+        public static final int bottomConveyorPort = 0;
+        public static final int topConveyorPort = 1;
+        public static final double conveyorSpeed = 0.45;
+    }
+
+    public static final class IntakeConstants {
+        public static final int intakePort = 0;
+    }
+>>>>>>> 8a1fd73b3b675b1695216dd7e336402c9824d022
 }
