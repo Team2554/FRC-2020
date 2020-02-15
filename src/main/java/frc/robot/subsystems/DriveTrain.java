@@ -11,36 +11,62 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.sensors.PigeonIMU;
 
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveTrain extends SubsystemBase {
 
-  private final double deadBandConstant = 0.02;
-  private final double limitConstant = 1;
-
-  final TalonSRX tRF = new TalonSRX(1);
+  final WPI_TalonSRX tRF = new WPI_TalonSRX(1);
+  Encoder encoder = new Encoder(1, 2);
   final VictorSPX vRB = new VictorSPX(3);
 
-  final TalonSRX tLF = new TalonSRX(2);
+  final WPI_TalonSRX tLF = new WPI_TalonSRX(2);
   final VictorSPX vLB = new VictorSPX(4);
+
+  final DifferentialDrive driveTrain = new DifferentialDrive(tLF, tRF);
+
+  final PigeonIMU pigeon = new PigeonIMU(0);
+
+  final double maxVoltage = 12;
+
+  final int encoderUnitsPerRotation = 4096;
+  final double wheelDiameterMeters = 0.1;
+  final double differentialWidthMeters = 0.5;
+
+  DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(differentialWidthMeters);
+  DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(getHeading());
+
+  SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(0.3, 1.96, 0.06);
+
+  PIDController leftPIDController = new PIDController(2.95, 0, 0);
+  PIDController rightPIDController = new PIDController(2.95, 0, 0);
+
+  Pose2d pose = new Pose2d();
+
+  double[] ypr = new double[3];
+
+  boolean isInverted = false;
 
   /**
    * Creates a new DriveTrain.
    */
   public DriveTrain() {
-    tRF.set(ControlMode.PercentOutput, 0);
-    tLF.set(ControlMode.PercentOutput, 0);
-
-    vRB.set(ControlMode.Follower, 0);
-    vLB.set(ControlMode.Follower, 0);
-
     tRF.configFactoryDefault();
     tLF.configFactoryDefault();
     vRB.configFactoryDefault();
     vLB.configFactoryDefault();
+
     tRF.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     tLF.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 
@@ -49,6 +75,11 @@ public class DriveTrain extends SubsystemBase {
     vRB.setNeutralMode(NeutralMode.Brake);
     vLB.setNeutralMode(NeutralMode.Brake);
 
+    tRF.configVoltageCompSaturation(maxVoltage);
+    tRF.enableVoltageCompensation(true);
+    tLF.configVoltageCompSaturation(maxVoltage);
+    tLF.enableVoltageCompensation(true);
+
     vRB.follow(tRF);
     tRF.setInverted(false);
     vRB.setInverted(InvertType.FollowMaster);
@@ -56,75 +87,77 @@ public class DriveTrain extends SubsystemBase {
     vLB.follow(tLF);
     tLF.setInverted(false);
     vLB.setInverted(InvertType.FollowMaster);
+
+    resetEncoders();
   }
 
-  public void arcadeDrive(double xSpeed, double zRotation) {
-    xSpeed = limit(xSpeed);
-    xSpeed = deadBand(xSpeed);
-
-    zRotation = limit(zRotation);
-    zRotation = deadBand(zRotation);
-
-    // Square the inputs (while preserving the sign) to increase fine control
-    // while permitting full power.
-    xSpeed = Math.copySign(xSpeed * xSpeed, xSpeed);
-    zRotation = Math.copySign(zRotation * zRotation, zRotation);
-
-    double leftMotorOutput;
-    double rightMotorOutput;
-
-    double maxInput = Math.copySign(Math.max(Math.abs(xSpeed), Math.abs(zRotation)), xSpeed);
-
-    if (xSpeed >= 0.0) {
-      if (zRotation >= 0.0) {
-        leftMotorOutput = maxInput;
-        rightMotorOutput = xSpeed - zRotation;
-      } else {
-        leftMotorOutput = xSpeed + zRotation;
-        rightMotorOutput = maxInput;
-      }
-    } else {
-      if (zRotation >= 0.0) {
-        leftMotorOutput = xSpeed + zRotation;
-        rightMotorOutput = maxInput;
-      } else {
-        leftMotorOutput = maxInput;
-        rightMotorOutput = xSpeed - zRotation;
-      }
-    }
-
-    tLF.set(ControlMode.PercentOutput, limit(leftMotorOutput));
-    tRF.set(ControlMode.PercentOutput, limit(rightMotorOutput));
+  public PIDController getLeftPIDController() {
+    return leftPIDController;
   }
 
-  public double limit(double x) {
-    if (x > limitConstant)
-      x = limitConstant;
-    if (x < -limitConstant)
-      x = -limitConstant;
-
-    return x;
+  public PIDController getRightPIDController() {
+    return rightPIDController;
   }
 
-  public double deadBand(double x) {
-    if (x < deadBandConstant)
-      return 0.0;
-    return x;
+  public void curvatureDrive(double xSpeed, double zRotation, boolean isQuickTurn) {
+    driveTrain.curvatureDrive(xSpeed * (isInverted ? -1 : 1), zRotation, isQuickTurn);
   }
 
-  public double getGyroAngle() {
-    return getGyroAngle();
+  public DifferentialDriveKinematics getKinematics() {
+    return kinematics;
   }
 
-  public int getDistance() {
-    return (tLF.getSelectedSensorPosition() + tRF.getSelectedSensorPosition()) / 2;
+  public double getLeftMeters() {
+    return encoderTicksToMeters(tLF.getSelectedSensorPosition());
   }
 
-  public void stop() {
-    arcadeDrive(0, 0);
+  public double getRightMeters() {
+    return encoderTicksToMeters(tRF.getSelectedSensorPosition());
   }
 
-  public void resetDriveTrain() {
-    // reset encoders and stuff maybe
+  public void tankDriveVolts(double leftVolts, double rightVolts) {
+    tLF.set(ControlMode.PercentOutput, leftVolts / maxVoltage);
+    tRF.set(ControlMode.PercentOutput, rightVolts / maxVoltage);
   }
+
+  public void resetEncoders() {
+    tLF.setSelectedSensorPosition(0);
+    tRF.setSelectedSensorPosition(0);
+  }
+
+  public double getAverageEncoderDistance() {
+    return (encoderTicksToMeters(tLF.getSelectedSensorPosition())
+        + encoderTicksToMeters(tRF.getSelectedSensorPosition())) / 2;
+  }
+
+  public void resetGyro() {
+    pigeon.setYaw(0.0);
+  }
+
+  public Rotation2d getHeading() {
+    pigeon.getYawPitchRoll(ypr);
+    return Rotation2d.fromDegrees(ypr[0]);
+  }
+
+  public double encoderTicksToMeters(int encoderVal) {
+    return ((double) encoderVal / encoderUnitsPerRotation) * Math.PI * wheelDiameterMeters;
+  }
+
+  public double encoderTicksPer100msToMetersPerSecond(int encoderVal) {
+    return encoderTicksToMeters(encoderVal) / 0.1;
+  }
+
+  @Override
+  public void periodic() {
+    pose = odometry.update(getHeading(), getLeftMeters(), getRightMeters());
+  }
+
+  public Pose2d getPose() {
+    return pose;
+  }
+
+  public void inverseInput() {
+    isInverted = !isInverted;
+  }
+
 }
