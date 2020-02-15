@@ -7,21 +7,23 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.Conveyor.WhenConveyorIn;
-import frc.robot.commands.Conveyor.WhenConveyorOut;
-import frc.robot.subsystems.Conveyor;
-import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ColorWheel.RotateToColor;
 import frc.robot.commands.ColorWheel.RotateWheel;
-import frc.robot.subsystems.ColorWheel;
+import frc.robot.commands.Conveyor.WhenConveyorIn;
+import frc.robot.commands.Conveyor.WhenConveyorOut;
+import frc.robot.commands.DriveTrain.DriveStraightNEW;
+import frc.robot.commands.DriveTrain.RotateToAngleNEW;
 import frc.robot.commands.Shooter.ShootCommand;
+import frc.robot.subsystems.ColorWheel;
+import frc.robot.subsystems.Conveyor;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Shooter;
 
 /**
@@ -35,7 +37,6 @@ import frc.robot.subsystems.Shooter;
 public class RobotContainer {
 
   public Joystick stick = new Joystick(0);
-  public final DriveTrain m_driveTrain = new DriveTrain();
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -48,6 +49,7 @@ public class RobotContainer {
   private final Shooter m_shooter = new Shooter();
   private final Conveyor m_conveyor = new Conveyor();
   private final ColorWheel m_colorWheel = new ColorWheel();
+  private final DriveTrain m_driveTrain = new DriveTrain();
 
   public RobotContainer() {
     colorchooser.addOption("Red", "Red");
@@ -82,6 +84,14 @@ public class RobotContainer {
     // Shooter button
     new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.runShooter)
         .whenHeld(new ShootCommand(m_shooter, () -> 10.5));
+
+    // DriveStraight button
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.driveStraight)
+        .whenPressed(new DriveStraightNEW(1, 0.2, m_driveTrain.getHeading().getDegrees(), m_driveTrain));
+
+    // RotateToAngle
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.rotateToAngle)
+        .whenPressed(new RotateToAngleNEW(90, 0.1, m_driveTrain));
   }
 
   /**
