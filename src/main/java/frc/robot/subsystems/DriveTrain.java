@@ -22,14 +22,14 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;<<<<<<<HEAD
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;=======>>>>>>>8 a1fd73b3b675b1695216dd7e336402c9824d022
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveTrain extends SubsystemBase {
 
-  final WPI_TalonSRX tRF = new WPI_TalonSRX(1);<<<<<<<HEAD=======
-  Encoder encoder = new Encoder(1, 2);>>>>>>>8 a1fd73b3b675b1695216dd7e336402c9824d022
+  final WPI_TalonSRX tRF = new WPI_TalonSRX(1);
+  Encoder encoder = new Encoder(1, 2);
   final VictorSPX vRB = new VictorSPX(3);
 
   final WPI_TalonSRX tLF = new WPI_TalonSRX(2);
@@ -104,14 +104,6 @@ public class DriveTrain extends SubsystemBase {
     driveTrain.curvatureDrive(xSpeed * (isInverted ? -1 : 1), zRotation, isQuickTurn);
   }
 
-  <<<<<<<HEAD
-
-  public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-    return new DifferentialDriveWheelSpeeds(tLF.getSelectedSensorVelocity(), tRF.getSelectedSensorVelocity());
-  }
-
-  =======>>>>>>>8 a1fd73b3b675b1695216dd7e336402c9824d022
-
   public DifferentialDriveKinematics getKinematics() {
     return kinematics;
   }
@@ -143,6 +135,10 @@ public class DriveTrain extends SubsystemBase {
     pigeon.setYaw(0.0);
   }
 
+  public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+    return new DifferentialDriveWheelSpeeds(tLF.getSelectedSensorVelocity(), tRF.getSelectedSensorVelocity());
+  }
+
   public Rotation2d getHeading() {
     pigeon.getYawPitchRoll(ypr);
     return Rotation2d.fromDegrees(ypr[0]);
@@ -162,20 +158,15 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public Pose2d getPose() {
-<<<<<<< HEAD
     return odometry.getPoseMeters();
   }
 
   public void resetOdometry(Pose2d pose) {
     resetEncoders();
     odometry.resetPosition(pose, Rotation2d.fromDegrees(getHeading().getDegrees()));
-=======
-    return pose;
->>>>>>> 8a1fd73b3b675b1695216dd7e336402c9824d022
   }
 
   public void inverseInput() {
     isInverted = !isInverted;
   }
-
 }

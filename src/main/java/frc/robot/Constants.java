@@ -22,7 +22,6 @@ import edu.wpi.first.wpilibj.util.Color;
  * wherever the constants are needed, to reduce verbosity.
  */
 public final class Constants {
-<<<<<<< HEAD
     public static final double kMaxSpeedMetersPerSecond = 10;
     public static final double kMaxAccelerationMetersPerSecondSquared = 20;
     public static final double kRamseteB = 0;
@@ -31,7 +30,7 @@ public final class Constants {
     public static final double kvVoltSecondsPerMeter = 0;
     public static final double kaVoltSecondsSquaredPerMeter = 0;
     public static final double kPDriveVel = 0;
-=======
+
     public static final class DriveJoystickMappings {
         // TODO: define actual button ids later
         public static final int intakeIn = 0; // hold to intake ball
@@ -97,5 +96,4 @@ public final class Constants {
     public static final class IntakeConstants {
         public static final int intakePort = 0;
     }
->>>>>>> 8a1fd73b3b675b1695216dd7e336402c9824d022
 }
