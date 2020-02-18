@@ -48,7 +48,11 @@ public class Vision extends SubsystemBase {
   }
 
   public double getHorizAngle() {
-    return ntVision.getEntry("angleX").getDouble(0.0);
+    return ntVision.getEntry("angleToTarget").getDouble(0.0);
+  }
+
+  public double getHorizPixels() {
+    return ntVision.getEntry("pixelsToTarget").getDouble(0.0);
   }
 
   public void toggleVisionLight() {
