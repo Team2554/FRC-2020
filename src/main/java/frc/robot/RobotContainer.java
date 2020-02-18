@@ -37,7 +37,6 @@ public class RobotContainer {
    */
   Joystick m_driveJoystick = new Joystick(0);
   Joystick m_buttonJoystick = new Joystick(1);
-  SendableChooser<String> colorchooser = new SendableChooser<>();
 
   // Subsystems
   private final Shooter m_shooter = new Shooter();
@@ -45,12 +44,6 @@ public class RobotContainer {
   private final ColorWheel m_colorWheel = new ColorWheel();
 
   public RobotContainer() {
-    colorchooser.addOption("Red", "Red");
-    colorchooser.addOption("Green", "Green");
-    colorchooser.addOption("Yellow", "Yellow");
-    colorchooser.addOption("Blue", "Blue");
-
-    SmartDashboard.putData("Color Chooser", colorchooser);
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -72,7 +65,7 @@ public class RobotContainer {
     new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.colorWheelSpinNumberOfTimes)
         .whenPressed(new RotateWheel(m_colorWheel));
     new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.colorWheelTurnToColor)
-        .whenPressed(new RotateToColor(m_colorWheel, () -> colorchooser.getSelected()));
+        .whenPressed(new RotateToColor(m_colorWheel, m_colorWheel::getSelectedColor));
 
     // Shooter button
     new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.runShooter)
