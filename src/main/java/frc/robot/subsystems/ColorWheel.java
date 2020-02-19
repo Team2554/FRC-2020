@@ -35,7 +35,7 @@ public class ColorWheel extends SubsystemBase {
     m_colorChooser.addOption("Blue", "Blue");
 
     SmartDashboard.putData("Color Chooser", m_colorChooser);
-    
+
     m_colorMatcher.addColorMatch(ColorWheelConstants.kBlueTarget);
     m_colorMatcher.addColorMatch(ColorWheelConstants.kGreenTarget);
     m_colorMatcher.addColorMatch(ColorWheelConstants.kRedTarget);

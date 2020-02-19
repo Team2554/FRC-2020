@@ -30,7 +30,7 @@ public final class Constants {
         // target
         // public static final int reverseDrivetrain = 3; // toggle reverse the drive
         // direction
-        // public static final int quickTurn = 4;
+        public static final int quickTurn = 4;
         public static final int driveStraight = 1; // press to drive straight
         public static final int rotateToAngle = 2; // press to rotate
         // above is for curvature drive. see:
