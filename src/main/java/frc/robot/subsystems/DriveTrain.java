@@ -28,18 +28,18 @@ import frc.robot.Custom.SRXMagEncoder_Relative;
 
 public class DriveTrain extends SubsystemBase {
 
-  final WPI_TalonSRX tRF = new WPI_TalonSRX(1);
-  final VictorSPX vRB = new VictorSPX(3);
+  final WPI_TalonSRX tRF = new WPI_TalonSRX(4);
+  final VictorSPX vRB = new VictorSPX(6);
 
-  final WPI_TalonSRX tLF = new WPI_TalonSRX(2);
-  final VictorSPX vLB = new VictorSPX(4);
+  final WPI_TalonSRX tLF = new WPI_TalonSRX(3);
+  final VictorSPX vLB = new VictorSPX(5);
 
   final SRXMagEncoder_Relative rightEncoder = new SRXMagEncoder_Relative(tRF);
   final SRXMagEncoder_Relative leftEncoder = new SRXMagEncoder_Relative(tLF);
 
   final DifferentialDrive driveTrain = new DifferentialDrive(tLF, tRF);
 
-  final PigeonIMU pigeon = new PigeonIMU(0);
+  final PigeonIMU pigeon = new PigeonIMU(10);
 
   final double maxVoltage = 10;
 
