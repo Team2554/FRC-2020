@@ -23,26 +23,30 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Custom.SRXMagEncoder_Relative;
 
 public class DriveTrain extends SubsystemBase {
 
   final WPI_TalonSRX tRF = new WPI_TalonSRX(1);
-  Encoder encoder = new Encoder(1, 2);
   final VictorSPX vRB = new VictorSPX(3);
 
   final WPI_TalonSRX tLF = new WPI_TalonSRX(2);
   final VictorSPX vLB = new VictorSPX(4);
 
+  final SRXMagEncoder_Relative rightEncoder = new SRXMagEncoder_Relative(tRF);
+  final SRXMagEncoder_Relative leftEncoder = new SRXMagEncoder_Relative(tLF);
+
   final DifferentialDrive driveTrain = new DifferentialDrive(tLF, tRF);
 
   final PigeonIMU pigeon = new PigeonIMU(0);
 
-  final double maxVoltage = 12;
+  final double maxVoltage = 10;
 
-  final int encoderUnitsPerRotation = 4096;
-  final double wheelDiameterMeters = 0.1;
-  final double differentialWidthMeters = 0.5;
+  final double wheelDiameterInches = 6;
+  final double differentialWidthMeters = 0.557176939999995;
 
   DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(differentialWidthMeters);
   DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(getHeading());
@@ -51,8 +55,6 @@ public class DriveTrain extends SubsystemBase {
 
   PIDController leftPIDController = new PIDController(2.95, 0, 0);
   PIDController rightPIDController = new PIDController(2.95, 0, 0);
-
-  Pose2d pose = new Pose2d();
 
   double[] ypr = new double[3];
 
@@ -66,9 +68,6 @@ public class DriveTrain extends SubsystemBase {
     tLF.configFactoryDefault();
     vRB.configFactoryDefault();
     vLB.configFactoryDefault();
-
-    tRF.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-    tLF.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 
     tRF.setNeutralMode(NeutralMode.Brake);
     tLF.setNeutralMode(NeutralMode.Brake);
@@ -88,7 +87,14 @@ public class DriveTrain extends SubsystemBase {
     tLF.setInverted(false);
     vLB.setInverted(InvertType.FollowMaster);
 
+    leftEncoder.setWheelDiameter(Units.inchesToMeters(wheelDiameterInches));
+    rightEncoder.setWheelDiameter(Units.inchesToMeters(wheelDiameterInches));
+
     resetEncoders();
+  }
+
+  public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+    return new DifferentialDriveWheelSpeeds(leftEncoder.getVelocity(), rightEncoder.getVelocity());
   }
 
   public PIDController getLeftPIDController() {
@@ -107,27 +113,19 @@ public class DriveTrain extends SubsystemBase {
     return kinematics;
   }
 
-  public double getLeftMeters() {
-    return encoderTicksToMeters(tLF.getSelectedSensorPosition());
-  }
-
-  public double getRightMeters() {
-    return encoderTicksToMeters(tRF.getSelectedSensorPosition());
-  }
-
   public void tankDriveVolts(double leftVolts, double rightVolts) {
     tLF.set(ControlMode.PercentOutput, leftVolts / maxVoltage);
     tRF.set(ControlMode.PercentOutput, rightVolts / maxVoltage);
+    driveTrain.feed();
   }
 
   public void resetEncoders() {
-    tLF.setSelectedSensorPosition(0);
-    tRF.setSelectedSensorPosition(0);
+    leftEncoder.reset();
+    rightEncoder.reset();
   }
 
   public double getAverageEncoderDistance() {
-    return (encoderTicksToMeters(tLF.getSelectedSensorPosition())
-        + encoderTicksToMeters(tRF.getSelectedSensorPosition())) / 2;
+    return (leftEncoder.getPosition() + rightEncoder.getPosition()) / 2;
   }
 
   public void resetGyro() {
@@ -136,24 +134,16 @@ public class DriveTrain extends SubsystemBase {
 
   public Rotation2d getHeading() {
     pigeon.getYawPitchRoll(ypr);
-    return Rotation2d.fromDegrees(ypr[0]);
-  }
-
-  public double encoderTicksToMeters(int encoderVal) {
-    return ((double) encoderVal / encoderUnitsPerRotation) * Math.PI * wheelDiameterMeters;
-  }
-
-  public double encoderTicksPer100msToMetersPerSecond(int encoderVal) {
-    return encoderTicksToMeters(encoderVal) / 0.1;
+    return Rotation2d.fromDegrees(Math.IEEEremainder(ypr[0], 360));
   }
 
   @Override
   public void periodic() {
-    pose = odometry.update(getHeading(), getLeftMeters(), getRightMeters());
+    odometry.update(getHeading(), leftEncoder.getPosition(), rightEncoder.getPosition());
   }
 
   public Pose2d getPose() {
-    return pose;
+    return odometry.getPoseMeters();
   }
 
   public void inverseInput() {
