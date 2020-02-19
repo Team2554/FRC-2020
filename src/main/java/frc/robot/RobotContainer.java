@@ -69,9 +69,9 @@ public class RobotContainer {
         .whenPressed(new WhenConveyorIn(m_conveyor));
 
     // Color wheel buttons
-    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.colorWheelSpinNumberOfTimes)
+    new JoystickButton(m_driveJoystick, Constants.ButtonJoystickMappings.colorWheelSpinNumberOfTimes)
         .whenPressed(new RotateWheel(m_colorWheel));
-    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.colorWheelTurnToColor)
+    new JoystickButton(m_driveJoystick, Constants.ButtonJoystickMappings.colorWheelTurnToColor)
         .whenPressed(new RotateToColor(m_colorWheel, () -> colorchooser.getSelected()));
 
     // Shooter button
