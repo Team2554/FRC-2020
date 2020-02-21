@@ -48,7 +48,6 @@ public class DriveStraightNEW extends PIDCommand {
   }
 
   public void initialize() {
-    m_driveTrain.resetEncoders();
   }
 
   public double returnPIDInput() {

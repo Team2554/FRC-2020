@@ -49,7 +49,6 @@ public class RotateToAngleNEW extends PIDCommand {
   }
 
   public void initialize() {
-    m_driveTrain.resetGyro();
   }
 
   public void stop() {
