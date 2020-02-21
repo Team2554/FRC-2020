@@ -25,7 +25,6 @@ public class SRXMagEncoder_Relative {
     public SRXMagEncoder_Relative(TalonSRX talonSRX, boolean reverseDirection) {
         talon = talonSRX;
         this.reverseDirection = reverseDirection;
-        commonConstruct();
     }
 
     /**
@@ -36,7 +35,6 @@ public class SRXMagEncoder_Relative {
     public SRXMagEncoder_Relative(WPI_TalonSRX talonSRX, boolean reverseDirection) {
         talon = (TalonSRX) talonSRX;
         this.reverseDirection = reverseDirection;
-        commonConstruct();
     }
 
     /**
@@ -46,7 +44,6 @@ public class SRXMagEncoder_Relative {
      */
     public SRXMagEncoder_Relative(TalonSRX talonSRX) {
         talon = talonSRX;
-        commonConstruct();
     }
 
     /**
@@ -56,12 +53,14 @@ public class SRXMagEncoder_Relative {
      */
     public SRXMagEncoder_Relative(WPI_TalonSRX talonSRX) {
         talon = (TalonSRX) talonSRX;
-        commonConstruct();
     }
 
-    private void commonConstruct() {
+    /**
+     * used to configure the Talon SRX to use an encoder. Must be called in
+     * subsystem constructor.
+     */
+    public void configure() {
         talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-        reset();
     }
 
     /**

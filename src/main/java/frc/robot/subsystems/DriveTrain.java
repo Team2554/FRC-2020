@@ -8,14 +8,12 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -24,24 +22,26 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Custom.SRXMagEncoder_Relative;
 
 public class DriveTrain extends SubsystemBase {
 
-  final WPI_TalonSRX tRF = new WPI_TalonSRX(1);
-  final VictorSPX vRB = new VictorSPX(3);
+  final WPI_TalonSRX tRF = new WPI_TalonSRX(4);
+  final VictorSPX vRB = new VictorSPX(6);
 
-  final WPI_TalonSRX tLF = new WPI_TalonSRX(2);
-  final VictorSPX vLB = new VictorSPX(4);
+  final WPI_TalonSRX tLF = new WPI_TalonSRX(3);
+  final VictorSPX vLB = new VictorSPX(5);
 
   final SRXMagEncoder_Relative rightEncoder = new SRXMagEncoder_Relative(tRF);
   final SRXMagEncoder_Relative leftEncoder = new SRXMagEncoder_Relative(tLF);
 
   final DifferentialDrive driveTrain = new DifferentialDrive(tLF, tRF);
 
-  final PigeonIMU pigeon = new PigeonIMU(0);
+  final PigeonIMU pigeon = new PigeonIMU(10);
 
   final double maxVoltage = 10;
 
@@ -55,8 +55,6 @@ public class DriveTrain extends SubsystemBase {
 
   PIDController leftPIDController = new PIDController(2.95, 0, 0);
   PIDController rightPIDController = new PIDController(2.95, 0, 0);
-
-  double[] ypr = new double[3];
 
   boolean isInverted = false;
 
@@ -90,7 +88,11 @@ public class DriveTrain extends SubsystemBase {
     leftEncoder.setWheelDiameter(Units.inchesToMeters(wheelDiameterInches));
     rightEncoder.setWheelDiameter(Units.inchesToMeters(wheelDiameterInches));
 
+    leftEncoder.configure();
+    rightEncoder.configure();
+
     resetEncoders();
+    resetGyro();
   }
 
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
@@ -128,11 +130,16 @@ public class DriveTrain extends SubsystemBase {
     return (leftEncoder.getPosition() + rightEncoder.getPosition()) / 2;
   }
 
+  public double getAverageEncoderVelocity() {
+    return (leftEncoder.getVelocity() + rightEncoder.getVelocity()) / 2;
+  }
+
   public void resetGyro() {
     pigeon.setYaw(0.0);
   }
 
   public Rotation2d getHeading() {
+    double[] ypr = new double[3];
     pigeon.getYawPitchRoll(ypr);
     return Rotation2d.fromDegrees(Math.IEEEremainder(ypr[0], 360));
   }
@@ -140,6 +147,8 @@ public class DriveTrain extends SubsystemBase {
   @Override
   public void periodic() {
     odometry.update(getHeading(), leftEncoder.getPosition(), rightEncoder.getPosition());
+    SmartDashboard.putNumber("Gyro", getHeading().getDegrees());
+    SmartDashboard.putNumber("Velocity", getAverageEncoderVelocity());
   }
 
   public Pose2d getPose() {
