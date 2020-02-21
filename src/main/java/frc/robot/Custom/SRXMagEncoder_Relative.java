@@ -141,7 +141,7 @@ public class SRXMagEncoder_Relative {
      *         Output units are [unit of distance per rotation] per second.
      */
     public double getVelocity() {
-        return (((double) getRawVelocity() / ticksPerRotation) * distancePerRotation) / 0.1;
+        return (((double) getRawVelocity() / ticksPerRotation) * distancePerRotation) * 10;
     }
 
     /**
