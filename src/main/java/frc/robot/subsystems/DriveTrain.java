@@ -22,6 +22,8 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Custom.SRXMagEncoder_Relative;
@@ -53,8 +55,6 @@ public class DriveTrain extends SubsystemBase {
 
   PIDController leftPIDController = new PIDController(2.95, 0, 0);
   PIDController rightPIDController = new PIDController(2.95, 0, 0);
-
-  double[] ypr = new double[3];
 
   boolean isInverted = false;
 
@@ -88,7 +88,11 @@ public class DriveTrain extends SubsystemBase {
     leftEncoder.setWheelDiameter(Units.inchesToMeters(wheelDiameterInches));
     rightEncoder.setWheelDiameter(Units.inchesToMeters(wheelDiameterInches));
 
+    leftEncoder.configure();
+    rightEncoder.configure();
+
     resetEncoders();
+    resetGyro();
   }
 
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
@@ -126,11 +130,16 @@ public class DriveTrain extends SubsystemBase {
     return (leftEncoder.getPosition() + rightEncoder.getPosition()) / 2;
   }
 
+  public double getAverageEncoderVelocity() {
+    return (leftEncoder.getVelocity() + rightEncoder.getVelocity()) / 2;
+  }
+
   public void resetGyro() {
     pigeon.setYaw(0.0);
   }
 
   public Rotation2d getHeading() {
+    double[] ypr = new double[3];
     pigeon.getYawPitchRoll(ypr);
     return Rotation2d.fromDegrees(Math.IEEEremainder(ypr[0], 360));
   }
@@ -138,6 +147,8 @@ public class DriveTrain extends SubsystemBase {
   @Override
   public void periodic() {
     odometry.update(getHeading(), leftEncoder.getPosition(), rightEncoder.getPosition());
+    SmartDashboard.putNumber("Gyro", getHeading().getDegrees());
+    SmartDashboard.putNumber("Velocity", getAverageEncoderVelocity());
   }
 
   public Pose2d getPose() {
