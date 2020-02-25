@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.DriveJoystickMappings;
 import frc.robot.commands.DriveTrain.DefaultDrive;
-import frc.robot.commands.DriveTrain.DriveStraightNEW;
 import frc.robot.commands.DriveTrain.RotateToAngleNEW;
 import frc.robot.subsystems.DriveTrain;
 
@@ -78,10 +77,6 @@ public class RobotContainer {
     // new JoystickButton(m_buttonJoystick,
     // Constants.ButtonJoystickMappings.runShooter)
     // .whenHeld(new ShootCommand(m_shooter, () -> 10.5));
-
-    // DriveStraight button
-    new JoystickButton(m_buttonJoystick, Constants.DriveJoystickMappings.driveStraight)
-        .whenPressed(new DriveStraightNEW(1, 0.2, m_driveTrain.getHeading().getDegrees(), m_driveTrain));
 
     // RotateToAngle
     new JoystickButton(m_buttonJoystick, Constants.DriveJoystickMappings.rotateToAngle)
