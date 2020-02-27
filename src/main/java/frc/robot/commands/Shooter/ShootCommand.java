@@ -33,13 +33,13 @@ public class ShootCommand extends CommandBase {
 
   @Override
   public void execute() {
-    m_shooter.setVoltage(m_voltageSupplier.getAsDouble());
+    m_shooter.startMotor(m_voltageSupplier.getAsDouble());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_shooter.stopMotor();
+    m_shooter.stop();
   }
 
   // Returns true when the command should end.
