@@ -24,11 +24,15 @@ import edu.wpi.first.wpilibj.util.Color;
 public final class Constants {
     public static final class DriveJoystickMappings {
         // TODO: define actual button ids later
-        public static final int intakeIn = 0; // hold to intake ball
-        public static final int runFlywheel = 1; // hold to spin flywheel
-        public static final int angleToVision = 2; // hold to keep align to vision target
-        public static final int reverseDrivetrain = 3; // toggle reverse the drive direction
+        // public static final int intakeIn = 0; // hold to intake ball
+        // public static final int runFlywheel = 1; // hold to spin flywheel
+        // public static final int angleToVision = 2; // hold to keep align to vision
+        // target
+        // public static final int reverseDrivetrain = 3; // toggle reverse the drive
+        // direction
         public static final int quickTurn = 4;
+        public static final int driveStraight = 1; // press to drive straight
+        public static final int rotateToAngle = 2; // press to rotate
         // above is for curvature drive. see:
         // https://first.wpi.edu/FRC/roborio/release/docs/java/edu/wpi/first/wpilibj/drive/DifferentialDrive.html#curvatureDrive(double,double,boolean)
     }
