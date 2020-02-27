@@ -7,25 +7,38 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.VictorSP;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase {
-  VictorSP shootMotor;
+  TalonSRX shootMotor = new TalonSRX(0);
 
   /**
    * Creates a new Shooter.
    */
   public Shooter() {
-    shootMotor = new VictorSP(Constants.ShooterConstants.victorPort);
+    shootMotor = new TalonSRX(Constants.ShooterConstants.talonPort);
+    shootMotor.setSensorPhase(true);
+    shootMotor.enableVoltageCompensation(true);
+    shootMotor.configVoltageCompSaturation(11);
   }
 
-  public void startMotor(double voltage) {
-    shootMotor.setVoltage(voltage);
+  public void startMotor(double demand) {
+    shootMotor.set(ControlMode.PercentOutput, demand);
+  }
+
+  public int getSpeed() {
+    return shootMotor.getSelectedSensorVelocity();
+  }
+
+  public boolean isShootable() {
+    return getSpeed() > 24000;
   }
 
   public void stop() {
-    shootMotor.setVoltage(0);
+    shootMotor.set(ControlMode.PercentOutput, 0);
   }
 }

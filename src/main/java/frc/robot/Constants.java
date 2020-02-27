@@ -46,6 +46,6 @@ public final class Constants {
     }
 
     public static final class ShooterConstants {
-        public static final int victorPort = 2; // port for victorsp
+        public static final int talonPort = 0; // canid for talon
     }
 }
