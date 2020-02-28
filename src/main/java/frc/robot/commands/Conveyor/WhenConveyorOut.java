@@ -13,7 +13,6 @@ import frc.robot.subsystems.Conveyor;
 
 public class WhenConveyorOut extends CommandBase {
   private final Conveyor m_conveyor;
-  private Timer baseTime = new Timer();
   private float timeTaken = 1;
   private static double checkTime;
 
