@@ -16,8 +16,6 @@ public class Elevator extends SubsystemBase {
   public DigitalInput bottomSwitch = new DigitalInput(0);
   public DigitalInput topSwitch = new DigitalInput(1);
 
-  boolean goingUp = true;
-
   public Elevator() {
   }
 
@@ -25,14 +23,12 @@ public class Elevator extends SubsystemBase {
     motor1.set(0);
   }
 
-  public void startElevator() {
-    if (goingUp && !atTop()) {
-      motor1.set(1);
-    } else if (!goingUp && !atBottom()) {
-      motor1.set(-1);
-    } else {
-      stopElevator();
-    }
+  public void goUp() {
+    motor1.set(1);
+  }
+
+  public void goDown() {
+    motor1.set(-1);
   }
 
   public boolean atTop() {
@@ -41,13 +37,5 @@ public class Elevator extends SubsystemBase {
 
   public boolean atBottom() {
     return bottomSwitch.get();
-  }
-
-  public void goDown() {
-    goingUp = false;
-  }
-
-  public void goUp() {
-    goingUp = true;
   }
 }

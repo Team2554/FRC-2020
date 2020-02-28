@@ -10,13 +10,13 @@ package frc.robot.commands.Elevator;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Elevator;
 
-public class ElevatorUp extends CommandBase {
+public class ElevatorToBottom extends CommandBase {
   private Elevator m_elevator;
 
   /**
-   * Creates a new ElevatorUp.
+   * Creates a new WhenHeldDown.
    */
-  public ElevatorUp(Elevator elevator) {
+  public ElevatorToBottom(Elevator elevator) {
     m_elevator = elevator;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_elevator);
@@ -27,10 +27,9 @@ public class ElevatorUp extends CommandBase {
   public void initialize() {
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  public void execute() {
-    m_elevator.goUp();
-    m_elevator.startElevator();
+  // Called every time the scheduler runs while the command is scheduled
+  public void execute(boolean reverse) {
+    m_elevator.goDown();
   }
 
   // Called once the command ends or is interrupted.
@@ -42,6 +41,6 @@ public class ElevatorUp extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_elevator.atTop();
+    return m_elevator.atBottom();
   }
 }

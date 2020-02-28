@@ -13,10 +13,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.Elevator.ElevatorDown;
-import frc.robot.commands.Elevator.ElevatorUp;
-import frc.robot.commands.Elevator.WhenHeldDown;
-import frc.robot.commands.Elevator.WhenHeldUp;
+import frc.robot.commands.Elevator.ElevatorToBottom;
+import frc.robot.commands.Elevator.ElevatorToTop;
 import frc.robot.subsystems.Elevator;
 import frc.robot.Constants.DriveJoystickMappings;
 import frc.robot.commands.DriveTrain.DefaultDrive;
@@ -67,14 +65,14 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Elevator buttons
     new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.elevatorUp)
-        .whileHeld(new WhenHeldUp(m_elevator));
+        .whileHeld(new ElevatorToTop(m_elevator));
     new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.elevatorDown)
-        .whileHeld(new WhenHeldDown(m_elevator));
+        .whileHeld(new ElevatorToBottom(m_elevator));
 
     new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.setElevatorTop)
-        .whenPressed(new ElevatorUp(m_elevator));
+        .whenPressed(new ElevatorToTop(m_elevator));
     new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.setElevatorButtom)
-        .whenPressed(new ElevatorDown(m_elevator));
+        .whenPressed(new ElevatorToBottom(m_elevator));
 
     // example on how to use the drive mappings in constants class:
     // new JoystickButton(buttonJoystick,
