@@ -10,11 +10,12 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.ElevatorConstants;
 
 public class Elevator extends SubsystemBase {
-  public Victor motor1 = new Victor(0);
-  public DigitalInput bottomSwitch = new DigitalInput(0);
-  public DigitalInput topSwitch = new DigitalInput(1);
+  public Victor motor1 = new Victor(ElevatorConstants.motorPort);
+  public DigitalInput bottomSwitch = new DigitalInput(ElevatorConstants.bottomSwitch);
+  public DigitalInput topSwitch = new DigitalInput(ElevatorConstants.topSwitch);
 
   public Elevator() {
   }

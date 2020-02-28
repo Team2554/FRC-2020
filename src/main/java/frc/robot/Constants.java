@@ -91,4 +91,10 @@ public final class Constants {
     public static final class IntakeConstants {
         public static final int intakePort = 0;
     }
+
+    public static final class ElevatorConstants {
+        public static final int bottomSwitch = 0;
+        public static final int topSwitch = 1;
+        public static final int motorPort = 2;
+    }
 }
