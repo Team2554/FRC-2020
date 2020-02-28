@@ -8,28 +8,42 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ElevatorConstants;
 
 public class Elevator extends SubsystemBase {
-  public Victor motor1 = new Victor(ElevatorConstants.motorPort);
+  public Victor elevatorMotor = new Victor(ElevatorConstants.motorPort);
+
+  public Victor levelAdjusterMotorOne = new Victor(ElevatorConstants.levelAdjusterMotorOnePort);
+  public Victor levelAdjusterMotorTwo = new Victor(ElevatorConstants.levelAdjusterMotorTwoPort);
+  public SpeedControllerGroup levelAdjuster = new SpeedControllerGroup(levelAdjusterMotorOne, levelAdjusterMotorTwo);
+
   public DigitalInput bottomSwitch = new DigitalInput(ElevatorConstants.bottomSwitch);
   public DigitalInput topSwitch = new DigitalInput(ElevatorConstants.topSwitch);
 
   public Elevator() {
   }
 
+  public void startLevelAdjuster(int direction) {
+    levelAdjuster.set(direction * 0.3);
+  }
+
+  public void stopLevelAdjuster() {
+    levelAdjuster.stopMotor();
+  }
+
   public void stopElevator() {
-    motor1.set(0);
+    elevatorMotor.stopMotor();
   }
 
   public void goUp() {
-    motor1.set(1);
+    elevatorMotor.set(1);
   }
 
   public void goDown() {
-    motor1.set(-1);
+    elevatorMotor.set(-1);
   }
 
   public boolean atTop() {

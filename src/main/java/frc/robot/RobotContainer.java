@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Elevator.ElevatorToBottom;
 import frc.robot.commands.Elevator.ElevatorToTop;
+import frc.robot.commands.Elevator.LevelAdjusterLeft;
 import frc.robot.subsystems.Elevator;
 import frc.robot.Constants.DriveJoystickMappings;
 import frc.robot.commands.DriveTrain.DefaultDrive;
@@ -73,6 +74,12 @@ public class RobotContainer {
         .whenPressed(new ElevatorToTop(m_elevator));
     new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.setElevatorButtom)
         .whenPressed(new ElevatorToBottom(m_elevator));
+
+    // Elevator Level Adjuster
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.levelAdjusterLeft)
+        .whenPressed(new LevelAdjusterLeft(m_elevator));
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.levelAdjusterRight)
+        .whenPressed(new LevelAdjusterLeft(m_elevator));
 
     // example on how to use the drive mappings in constants class:
     // new JoystickButton(buttonJoystick,
