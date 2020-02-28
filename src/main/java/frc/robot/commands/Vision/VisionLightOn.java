@@ -5,46 +5,44 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Shooter;
-
-import java.util.function.DoubleSupplier;
+package frc.robot.commands.Vision;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Vision;
 
-public class ShootCommand extends CommandBase {
-  Shooter m_shooter;
-  DoubleSupplier m_voltageSupplier;
-
+public class VisionLightOn extends CommandBase {
   /**
-   * Creates a new ShootCommand.
+   * Creates a new VisionLightOn.
    */
-  public ShootCommand(Shooter shooter, DoubleSupplier voltageSupplier) {
-    m_shooter = shooter;
-    m_voltageSupplier = voltageSupplier;
 
-    addRequirements(m_shooter);
+  Vision m_vision;
+
+  public VisionLightOn(Vision vision) {
+    m_vision = vision;
+    addRequirements(m_vision);
+
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_vision.visionLightOn();
   }
 
+  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shooter.startMotor(m_voltageSupplier.getAsDouble());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_shooter.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
