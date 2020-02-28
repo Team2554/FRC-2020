@@ -16,17 +16,17 @@ public class Conveyor extends SubsystemBase {
   /**
    * Creates a new Conveyor.
    */
-  VictorSP leftConveyor1 = new VictorSP(ConveyorConstants.leftConveyor1Port);
-  VictorSP leftConveyor2 = new VictorSP(ConveyorConstants.leftConveyor2Port);
+  private final VictorSP leftConveyor1 = new VictorSP(ConveyorConstants.leftConveyor1Port);
+  private final VictorSP leftConveyor2 = new VictorSP(ConveyorConstants.leftConveyor2Port);
 
-  SpeedControllerGroup leftConveyor = new SpeedControllerGroup(leftConveyor1, leftConveyor2);
+  private final SpeedControllerGroup leftConveyor = new SpeedControllerGroup(leftConveyor1, leftConveyor2);
 
-  VictorSP rightConveyor1 = new VictorSP(ConveyorConstants.rightConveyor1Port);
-  VictorSP rightConveyor2 = new VictorSP(ConveyorConstants.rightConveyor2Port);
+  private final VictorSP rightConveyor1 = new VictorSP(ConveyorConstants.rightConveyor1Port);
+  private final VictorSP rightConveyor2 = new VictorSP(ConveyorConstants.rightConveyor2Port);
 
-  SpeedControllerGroup rightConveyor = new SpeedControllerGroup(rightConveyor1, rightConveyor2);
+  private final SpeedControllerGroup rightConveyor = new SpeedControllerGroup(rightConveyor1, rightConveyor2);
 
-  VictorSP bottomConveyor = new VictorSP(ConveyorConstants.bottomConveyorPort);
+  private final VictorSP bottomConveyor = new VictorSP(ConveyorConstants.bottomConveyorPort);
 
   public Conveyor() {
   }
