@@ -62,6 +62,7 @@ public class RotateToColor extends CommandBase {
     @Override
     public boolean isFinished() {
         // Need to take absolute value because these distances can be negative
-        return (Math.abs(m_colorWheel.getDistance()) >= Math.abs(m_distanceNeeded));
+        return ((Math.abs(m_colorWheel.getDistance()) >= Math.abs(m_distanceNeeded))
+                && (m_colorWheel.getColor().equals(m_inputColor.get())));
     }
 }
