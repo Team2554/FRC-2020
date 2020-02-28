@@ -13,6 +13,10 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.Elevator.ElevatorToBottom;
+import frc.robot.commands.Elevator.ElevatorToTop;
+import frc.robot.commands.Elevator.LevelAdjusterLeft;
+import frc.robot.subsystems.Elevator;
 import frc.robot.Constants.DriveJoystickMappings;
 import frc.robot.commands.DriveTrain.DefaultDrive;
 import frc.robot.commands.DriveTrain.DriveStraightNEW;
@@ -38,6 +42,7 @@ public class RobotContainer {
   Joystick m_buttonJoystick = new Joystick(1);
 
   // Subsystems
+  public final Elevator m_elevator = new Elevator();
   // private final Shooter m_shooter = new Shooter();
   // private final Conveyor m_conveyor = new Conveyor();
   // private final ColorWheel m_colorWheel = new ColorWheel();
@@ -59,6 +64,26 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    // Elevator buttons
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.elevatorUp)
+        .whileHeld(new ElevatorToTop(m_elevator));
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.elevatorDown)
+        .whileHeld(new ElevatorToBottom(m_elevator));
+
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.setElevatorTop)
+        .whenPressed(new ElevatorToTop(m_elevator));
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.setElevatorButtom)
+        .whenPressed(new ElevatorToBottom(m_elevator));
+
+    // Elevator Level Adjuster
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.levelAdjusterLeft)
+        .whenPressed(new LevelAdjusterLeft(m_elevator));
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.levelAdjusterRight)
+        .whenPressed(new LevelAdjusterLeft(m_elevator));
+
+    // example on how to use the drive mappings in constants class:
+    // new JoystickButton(buttonJoystick,
+    // Constants.ButtonJoystickMappings.intakeIn).whileHeld(new InstantCommand());
     // Conveyor buttons
     // new JoystickButton(m_buttonJoystick,
     // Constants.ButtonJoystickMappings.conveyorOut)

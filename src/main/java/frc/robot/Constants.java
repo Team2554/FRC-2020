@@ -50,6 +50,8 @@ public final class Constants {
         public static final int setElevatorButtom = 9; // press to set elevator to bottom using limit switch
         public static final int colorWheelTurnToColor = 10; // press to spin the color wheel to a certain color
         public static final int colorWheelSpinNumberOfTimes = 11; // press to spin the color wheel 4 times
+        public static final int levelAdjusterLeft = 12; // Level adjuster left
+        public static final int levelAdjusterRight = 13; // Level adjuster right
     }
 
     public static final class ColorWheelConstants {
@@ -90,5 +92,13 @@ public final class Constants {
 
     public static final class IntakeConstants {
         public static final int intakePort = 0;
+    }
+
+    public static final class ElevatorConstants {
+        public static final int bottomSwitch = 0;
+        public static final int topSwitch = 1;
+        public static final int motorPort = 2;
+        public static final int levelAdjusterMotorOnePort = 0;
+        public static final int levelAdjusterMotorTwoPort = 1;
     }
 }
