@@ -16,32 +16,37 @@ public class Conveyor extends SubsystemBase {
   /**
    * Creates a new Conveyor.
    */
-  VictorSP topConveyorLeft1 = new VictorSP(ConveyorConstants.topConveyorLeft1);
-  VictorSP topConveyorLeft2 = new VictorSP(ConveyorConstants.topConveyorLeft2);
+  VictorSP leftConveyor1 = new VictorSP(ConveyorConstants.leftConveyor1Port);
+  VictorSP leftConveyor2 = new VictorSP(ConveyorConstants.leftConveyor2Port);
 
-  SpeedControllerGroup topConveyor = new SpeedControllerGroup(topConveyorLeft1, topConveyorLeft2);
+  SpeedControllerGroup leftConveyor = new SpeedControllerGroup(leftConveyor1, leftConveyor2);
 
-  VictorSP topConveyorRight1 = new VictorSP(ConveyorConstants.topConveyorRight1);
-  VictorSP topConveyorRight2 = new VictorSP(ConveyorConstants.topConveyorRight2);
+  VictorSP rightConveyor1 = new VictorSP(ConveyorConstants.rightConveyor1Port);
+  VictorSP rightConveyor2 = new VictorSP(ConveyorConstants.rightConveyor2Port);
 
-  SpeedControllerGroup bottomConveyor = new SpeedControllerGroup(topConveyorRight1, topConveyorRight2);
+  SpeedControllerGroup rightConveyor = new SpeedControllerGroup(rightConveyor1, rightConveyor2);
+
+  VictorSP bottomConveyor = new VictorSP(ConveyorConstants.bottomConveyorPort);
 
   public Conveyor() {
   }
 
   public void conveyorIn() {
-    bottomConveyor.set(ConveyorConstants.conveyorSpeed);
-    topConveyor.set(ConveyorConstants.conveyorSpeed);
+    bottomConveyor.setVoltage(ConveyorConstants.bottomConveyorVoltage);
+    leftConveyor.setVoltage(ConveyorConstants.topConveyorVoltage);
+    rightConveyor.setVoltage(-ConveyorConstants.topConveyorVoltage);
   }
 
   public void conveyorOut() {
-    bottomConveyor.set(-ConveyorConstants.conveyorSpeed);
-    topConveyor.set(-ConveyorConstants.conveyorSpeed);
+    bottomConveyor.setVoltage(-ConveyorConstants.bottomConveyorVoltage);
+    leftConveyor.setVoltage(ConveyorConstants.topConveyorVoltage);
+    rightConveyor.setVoltage(-ConveyorConstants.topConveyorVoltage);
   }
 
   public void stopConveyor() {
-    bottomConveyor.set(0);
-    topConveyor.set(0);
+    bottomConveyor.stopMotor();
+    leftConveyor.stopMotor();
+    rightConveyor.stopMotor();
   }
 
   @Override
