@@ -9,15 +9,15 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ElevatorConstants;
 
 public class Elevator extends SubsystemBase {
-  public Victor elevatorMotor = new Victor(ElevatorConstants.motorPort);
+  public VictorSP elevatorMotor = new VictorSP(ElevatorConstants.motorPort);
 
-  public Victor levelAdjusterMotorOne = new Victor(ElevatorConstants.levelAdjusterMotorOnePort);
-  public Victor levelAdjusterMotorTwo = new Victor(ElevatorConstants.levelAdjusterMotorTwoPort);
+  public VictorSP levelAdjusterMotorOne = new VictorSP(ElevatorConstants.levelAdjusterMotorOnePort);
+  public VictorSP levelAdjusterMotorTwo = new VictorSP(ElevatorConstants.levelAdjusterMotorTwoPort);
   public SpeedControllerGroup levelAdjuster = new SpeedControllerGroup(levelAdjusterMotorOne, levelAdjusterMotorTwo);
 
   public DigitalInput bottomSwitch = new DigitalInput(ElevatorConstants.bottomSwitch);
