@@ -13,18 +13,23 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.Elevator.ElevatorToBottom;
-import frc.robot.commands.Elevator.ElevatorToTop;
-import frc.robot.commands.Elevator.LevelAdjusterLeft;
-import frc.robot.subsystems.Elevator;
 import frc.robot.Constants.DriveJoystickMappings;
 import frc.robot.commands.ColorWheel.RotateToColor;
 import frc.robot.commands.ColorWheel.RotateWheel;
+import frc.robot.commands.Conveyor.WhenConveyorIn;
+import frc.robot.commands.Conveyor.WhenConveyorOut;
 import frc.robot.commands.DriveTrain.DefaultDrive;
 import frc.robot.commands.DriveTrain.DriveStraightNEW;
 import frc.robot.commands.DriveTrain.RotateToAngleNEW;
+import frc.robot.commands.Elevator.ElevatorToBottom;
+import frc.robot.commands.Elevator.ElevatorToTop;
+import frc.robot.commands.Elevator.LevelAdjusterLeft;
+import frc.robot.commands.Shooter.ShootCommand;
 import frc.robot.subsystems.ColorWheel;
+import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Shooter;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -35,19 +40,16 @@ import frc.robot.subsystems.DriveTrain;
  */
 
 public class RobotContainer {
-
-    public Joystick stick = new Joystick(0);
-
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
-    Joystick m_driveJoystick = new Joystick(0);
-    Joystick m_buttonJoystick = new Joystick(1);
+    private final Joystick m_driveJoystick = new Joystick(0);
+    private final Joystick m_buttonJoystick = new Joystick(1);
 
     // Subsystems
-    public final Elevator m_elevator = new Elevator();
-    // private final Shooter m_shooter = new Shooter();
-    // private final Conveyor m_conveyor = new Conveyor();
+    private final Elevator m_elevator = new Elevator();
+    private final Shooter m_shooter = new Shooter();
+    private final Conveyor m_conveyor = new Conveyor();
     private final ColorWheel m_colorWheel = new ColorWheel();
     private final DriveTrain m_driveTrain = new DriveTrain();
 
@@ -88,12 +90,10 @@ public class RobotContainer {
         // new JoystickButton(buttonJoystick,
         // Constants.ButtonJoystickMappings.intakeIn).whileHeld(new InstantCommand());
         // Conveyor buttons
-        // new JoystickButton(m_buttonJoystick,
-        // Constants.ButtonJoystickMappings.conveyorOut)
-        // .whenPressed(new WhenConveyorOut(m_conveyor));
-        // new JoystickButton(m_buttonJoystick,
-        // Constants.ButtonJoystickMappings.conveyorIn)
-        // .whenPressed(new WhenConveyorIn(m_conveyor));
+        new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.conveyorOut)
+                .whenPressed(new WhenConveyorOut(m_conveyor, m_shooter));
+        new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.conveyorIn)
+                .whenPressed(new WhenConveyorIn(m_conveyor, m_shooter));
 
         // Color wheel buttons
         new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.colorWheelSpinNumberOfTimes)
@@ -101,10 +101,9 @@ public class RobotContainer {
         new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.colorWheelTurnToColor)
                 .whenPressed(new RotateToColor(m_colorWheel, m_colorWheel::getSelectedColor));
 
-        // // Shooter button
-        // new JoystickButton(m_buttonJoystick,
-        // Constants.ButtonJoystickMappings.runShooter)
-        // .whenHeld(new ShootCommand(m_shooter, () -> 10.5));
+        // Shooter button
+        new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.runShooter)
+                .whenHeld(new ShootCommand(m_shooter, () -> 10.5));
 
         // DriveStraight button
         new JoystickButton(m_buttonJoystick, Constants.DriveJoystickMappings.driveStraight)

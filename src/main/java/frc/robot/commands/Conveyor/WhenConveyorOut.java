@@ -10,18 +10,21 @@ package frc.robot.commands.Conveyor;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Conveyor;
+import frc.robot.subsystems.Shooter;
 
 public class WhenConveyorOut extends CommandBase {
   private final Conveyor m_conveyor;
-  private float timeTaken = 1;
+  private final float timeTaken = 1;
+  private final Shooter m_shooter;
   private static double checkTime;
 
   /**
    * Creates a new WhenConveyorOut.
    */
-  public WhenConveyorOut(Conveyor conveyor) {
+  public WhenConveyorOut(final Conveyor conveyor, final Shooter shooter) {
     m_conveyor = conveyor;
-    addRequirements(conveyor);
+    m_shooter = shooter;
+    addRequirements(m_conveyor, m_shooter);
   }
 
   // Called when the command is initially scheduled.
@@ -39,7 +42,7 @@ public class WhenConveyorOut extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
+  public void end(final boolean interrupted) {
     m_conveyor.stopConveyor();
   }
 
