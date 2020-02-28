@@ -12,8 +12,6 @@ import frc.robot.subsystems.Conveyor;
 import edu.wpi.first.wpilibj.Timer;
 
 public class WhenConveyorIn extends CommandBase {
-  private Timer baseTime = new Timer();
-  private boolean timeFail = false;
   private float timeTaken = 1;
   private final Conveyor m_conveyor;
   public static double checkTime;
