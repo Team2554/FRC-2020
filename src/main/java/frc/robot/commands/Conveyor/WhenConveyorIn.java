@@ -9,9 +9,12 @@ package frc.robot.commands.Conveyor;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Conveyor;
+import edu.wpi.first.wpilibj.Timer;
 
 public class WhenConveyorIn extends CommandBase {
+  private float timeTaken = 1;
   private final Conveyor m_conveyor;
+  public static double checkTime;
 
   /**
    * Creates a new WhenConveyorIn.
@@ -30,6 +33,7 @@ public class WhenConveyorIn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    checkTime = Timer.getFPGATimestamp();
     m_conveyor.conveyorIn();
   }
 
@@ -43,6 +47,6 @@ public class WhenConveyorIn extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return (checkTime > timeTaken);
   }
 }
