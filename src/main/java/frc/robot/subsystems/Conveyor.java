@@ -9,14 +9,22 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ConveyorConstants;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.VictorSP;
 
 public class Conveyor extends SubsystemBase {
   /**
    * Creates a new Conveyor.
    */
-  VictorSP bottomConveyor = new VictorSP(ConveyorConstants.bottomConveyorPort);
-  VictorSP topConveyor = new VictorSP(ConveyorConstants.topConveyorPort);
+  VictorSP topConveyorLeft1 = new VictorSP(ConveyorConstants.topConveyorLeft1);
+  VictorSP topConveyorLeft2 = new VictorSP(ConveyorConstants.topConveyorLeft2);
+
+  SpeedControllerGroup topConveyor = new SpeedControllerGroup(topConveyorLeft1, topConveyorLeft2);
+
+  VictorSP topConveyorRight1 = new VictorSP(ConveyorConstants.topConveyorRight1);
+  VictorSP topConveyorRight2 = new VictorSP(ConveyorConstants.topConveyorRight2);
+
+  SpeedControllerGroup bottomConveyor = new SpeedControllerGroup(topConveyorRight1, topConveyorRight2);
 
   public Conveyor() {
   }

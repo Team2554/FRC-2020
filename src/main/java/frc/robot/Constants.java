@@ -85,9 +85,11 @@ public final class Constants {
     }
 
     public static final class ConveyorConstants {
-        public static final int bottomConveyorPort = 0;
-        public static final int topConveyorPort = 1;
         public static final double conveyorSpeed = 0.45;
+        public static int topConveyorLeft1 = 0;
+        public static int topConveyorLeft2 = 1;
+        public static int topConveyorRight1 = 2;
+        public static int topConveyorRight2 = 3;
     }
 
     public static final class IntakeConstants {
