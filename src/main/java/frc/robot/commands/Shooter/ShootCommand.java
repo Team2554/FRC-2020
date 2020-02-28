@@ -13,13 +13,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 
 public class ShootCommand extends CommandBase {
-  Shooter m_shooter;
-  DoubleSupplier m_voltageSupplier;
+  private final Shooter m_shooter;
+  private final DoubleSupplier m_voltageSupplier;
 
   /**
    * Creates a new ShootCommand.
    */
-  public ShootCommand(Shooter shooter, DoubleSupplier voltageSupplier) {
+  public ShootCommand(final Shooter shooter, final DoubleSupplier voltageSupplier) {
     m_shooter = shooter;
     m_voltageSupplier = voltageSupplier;
 
@@ -38,7 +38,7 @@ public class ShootCommand extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
+  public void end(final boolean interrupted) {
     m_shooter.stop();
   }
 

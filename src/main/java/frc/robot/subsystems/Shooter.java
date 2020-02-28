@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase {
-  TalonSRX shootMotor;
+  private final TalonSRX shootMotor;
 
   /**
    * Creates a new Shooter.
@@ -26,7 +26,7 @@ public class Shooter extends SubsystemBase {
     shootMotor.configVoltageCompSaturation(11);
   }
 
-  public void startMotor(double demand) {
+  public void startMotor(final double demand) {
     shootMotor.set(ControlMode.PercentOutput, demand);
   }
 

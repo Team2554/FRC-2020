@@ -15,9 +15,9 @@ public class ToggleVisionLight extends CommandBase {
    * Creates a new ToggleVisionLight.
    */
 
-  Vision m_vision;
+  private final Vision m_vision;
 
-  public ToggleVisionLight(Vision vision) {
+  public ToggleVisionLight(final Vision vision) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_vision = vision;
     addRequirements(m_vision);
@@ -36,7 +36,7 @@ public class ToggleVisionLight extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
+  public void end(final boolean interrupted) {
   }
 
   // Returns true when the command should end.

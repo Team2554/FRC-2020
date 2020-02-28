@@ -20,7 +20,7 @@ public class RotateToAngleNEW extends PIDCommand {
    */
   private final DriveTrain m_driveTrain;
 
-  public RotateToAngleNEW(double targetAngle, double speed, DriveTrain driveTrain) {
+  public RotateToAngleNEW(final double targetAngle, final double speed, final DriveTrain driveTrain) {
     super(
         // The controller that the command will use
         new PIDController(0.1, 0.01, 0),

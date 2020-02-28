@@ -19,14 +19,14 @@ import frc.robot.subsystems.ColorWheel;
 
 public class RotateToColor extends CommandBase {
     private final ColorWheel m_colorWheel;
-    private Supplier<String> m_inputColor;
+    private final Supplier<String> m_inputColor;
     private String m_currentColor;
     private double m_distanceNeeded;
 
     /**
      * Creates a new RotateToColor.
      */
-    public RotateToColor(ColorWheel colorWheel, Supplier<String> inputColor) {
+    public RotateToColor(final ColorWheel colorWheel, final Supplier<String> inputColor) {
         m_colorWheel = colorWheel;
         m_inputColor = inputColor;
         addRequirements(m_colorWheel);
@@ -53,7 +53,7 @@ public class RotateToColor extends CommandBase {
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {
+    public void end(final boolean interrupted) {
         m_colorWheel.stopMotor();
         m_colorWheel.resetEncoder();
     }

@@ -11,12 +11,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Elevator;
 
 public class ElevatorToBottom extends CommandBase {
-  private Elevator m_elevator;
+  private final Elevator m_elevator;
 
   /**
    * Creates a new WhenHeldDown.
    */
-  public ElevatorToBottom(Elevator elevator) {
+  public ElevatorToBottom(final Elevator elevator) {
     m_elevator = elevator;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_elevator);
@@ -28,13 +28,13 @@ public class ElevatorToBottom extends CommandBase {
   }
 
   // Called every time the scheduler runs while the command is scheduled
-  public void execute(boolean reverse) {
+  public void execute(final boolean reverse) {
     m_elevator.goDown();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
+  public void end(final boolean interrupted) {
     m_elevator.stopElevator();
   }
 

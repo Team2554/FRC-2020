@@ -17,12 +17,12 @@ public class TurnToTargetIMUOnly extends CommandBase {
    * Creates a new TurnToTargetIMUOnly.
    */
 
-  Vision m_vision;
-  DriveTrain m_driveTrain;
-  PIDController pid = new PIDController(0, 0, 0);
-  double turnAngle;
+  private final Vision m_vision;
+  private final DriveTrain m_driveTrain;
+  private final PIDController pid = new PIDController(0, 0, 0);
+  private double turnAngle;
 
-  public TurnToTargetIMUOnly(Vision vision, DriveTrain driveTrain) {
+  public TurnToTargetIMUOnly(final Vision vision, final DriveTrain driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_vision = vision;
     m_driveTrain = driveTrain;
@@ -52,7 +52,7 @@ public class TurnToTargetIMUOnly extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
+  public void end(final boolean interrupted) {
   }
 
   // Returns true when the command should end.

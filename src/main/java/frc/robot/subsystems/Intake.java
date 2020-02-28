@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 
 public class Intake extends SubsystemBase {
-  private VictorSP intake = new VictorSP(IntakeConstants.intakePort);
+  private final VictorSP intake = new VictorSP(IntakeConstants.intakePort);
 
   public Intake() {
     SmartDashboard.putNumber("Intake Multiplier", 1);
@@ -23,9 +23,9 @@ public class Intake extends SubsystemBase {
   public void periodic() {
   }
 
-  public void start(boolean inverse) {
-    double multiplier = SmartDashboard.getNumber("Intake Multiplier", 1);
-    double speed = inverse ? -multiplier : multiplier;
+  public void start(final boolean inverse) {
+    final double multiplier = SmartDashboard.getNumber("Intake Multiplier", 1);
+    final double speed = inverse ? -multiplier : multiplier;
     intake.setVoltage(speed * 10);
   }
 

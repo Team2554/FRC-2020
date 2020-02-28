@@ -11,12 +11,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
 
 public class IntakeOut extends CommandBase {
-  Intake m_intake;
+  private final Intake m_intake;
 
   /**
    * Creates a new IntakeCommand.
    */
-  public IntakeOut(Intake intake) {
+  public IntakeOut(final Intake intake) {
     m_intake = intake;
     addRequirements(m_intake);
   }
@@ -33,7 +33,7 @@ public class IntakeOut extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
+  public void end(final boolean interrupted) {
     m_intake.stop();
   }
 

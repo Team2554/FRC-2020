@@ -17,11 +17,11 @@ public class TurnToTargetIMUAssist extends CommandBase {
    * Creates a new TurnToTargetIMUAssist.
    */
 
-  Vision m_vision;
-  DriveTrain m_driveTrain;
-  PIDController pid = new PIDController(0, 0, 0);
+  private final Vision m_vision;
+  private final DriveTrain m_driveTrain;
+  private final PIDController pid = new PIDController(0, 0, 0);
 
-  public TurnToTargetIMUAssist(Vision vision, DriveTrain driveTrain) {
+  public TurnToTargetIMUAssist(final Vision vision, final DriveTrain driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_vision = vision;
     m_driveTrain = driveTrain;
@@ -38,7 +38,7 @@ public class TurnToTargetIMUAssist extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double rotOutput = pid.calculate(m_driveTrain.getHeading().getDegrees(),
+    final double rotOutput = pid.calculate(m_driveTrain.getHeading().getDegrees(),
         m_driveTrain.getHeading().getDegrees() + m_vision.getHorizAngle());
 
     m_driveTrain.curvatureDrive(0, rotOutput, true);
@@ -46,7 +46,7 @@ public class TurnToTargetIMUAssist extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
+  public void end(final boolean interrupted) {
     m_vision.visionLightOff();
   }
 

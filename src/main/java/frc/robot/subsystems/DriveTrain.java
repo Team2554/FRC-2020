@@ -29,33 +29,33 @@ import frc.robot.Custom.SRXMagEncoder_Relative;
 
 public class DriveTrain extends SubsystemBase {
 
-  final WPI_TalonSRX tRF = new WPI_TalonSRX(4);
-  final VictorSPX vRB = new VictorSPX(6);
+  private final WPI_TalonSRX tRF = new WPI_TalonSRX(4);
+  private final VictorSPX vRB = new VictorSPX(6);
 
-  final WPI_TalonSRX tLF = new WPI_TalonSRX(3);
-  final VictorSPX vLB = new VictorSPX(5);
+  private final WPI_TalonSRX tLF = new WPI_TalonSRX(3);
+  private final VictorSPX vLB = new VictorSPX(5);
 
-  final SRXMagEncoder_Relative rightEncoder = new SRXMagEncoder_Relative(tRF);
-  final SRXMagEncoder_Relative leftEncoder = new SRXMagEncoder_Relative(tLF);
+  private final SRXMagEncoder_Relative rightEncoder = new SRXMagEncoder_Relative(tRF);
+  private final SRXMagEncoder_Relative leftEncoder = new SRXMagEncoder_Relative(tLF);
 
-  final DifferentialDrive driveTrain = new DifferentialDrive(tLF, tRF);
+  private final DifferentialDrive driveTrain = new DifferentialDrive(tLF, tRF);
 
-  final PigeonIMU pigeon = new PigeonIMU(10);
+  private final PigeonIMU pigeon = new PigeonIMU(10);
 
-  final double maxVoltage = 10;
+  private final double maxVoltage = 10;
 
-  final double wheelDiameterInches = 6;
-  final double differentialWidthMeters = 0.557176939999995;
+  private final double wheelDiameterInches = 6;
+  private final double differentialWidthMeters = 0.557176939999995;
 
-  DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(differentialWidthMeters);
-  DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(getHeading());
+  private final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(differentialWidthMeters);
+  private final DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(getHeading());
 
-  SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(0.3, 1.96, 0.06);
+  private final SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(0.3, 1.96, 0.06);
 
-  PIDController leftPIDController = new PIDController(2.95, 0, 0);
-  PIDController rightPIDController = new PIDController(2.95, 0, 0);
+  private final PIDController leftPIDController = new PIDController(2.95, 0, 0);
+  private final PIDController rightPIDController = new PIDController(2.95, 0, 0);
 
-  boolean isInverted = false;
+  private boolean isInverted = false;
 
   /**
    * Creates a new DriveTrain.
@@ -106,7 +106,7 @@ public class DriveTrain extends SubsystemBase {
     return rightPIDController;
   }
 
-  public void curvatureDrive(double xSpeed, double zRotation, boolean isQuickTurn) {
+  public void curvatureDrive(final double xSpeed, final double zRotation, final boolean isQuickTurn) {
     driveTrain.curvatureDrive(xSpeed * (isInverted ? -1 : 1), zRotation, isQuickTurn);
   }
 
@@ -114,7 +114,7 @@ public class DriveTrain extends SubsystemBase {
     return kinematics;
   }
 
-  public void tankDriveVolts(double leftVolts, double rightVolts) {
+  public void tankDriveVolts(final double leftVolts, final double rightVolts) {
     tLF.set(ControlMode.PercentOutput, leftVolts / maxVoltage);
     tRF.set(ControlMode.PercentOutput, rightVolts / maxVoltage);
     driveTrain.feed();
@@ -138,7 +138,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public Rotation2d getHeading() {
-    double[] ypr = new double[3];
+    final double[] ypr = new double[3];
     pigeon.getYawPitchRoll(ypr);
     return Rotation2d.fromDegrees(Math.IEEEremainder(ypr[0], 360));
   }

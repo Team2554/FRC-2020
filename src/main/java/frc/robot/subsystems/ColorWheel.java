@@ -16,11 +16,12 @@ import com.revrobotics.ColorMatch;
 
 public class ColorWheel extends SubsystemBase {
   // Color chooser
-  SendableChooser<String> m_colorChooser = new SendableChooser<>();
+  private final SendableChooser<String> m_colorChooser = new SendableChooser<>();
 
   // Color motor and encoder
-  VictorSP m_colorMotor = new VictorSP(ColorWheelConstants.colorMotorPort);
-  public Encoder m_colorEncoder = new Encoder(ColorWheelConstants.encoderPorts[0], ColorWheelConstants.encoderPorts[1]);
+  private final VictorSP m_colorMotor = new VictorSP(ColorWheelConstants.colorMotorPort);
+  private final Encoder m_colorEncoder = new Encoder(ColorWheelConstants.encoderPorts[0],
+      ColorWheelConstants.encoderPorts[1]);
 
   // Color sensor and matcher
   private final I2C.Port m_i2cPort = I2C.Port.kOnboard;
@@ -85,7 +86,7 @@ public class ColorWheel extends SubsystemBase {
     m_colorMotor.set(0);
   }
 
-  public void setMotor(double speed) {
+  public void setMotor(final double speed) {
     m_colorMotor.set(speed);
   }
 
@@ -93,7 +94,7 @@ public class ColorWheel extends SubsystemBase {
     return m_colorEncoder.getDistance();
   }
 
-  public double getRequiredDistance(String inputColor, String currentColor) {
+  public double getRequiredDistance(final String inputColor, final String currentColor) {
     double distanceNeeded = 0;
     if (currentColor.equals("Red")) {
       if (inputColor.equals("Green")) {
