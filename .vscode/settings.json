@@ -13,5 +13,4 @@
     "**/.factorypath": true
   },
   "editor.formatOnSave": true,
-  "java.format.settings.url": "eclipse-formatter.xml"
 }
