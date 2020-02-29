@@ -14,9 +14,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.DriveJoystickMappings;
+import frc.robot.commands.BottomConveyor.BottomConveyorIn;
 import frc.robot.commands.BottomConveyor.TimedBottomConveyorIn;
 import frc.robot.commands.ColorWheel.RotateToColor;
 import frc.robot.commands.ColorWheel.RotateWheel;
+import frc.robot.commands.CommandGroups.BothConveyorsTimed;
 import frc.robot.commands.CommandGroups.ShooterAndConveyors;
 import frc.robot.commands.TopConveyor.TimedTopConveyorIn;
 import frc.robot.commands.DriveTrain.DefaultDrive;
@@ -98,10 +100,12 @@ public class RobotContainer {
                 new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.shootersAndConveyors).whenPressed(
                                 new ShooterAndConveyors(m_shooter, m_bottomConveyor, m_topConveyor, () -> 11.5));
 
-                new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.timedTopConveyorIn)
-                                .whenPressed(new TimedTopConveyorIn(m_topConveyor));
-                new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.timedBottomConveyorIn)
-                                .whenPressed(new TimedBottomConveyorIn(m_bottomConveyor));
+                new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.timedConveyors)
+                                .whenPressed(new BothConveyorsTimed(m_topConveyor, m_bottomConveyor));
+
+                // Just Bottom Conveyor
+                new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.bottomConveyor)
+                                .whenPressed(new BottomConveyorIn(m_bottomConveyor, m_shooter));
 
                 // DriveStraight button
                 new JoystickButton(m_buttonJoystick, Constants.DriveJoystickMappings.driveStraight).whenPressed(
