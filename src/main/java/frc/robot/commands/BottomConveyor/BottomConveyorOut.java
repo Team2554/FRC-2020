@@ -11,14 +11,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BottomConveyor;
 import frc.robot.subsystems.Shooter;
 
-public class BottomConveyorIn extends CommandBase {
+public class BottomConveyorOut extends CommandBase {
   private final BottomConveyor m_bottomConveyor;
   private final Shooter m_shooter;
 
   /**
-   * Creates a new BottomConveyorIn.
+   * Creates a new BottomConveyorOut.
    */
-  public BottomConveyorIn(final BottomConveyor bottomConveyor, final Shooter shooter) {
+  public BottomConveyorOut(final BottomConveyor bottomConveyor, final Shooter shooter) {
     m_bottomConveyor = bottomConveyor;
     m_shooter = shooter;
     addRequirements(m_bottomConveyor, m_shooter);
