@@ -97,18 +97,19 @@ public class RobotContainer {
                 new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.colorWheelTurnToColor)
                                 .whenPressed(new RotateToColor(m_colorWheel, m_colorWheel::getSelectedColor));
 
-                // Intake and Shoot the Ball
+                // Intake and shoot the Ball
                 new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.intakeAndShoot).whenPressed(
                                 new IntakeAndShoot(m_shooter, m_bottomConveyor, m_topConveyor, () -> 11.5, m_intake));
 
+                // Run both conveyors for a specified amount of time
                 new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.timedConveyors)
                                 .whenPressed(new TimedBothConveyors(m_topConveyor, m_bottomConveyor));
 
-                // Just Top Conveyor Out
+                // Just top conveyor Out
                 new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.topConveyorOut)
                                 .whenPressed(new TopConveyorIn(m_topConveyor, m_shooter));
 
-                // Just Bottom Conveyor
+                // Just bottom conveyor In
                 new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.bottomConveyorIn)
                                 .whenPressed(new BottomConveyorIn(m_bottomConveyor, m_shooter));
 
