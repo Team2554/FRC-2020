@@ -109,7 +109,7 @@ public class RobotContainer {
                 new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.topConveyorOut)
                                 .whenPressed(new TopConveyorIn(m_topConveyor, m_shooter));
 
-                // Just bottom conveyor In
+                // Just bottom conveyor in
                 new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.bottomConveyorIn)
                                 .whenPressed(new BottomConveyorIn(m_bottomConveyor, m_shooter));
 
