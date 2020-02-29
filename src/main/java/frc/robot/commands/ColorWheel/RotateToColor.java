@@ -30,15 +30,14 @@ public class RotateToColor extends CommandBase {
         m_colorWheel = colorWheel;
         m_inputColor = inputColor;
         addRequirements(m_colorWheel);
-        m_currentColor = m_colorWheel.getColor();
+        m_currentColor = m_colorWheel.getColorWheelColor();
+        m_distanceNeeded = m_colorWheel.getRequiredDistance(m_inputColor.get(), m_currentColor);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
         m_colorWheel.resetEncoder();
-        m_currentColor = m_colorWheel.getColor();
-        m_distanceNeeded = m_colorWheel.getRequiredDistance(m_inputColor.get(), m_currentColor);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -63,6 +62,6 @@ public class RotateToColor extends CommandBase {
     public boolean isFinished() {
         // Need to take absolute value because these distances can be negative
         return ((Math.abs(m_colorWheel.getDistance()) >= Math.abs(m_distanceNeeded))
-                && (m_colorWheel.getColor().equals(m_inputColor.get())));
+                && (m_colorWheel.getColorWheelColor().equals(m_inputColor.get())));
     }
 }
