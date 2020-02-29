@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.DriveJoystickMappings;
 import frc.robot.commands.ColorWheel.RotateToColor;
 import frc.robot.commands.ColorWheel.RotateWheel;
+import frc.robot.commands.CommandGroups.ShooterAndConveyors;
 import frc.robot.commands.TopConveyor.TopConveyorIn;
 import frc.robot.commands.TopConveyor.TopConveyorOut;
 import frc.robot.commands.DriveTrain.DefaultDrive;
@@ -25,6 +26,7 @@ import frc.robot.commands.Elevator.ElevatorToBottom;
 import frc.robot.commands.Elevator.ElevatorToTop;
 import frc.robot.commands.Elevator.LevelAdjusterLeft;
 import frc.robot.commands.Shooter.ShootCommand;
+import frc.robot.subsystems.BottomConveyor;
 import frc.robot.subsystems.ColorWheel;
 import frc.robot.subsystems.TopConveyor;
 import frc.robot.subsystems.DriveTrain;
@@ -49,13 +51,13 @@ public class RobotContainer {
         // Subsystems
         private final Elevator m_elevator = new Elevator();
         private final Shooter m_shooter = new Shooter();
-        private final TopConveyor m_conveyor = new TopConveyor();
+        private final TopConveyor m_topConveyor = new TopConveyor();
         private final ColorWheel m_colorWheel = new ColorWheel();
         private final DriveTrain m_driveTrain = new DriveTrain();
+        private final BottomConveyor m_bottomConveyor = new BottomConveyor();
 
         public RobotContainer() {
                 // Configure the button bindings
-
                 m_driveTrain.setDefaultCommand(new DefaultDrive(m_driveTrain, () -> -m_driveJoystick.getY(),
                                 () -> m_driveJoystick.getX(),
                                 () -> m_driveJoystick.getRawButton(DriveJoystickMappings.quickTurn)));
@@ -91,10 +93,12 @@ public class RobotContainer {
                 // new JoystickButton(buttonJoystick,
                 // Constants.ButtonJoystickMappings.intakeIn).whileHeld(new InstantCommand());
                 // Conveyor buttons
-                new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.conveyorOut)
-                                .whenPressed(new TopConveyorOut(m_conveyor, m_shooter));
-                new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.conveyorIn)
-                                .whenPressed(new TopConveyorIn(m_conveyor, m_shooter));
+                // new JoystickButton(m_buttonJoystick,
+                // Constants.ButtonJoystickMappings.conveyorOut)
+                // .whenPressed(new TopConveyorOut(m_conveyor, m_shooter));
+                // new JoystickButton(m_buttonJoystick,
+                // Constants.ButtonJoystickMappings.conveyorIn)
+                // .whenPressed(new TopConveyorIn(m_conveyor, m_shooter));
 
                 // Color wheel buttons
                 new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.colorWheelSpinNumberOfTimes)
@@ -103,8 +107,12 @@ public class RobotContainer {
                                 .whenPressed(new RotateToColor(m_colorWheel, m_colorWheel::getSelectedColor));
 
                 // Shooter button
-                new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.runShooter)
-                                .whenHeld(new ShootCommand(m_shooter, () -> 10.5));
+                // new JoystickButton(m_buttonJoystick,
+                // Constants.ButtonJoystickMappings.runShooter)
+                // .whenHeld(new ShootCommand(m_shooter, () -> 10.5));
+                // Conveyor and Shooter
+                new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.ShootersAndConveyors).whenPressed(
+                                new ShooterAndConveyors(m_shooter, m_bottomConveyor, m_topConveyor, () -> 11.5));
 
                 // DriveStraight button
                 new JoystickButton(m_buttonJoystick, Constants.DriveJoystickMappings.driveStraight).whenPressed(
