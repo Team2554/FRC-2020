@@ -12,7 +12,7 @@ import frc.robot.Constants.ConveyorConstants;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.VictorSP;
 
-public class Conveyor extends SubsystemBase {
+public class TopConveyor extends SubsystemBase {
   /**
    * Creates a new Conveyor.
    */
@@ -26,25 +26,20 @@ public class Conveyor extends SubsystemBase {
 
   private final SpeedControllerGroup rightConveyor = new SpeedControllerGroup(rightConveyor1, rightConveyor2);
 
-  private final VictorSP bottomConveyor = new VictorSP(ConveyorConstants.bottomConveyorPort);
-
-  public Conveyor() {
+  public TopConveyor() {
   }
 
   public void conveyorIn() {
-    bottomConveyor.setVoltage(ConveyorConstants.bottomConveyorVoltage);
     leftConveyor.setVoltage(ConveyorConstants.topConveyorVoltage);
     rightConveyor.setVoltage(-ConveyorConstants.topConveyorVoltage);
   }
 
   public void conveyorOut() {
-    bottomConveyor.setVoltage(-ConveyorConstants.bottomConveyorVoltage);
-    leftConveyor.setVoltage(ConveyorConstants.topConveyorVoltage);
-    rightConveyor.setVoltage(-ConveyorConstants.topConveyorVoltage);
+    leftConveyor.setVoltage(-ConveyorConstants.topConveyorVoltage);
+    rightConveyor.setVoltage(ConveyorConstants.topConveyorVoltage);
   }
 
   public void stopConveyor() {
-    bottomConveyor.stopMotor();
     leftConveyor.stopMotor();
     rightConveyor.stopMotor();
   }
