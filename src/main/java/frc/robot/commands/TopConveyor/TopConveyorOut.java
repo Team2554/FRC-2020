@@ -7,16 +7,13 @@
 
 package frc.robot.commands.TopConveyor;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.TopConveyor;
 import frc.robot.subsystems.Shooter;
 
 public class TopConveyorOut extends CommandBase {
   private final TopConveyor m_conveyor;
-  private final float timeTaken = 1;
   private final Shooter m_shooter;
-  private static double checkTime;
 
   /**
    * Creates a new TopConveyorOut.
@@ -30,13 +27,11 @@ public class TopConveyorOut extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    checkTime = Timer.getFPGATimestamp();
     m_conveyor.conveyorOut();
   }
 
@@ -49,6 +44,6 @@ public class TopConveyorOut extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (checkTime > timeTaken);
+    return !m_shooter.isShootable();
   }
 }
