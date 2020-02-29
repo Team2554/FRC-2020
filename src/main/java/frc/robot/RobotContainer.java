@@ -18,7 +18,7 @@ import frc.robot.commands.BottomConveyor.BottomConveyorIn;
 import frc.robot.commands.ColorWheel.RotateToColor;
 import frc.robot.commands.ColorWheel.RotateWheel;
 import frc.robot.commands.CommandGroups.TimedBothConveyors;
-import frc.robot.commands.CommandGroups.ShooterAndConveyors;
+import frc.robot.commands.CommandGroups.IntakeAndShoot;
 import frc.robot.commands.DriveTrain.DefaultDrive;
 import frc.robot.commands.DriveTrain.DriveStraightNEW;
 import frc.robot.commands.DriveTrain.RotateToAngleNEW;
@@ -95,8 +95,8 @@ public class RobotContainer {
                                 .whenPressed(new RotateToColor(m_colorWheel, m_colorWheel::getSelectedColor));
 
                 // Conveyor and Shooter
-                new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.shootersAndConveyors).whenPressed(
-                                new ShooterAndConveyors(m_shooter, m_bottomConveyor, m_topConveyor, () -> 11.5));
+                new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.intakeAndShoot).whenPressed(
+                                new IntakeAndShoot(m_shooter, m_bottomConveyor, m_topConveyor, () -> 11.5));
 
                 new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.timedConveyors)
                                 .whenPressed(new TimedBothConveyors(m_topConveyor, m_bottomConveyor));
