@@ -30,6 +30,7 @@ import frc.robot.subsystems.ColorWheel;
 import frc.robot.subsystems.TopConveyor;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 
 /**
@@ -51,6 +52,7 @@ public class RobotContainer {
         private final Elevator m_elevator = new Elevator();
         private final Shooter m_shooter = new Shooter();
         private final TopConveyor m_topConveyor = new TopConveyor();
+        private final Intake m_intake = new Intake();
         private final ColorWheel m_colorWheel = new ColorWheel();
         private final DriveTrain m_driveTrain = new DriveTrain();
         private final BottomConveyor m_bottomConveyor = new BottomConveyor();
@@ -94,9 +96,9 @@ public class RobotContainer {
                 new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.colorWheelTurnToColor)
                                 .whenPressed(new RotateToColor(m_colorWheel, m_colorWheel::getSelectedColor));
 
-                // Conveyor and Shooter
+                // Intake and Shoot the Ball
                 new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.intakeAndShoot).whenPressed(
-                                new IntakeAndShoot(m_shooter, m_bottomConveyor, m_topConveyor, () -> 11.5));
+                                new IntakeAndShoot(m_shooter, m_bottomConveyor, m_topConveyor, () -> 11.5, m_intake));
 
                 new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.timedConveyors)
                                 .whenPressed(new TimedBothConveyors(m_topConveyor, m_bottomConveyor));
