@@ -12,7 +12,7 @@ import frc.robot.Constants.ConveyorConstants;
 import frc.robot.subsystems.BottomConveyor;
 import edu.wpi.first.wpilibj.Timer;
 
-public class BottomConveyorIn extends CommandBase {
+public class TimedBottomConveyorIn extends CommandBase {
   /**
    * Creates a new BottomConveyorIn.
    */
@@ -20,7 +20,7 @@ public class BottomConveyorIn extends CommandBase {
   private final double stopTime = ConveyorConstants.stopTime; // Make this a constant
   private final BottomConveyor m_bottomConveyor;
 
-  public BottomConveyorIn(BottomConveyor bottomConveyor) {
+  public TimedBottomConveyorIn(BottomConveyor bottomConveyor) {
     m_bottomConveyor = bottomConveyor;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_bottomConveyor);
