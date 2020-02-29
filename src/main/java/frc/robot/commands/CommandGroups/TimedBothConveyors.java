@@ -16,15 +16,16 @@ import frc.robot.subsystems.TopConveyor;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class BothConveyorsTimed extends ParallelCommandGroup {
+public class TimedBothConveyors extends ParallelCommandGroup {
   /**
    * Creates a new BothConveyorsTimed.
- * @param topConveyor 
- * @param bottomConveyor 
+   * 
+   * @param topConveyor
+   * @param bottomConveyor
    */
-  public BothConveyorsTimed(TopConveyor topConveyor, BottomConveyor bottomConveyor) {
+  public TimedBothConveyors(TopConveyor topConveyor, BottomConveyor bottomConveyor) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());super();
-    super(new TimedTopConveyorIn(topConveyor), new TimedBottomConveyorIn(bottomConveyor))
+    super(new TimedTopConveyorIn(topConveyor), new TimedBottomConveyorIn(bottomConveyor));
   }
 }
