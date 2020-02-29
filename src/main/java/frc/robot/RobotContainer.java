@@ -25,6 +25,7 @@ import frc.robot.commands.DriveTrain.RotateToAngleNEW;
 import frc.robot.commands.Elevator.ElevatorToBottom;
 import frc.robot.commands.Elevator.ElevatorToTop;
 import frc.robot.commands.Elevator.LevelAdjusterLeft;
+import frc.robot.commands.TopConveyor.TopConveyorIn;
 import frc.robot.subsystems.BottomConveyor;
 import frc.robot.subsystems.ColorWheel;
 import frc.robot.subsystems.TopConveyor;
@@ -103,8 +104,12 @@ public class RobotContainer {
                 new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.timedConveyors)
                                 .whenPressed(new TimedBothConveyors(m_topConveyor, m_bottomConveyor));
 
+                // Just Top Conveyor Out
+                new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.topConveyorOut)
+                                .whenPressed(new TopConveyorIn(m_topConveyor, m_shooter));
+
                 // Just Bottom Conveyor
-                new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.bottomConveyor)
+                new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.bottomConveyorIn)
                                 .whenPressed(new BottomConveyorIn(m_bottomConveyor, m_shooter));
 
                 // DriveStraight button

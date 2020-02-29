@@ -54,7 +54,8 @@ public final class Constants {
         public static final int levelAdjusterRight = 13; // Level adjuster right
         public static final int intakeAndShoot = 14;
         public static final int timedConveyors = 15;
-        public static final int bottomConveyor = 16;
+        public static final int bottomConveyorIn = 16;
+        public static int topConveyorOut = 17;
     }
 
     public static final class ColorWheelConstants {
