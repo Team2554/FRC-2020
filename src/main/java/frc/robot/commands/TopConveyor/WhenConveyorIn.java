@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Conveyor;
+package frc.robot.commands.TopConveyor;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.ConveyorConstants;
