@@ -16,8 +16,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.DriveJoystickMappings;
 import frc.robot.commands.ColorWheel.RotateToColor;
 import frc.robot.commands.ColorWheel.RotateWheel;
-import frc.robot.commands.TopConveyor.WhenConveyorIn;
-import frc.robot.commands.TopConveyor.WhenConveyorOut;
+import frc.robot.commands.TopConveyor.TopConveyorIn;
+import frc.robot.commands.TopConveyor.TopConveyorOut;
 import frc.robot.commands.DriveTrain.DefaultDrive;
 import frc.robot.commands.DriveTrain.DriveStraightNEW;
 import frc.robot.commands.DriveTrain.RotateToAngleNEW;
@@ -92,9 +92,9 @@ public class RobotContainer {
                 // Constants.ButtonJoystickMappings.intakeIn).whileHeld(new InstantCommand());
                 // Conveyor buttons
                 new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.conveyorOut)
-                                .whenPressed(new WhenConveyorOut(m_conveyor, m_shooter));
+                                .whenPressed(new TopConveyorOut(m_conveyor, m_shooter));
                 new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.conveyorIn)
-                                .whenPressed(new WhenConveyorIn(m_conveyor, m_shooter));
+                                .whenPressed(new TopConveyorIn(m_conveyor, m_shooter));
 
                 // Color wheel buttons
                 new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.colorWheelSpinNumberOfTimes)

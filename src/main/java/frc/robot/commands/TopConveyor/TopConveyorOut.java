@@ -7,23 +7,21 @@
 
 package frc.robot.commands.TopConveyor;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.ConveyorConstants;
 import frc.robot.subsystems.TopConveyor;
 import frc.robot.subsystems.Shooter;
-import edu.wpi.first.wpilibj.Timer;
 
-public class WhenConveyorIn extends CommandBase {
-  private final double timeTaken = ConveyorConstants.stopTime;
+public class TopConveyorOut extends CommandBase {
   private final TopConveyor m_conveyor;
+  private final float timeTaken = 1;
   private final Shooter m_shooter;
-  public static double checkTime;
-  Timer ConveyorTimer = new Timer();
+  private static double checkTime;
 
   /**
-   * Creates a new WhenConveyorIn.
+   * Creates a new TopConveyorOut.
    */
-  public WhenConveyorIn(final TopConveyor conveyor, final Shooter shooter) {
+  public TopConveyorOut(final TopConveyor conveyor, final Shooter shooter) {
     m_conveyor = conveyor;
     m_shooter = shooter;
     addRequirements(m_conveyor, m_shooter);
@@ -32,7 +30,6 @@ public class WhenConveyorIn extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    ConveyorTimer.start();
 
   }
 
@@ -40,19 +37,18 @@ public class WhenConveyorIn extends CommandBase {
   @Override
   public void execute() {
     checkTime = Timer.getFPGATimestamp();
-    m_conveyor.conveyorIn();
+    m_conveyor.conveyorOut();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(final boolean interrupted) {
     m_conveyor.stopConveyor();
-
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (ConveyorTimer.get() >= timeTaken || !m_shooter.isShootable());
+    return (checkTime > timeTaken);
   }
 }
