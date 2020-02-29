@@ -26,26 +26,20 @@ public class Conveyor extends SubsystemBase {
 
   private final SpeedControllerGroup rightConveyor = new SpeedControllerGroup(rightConveyor1, rightConveyor2);
 
-  // private final VictorSP bottomConveyor = new
-  // VictorSP(ConveyorConstants.bottomConveyorPort);
-
   public Conveyor() {
   }
 
   public void conveyorIn() {
-    // bottomConveyor.setVoltage(ConveyorConstants.bottomConveyorVoltage);
     leftConveyor.setVoltage(ConveyorConstants.topConveyorVoltage);
     rightConveyor.setVoltage(-ConveyorConstants.topConveyorVoltage);
   }
 
   public void conveyorOut() {
-    // bottomConveyor.setVoltage(-ConveyorConstants.bottomConveyorVoltage);
     leftConveyor.setVoltage(-ConveyorConstants.topConveyorVoltage);
     rightConveyor.setVoltage(ConveyorConstants.topConveyorVoltage);
   }
 
   public void stopConveyor() {
-    // bottomConveyor.stopMotor();
     leftConveyor.stopMotor();
     rightConveyor.stopMotor();
   }

@@ -13,7 +13,6 @@ package frc.robot.commands.ColorWheel;
 
 import java.util.function.Supplier;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.ColorWheelConstants;
 import frc.robot.subsystems.ColorWheel;
