@@ -12,7 +12,7 @@ import frc.robot.Constants.ConveyorConstants;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.VictorSP;
 
-public class Conveyor extends SubsystemBase {
+public class TopConveyor extends SubsystemBase {
   /**
    * Creates a new Conveyor.
    */
@@ -26,7 +26,7 @@ public class Conveyor extends SubsystemBase {
 
   private final SpeedControllerGroup rightConveyor = new SpeedControllerGroup(rightConveyor1, rightConveyor2);
 
-  public Conveyor() {
+  public TopConveyor() {
   }
 
   public void conveyorIn() {

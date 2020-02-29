@@ -9,13 +9,13 @@ package frc.robot.commands.Conveyor;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.ConveyorConstants;
-import frc.robot.subsystems.Conveyor;
+import frc.robot.subsystems.TopConveyor;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj.Timer;
 
 public class WhenConveyorIn extends CommandBase {
   private final double timeTaken = ConveyorConstants.stopTime;
-  private final Conveyor m_conveyor;
+  private final TopConveyor m_conveyor;
   private final Shooter m_shooter;
   public static double checkTime;
   Timer ConveyorTimer = new Timer();
@@ -23,7 +23,7 @@ public class WhenConveyorIn extends CommandBase {
   /**
    * Creates a new WhenConveyorIn.
    */
-  public WhenConveyorIn(final Conveyor conveyor, final Shooter shooter) {
+  public WhenConveyorIn(final TopConveyor conveyor, final Shooter shooter) {
     m_conveyor = conveyor;
     m_shooter = shooter;
     addRequirements(m_conveyor, m_shooter);
