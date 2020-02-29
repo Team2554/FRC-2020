@@ -92,6 +92,9 @@ public final class Constants {
         public static final int rightConveyor1Port = 2;
         public static final int rightConveyor2Port = 3;
         public static final int bottomConveyorPort = 4;
+
+        // BottomConveyor Constants
+        public static final double stopTime = 0.5;
     }
 
     public static final class IntakeConstants {

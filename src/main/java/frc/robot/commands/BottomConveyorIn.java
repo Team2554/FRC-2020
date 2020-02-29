@@ -5,54 +5,48 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Conveyor;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.ConveyorConstants;
-import frc.robot.subsystems.Conveyor;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.BottomConveyor;
 import edu.wpi.first.wpilibj.Timer;
 
-public class WhenConveyorIn extends CommandBase {
-  private final double timeTaken = ConveyorConstants.stopTime;
-  private final Conveyor m_conveyor;
-  private final Shooter m_shooter;
-  public static double checkTime;
-  Timer ConveyorTimer = new Timer();
-
+public class BottomConveyorIn extends CommandBase {
   /**
-   * Creates a new WhenConveyorIn.
+   * Creates a new BottomConveyorIn.
    */
-  public WhenConveyorIn(final Conveyor conveyor, final Shooter shooter) {
-    m_conveyor = conveyor;
-    m_shooter = shooter;
-    addRequirements(m_conveyor, m_shooter);
+  Timer bottomTimer;
+  private final double stopTime = ConveyorConstants.stopTime; // Make this a constant
+  private final BottomConveyor m_bottomConveyor;
+
+  public BottomConveyorIn(BottomConveyor bottomConveyor) {
+    m_bottomConveyor = bottomConveyor;
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(m_bottomConveyor);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    ConveyorTimer.start();
-
+    bottomTimer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    checkTime = Timer.getFPGATimestamp();
-    m_conveyor.conveyorIn();
+    m_bottomConveyor.ballIn();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(final boolean interrupted) {
-    m_conveyor.stopConveyor();
-
+  public void end(boolean interrupted) {
+    m_bottomConveyor.stopBottomConveyor();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (ConveyorTimer.get() >= timeTaken || !m_shooter.isShootable());
+    return (bottomTimer.get() >= stopTime);
   }
 }
