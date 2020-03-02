@@ -29,13 +29,13 @@ public class Vision extends SubsystemBase {
   private final Solenoid visionLight = new Solenoid(0);
 
   public Vision() {
-    sbVision.add("Hue Start", 80.0).withWidget("Number Slider").withProperties(Map.of("min", 0.0, "max", 180.0));
-    sbVision.add("Hue End", 90.0).withWidget("Number Slider").withProperties(Map.of("min", 0.0, "max", 180.0));
-    sbVision.add("Saturation Start", 100.0).withWidget("Number Slider")
-        .withProperties(Map.of("min", 0.0, "max", 255.0));
-    sbVision.add("Saturation End", 255.0).withWidget("Number Slider").withProperties(Map.of("min", 0.0, "max", 255.0));
-    sbVision.add("Value Start", 0.0).withWidget("Number Slider").withProperties(Map.of("min", 0.0, "max", 255.0));
-    sbVision.add("Value End", 255.0).withWidget("Number Slider").withProperties(Map.of("min", 0.0, "max", 255.0));
+    // sbVision.add("Hue Start", 80.0).withWidget("Number Slider").withProperties(Map.of("min", 0.0, "max", 180.0));
+    // sbVision.add("Hue End", 90.0).withWidget("Number Slider").withProperties(Map.of("min", 0.0, "max", 180.0));
+    // sbVision.add("Saturation Start", 100.0).withWidget("Number Slider")
+    //     .withProperties(Map.of("min", 0.0, "max", 255.0));
+    // sbVision.add("Saturation End", 255.0).withWidget("Number Slider").withProperties(Map.of("min", 0.0, "max", 255.0));
+    // sbVision.add("Value Start", 0.0).withWidget("Number Slider").withProperties(Map.of("min", 0.0, "max", 255.0));
+    // sbVision.add("Value End", 255.0).withWidget("Number Slider").withProperties(Map.of("min", 0.0, "max", 255.0));
   }
 
   @Override
