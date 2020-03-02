@@ -85,7 +85,7 @@ public class RobotContainer {
         .whenPressed(new RotateToColor(m_colorWheel, m_colorWheel::getSelectedColor));
 
     new JoystickButton(m_buttonJoystick, 15).whenPressed(new ConditionalCommand(
-        new RotateToColor(m_colorWheel, () -> m_colorWheel.getColorWheelColor()), new WhiteLine(m_colorWheel), () -> {
+        new RotateToColor(m_colorWheel, () -> m_colorWheel.getSelectedColor()), new WhiteLine(m_colorWheel), () -> {
           switchCommand = !switchCommand;
           return switchCommand;
         }));
