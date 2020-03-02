@@ -52,6 +52,10 @@ public final class Constants {
         public static final int colorWheelSpinNumberOfTimes = 11; // press to spin the color wheel 4 times
         public static final int levelAdjusterLeft = 12; // Level adjuster left
         public static final int levelAdjusterRight = 13; // Level adjuster right
+        public static final int intakeAndShoot = 14;
+        public static final int timedConveyors = 15;
+        public static final int bottomConveyorIn = 16;
+        public static int topConveyorOut = 17;
     }
 
     public static final class ColorWheelConstants {
@@ -86,12 +90,15 @@ public final class Constants {
 
     public static final class ConveyorConstants {
         public static final int topConveyorVoltage = 3;
-        public static final int bottomConveyorVoltage = 5;
         public static final int leftConveyor1Port = 0;
         public static final int leftConveyor2Port = 1;
         public static final int rightConveyor1Port = 2;
         public static final int rightConveyor2Port = 3;
+
+        // BottomConveyor Constants
+        public static final double stopTime = 0.5;
         public static final int bottomConveyorPort = 4;
+        public static final int bottomConveyorVoltage = 5;
     }
 
     public static final class IntakeConstants {
