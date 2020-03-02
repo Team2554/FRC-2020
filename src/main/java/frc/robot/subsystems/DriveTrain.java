@@ -35,10 +35,8 @@ public class DriveTrain extends SubsystemBase {
   private final WPI_TalonSRX tLF = new WPI_TalonSRX(3);
   private final VictorSPX vLB = new VictorSPX(7);
 
-  // private final SRXMagEncoder_Relative rightEncoder = new
-  // SRXMagEncoder_Relative(tRF);
-  // private final SRXMagEncoder_Relative leftEncoder = new
-  // SRXMagEncoder_Relative(tLF);
+  private final SRXMagEncoder_Relative rightEncoder = new SRXMagEncoder_Relative(tRF);
+  private final SRXMagEncoder_Relative leftEncoder = new SRXMagEncoder_Relative(tLF);
 
   private final DifferentialDrive driveTrain = new DifferentialDrive(tLF, tRF);
 
@@ -88,20 +86,19 @@ public class DriveTrain extends SubsystemBase {
     tLF.setInverted(false);
     vLB.setInverted(InvertType.FollowMaster);
 
-    // leftEncoder.setWheelDiameter(Units.inchesToMeters(wheelDiameterInches));
-    // rightEncoder.setWheelDiameter(Units.inchesToMeters(wheelDiameterInches));
+    leftEncoder.setWheelDiameter(Units.inchesToMeters(wheelDiameterInches));
+    rightEncoder.setWheelDiameter(Units.inchesToMeters(wheelDiameterInches));
 
-    // leftEncoder.configure();
-    // rightEncoder.configure();
+    leftEncoder.configure();
+    rightEncoder.configure();
 
-    // resetEncoders();
+    resetEncoders();
     resetGyro();
   }
 
-  // public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-  // return new DifferentialDriveWheelSpeeds(leftEncoder.getVelocity(),
-  // rightEncoder.getVelocity());
-  // }
+  public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+    return new DifferentialDriveWheelSpeeds(leftEncoder.getVelocity(), rightEncoder.getVelocity());
+  }
 
   public PIDController getLeftPIDController() {
     return leftPIDController;
@@ -125,21 +122,26 @@ public class DriveTrain extends SubsystemBase {
     driveTrain.feed();
   }
 
-  // public void resetEncoders() {
-  // leftEncoder.reset();
-  // rightEncoder.reset();
-  // }
+  public void resetEncoders() {
+    leftEncoder.reset();
+    rightEncoder.reset();
+  }
 
-  // public double getAverageEncoderDistance() {
-  // return (leftEncoder.getPosition() + rightEncoder.getPosition()) / 2;
-  // }
+  public double getAverageEncoderDistance() {
+    return (leftEncoder.getPosition() + rightEncoder.getPosition()) / 2;
+  }
 
-  // public double getAverageEncoderVelocity() {
-  // return (leftEncoder.getVelocity() + rightEncoder.getVelocity()) / 2;
-  // }
+  public double getAverageEncoderVelocity() {
+    return (leftEncoder.getVelocity() + rightEncoder.getVelocity()) / 2;
+  }
 
   public void resetGyro() {
     pigeon.setYaw(0.0);
+  }
+
+  public void resetOdometry(Pose2d pose) {
+    resetEncoders();
+    odometry.resetPosition(pose, getHeading());
   }
 
   public Rotation2d getHeading() {
@@ -150,10 +152,9 @@ public class DriveTrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // odometry.update(getHeading(), leftEncoder.getPosition(),
-    // rightEncoder.getPosition());
+    odometry.update(getHeading(), leftEncoder.getPosition(), rightEncoder.getPosition());
     SmartDashboard.putNumber("Gyro", getHeading().getDegrees());
-    // SmartDashboard.putNumber("Velocity", getAverageEncoderVelocity());
+    SmartDashboard.putNumber("Velocity", getAverageEncoderVelocity());
   }
 
   public Pose2d getPose() {
@@ -163,5 +164,4 @@ public class DriveTrain extends SubsystemBase {
   public void inverseInput() {
     isInverted = !isInverted;
   }
-
 }

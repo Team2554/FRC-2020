@@ -14,25 +14,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.DriveJoystickMappings;
-import frc.robot.commands.BottomConveyor.BottomConveyorIn;
-import frc.robot.commands.ColorWheel.RotateToColor;
-import frc.robot.commands.ColorWheel.RotateWheel;
-import frc.robot.commands.CommandGroups.TimedBothConveyors;
-import frc.robot.commands.CommandGroups.IntakeAndShoot;
 import frc.robot.commands.DriveTrain.DefaultDrive;
-import frc.robot.commands.DriveTrain.DriveStraightNEW;
-import frc.robot.commands.Elevator.ElevatorToBottom;
-import frc.robot.commands.Elevator.ElevatorToTop;
-import frc.robot.commands.Elevator.LevelAdjusterLeft;
-import frc.robot.commands.Shooter.ShootCommand;
 import frc.robot.commands.Vision.ToggleVisionLight;
 import frc.robot.commands.Vision.TurnToTargetIMUOnly;
-import frc.robot.subsystems.ColorWheel;
-import frc.robot.subsystems.TopConveyor;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Vision;
 
 /**
