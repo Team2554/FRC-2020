@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ColorWheelConstants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -14,9 +15,13 @@ import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorMatch;
 
 public class ColorWheel extends SubsystemBase {
+  // Color chooser
+  private final SendableChooser<String> m_colorChooser = new SendableChooser<>();
+
   // Color motor and encoder
-  VictorSP m_colorMotor = new VictorSP(ColorWheelConstants.colorMotorPort);
-  public Encoder m_colorEncoder = new Encoder(ColorWheelConstants.encoderPorts[0], ColorWheelConstants.encoderPorts[1]);
+  private final VictorSP m_colorMotor = new VictorSP(ColorWheelConstants.colorMotorPort);
+  private final Encoder m_colorEncoder = new Encoder(ColorWheelConstants.encoderPorts[0],
+      ColorWheelConstants.encoderPorts[1]);
 
   // Color sensor and matcher
   private final I2C.Port m_i2cPort = I2C.Port.kOnboard;
@@ -24,6 +29,14 @@ public class ColorWheel extends SubsystemBase {
   private final ColorMatch m_colorMatcher = new ColorMatch();
 
   public ColorWheel() {
+    // Setup color chooser
+    m_colorChooser.addOption("Red", "Red");
+    m_colorChooser.addOption("Green", "Green");
+    m_colorChooser.addOption("Yellow", "Yellow");
+    m_colorChooser.addOption("Blue", "Blue");
+
+    SmartDashboard.putData("Color Chooser", m_colorChooser);
+
     m_colorMatcher.addColorMatch(ColorWheelConstants.kBlueTarget);
     m_colorMatcher.addColorMatch(ColorWheelConstants.kGreenTarget);
     m_colorMatcher.addColorMatch(ColorWheelConstants.kRedTarget);
@@ -73,7 +86,7 @@ public class ColorWheel extends SubsystemBase {
     m_colorMotor.set(0);
   }
 
-  public void setMotor(double speed) {
+  public void setMotor(final double speed) {
     m_colorMotor.set(speed);
   }
 
@@ -81,7 +94,7 @@ public class ColorWheel extends SubsystemBase {
     return m_colorEncoder.getDistance();
   }
 
-  public double getRequiredDistance(String inputColor, String currentColor) {
+  public double getRequiredDistance(final String inputColor, final String currentColor) {
     double distanceNeeded = 0;
     if (currentColor.equals("Red")) {
       if (inputColor.equals("Green")) {
@@ -129,5 +142,9 @@ public class ColorWheel extends SubsystemBase {
     }
     SmartDashboard.putNumber("distance needed", distanceNeeded);
     return distanceNeeded;
+  }
+
+  public String getSelectedColor() {
+    return m_colorChooser.getSelected();
   }
 }

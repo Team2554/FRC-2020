@@ -5,44 +5,43 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Conveyor;
+package frc.robot.commands.Elevator;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Conveyor;
+import frc.robot.subsystems.Elevator;
 
-public class WhenConveyorIn extends CommandBase {
-  private final Conveyor m_conveyor;
+public class LevelAdjusterLeft extends CommandBase {
+  private final Elevator m_elevator;
 
   /**
-   * Creates a new WhenConveyorIn.
+   * Creates a new StartLevelAdjuster.
    */
-  public WhenConveyorIn(Conveyor conveyor) {
-    m_conveyor = conveyor;
-    addRequirements(m_conveyor);
+  public LevelAdjusterLeft(final Elevator elevator) {
+    m_elevator = elevator;
+    addRequirements(m_elevator);
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_conveyor.conveyorIn();
+    m_elevator.startLevelAdjuster(-1);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    m_conveyor.stopConveyor();
-
+  public void end(final boolean interrupted) {
+    m_elevator.stopLevelAdjuster();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

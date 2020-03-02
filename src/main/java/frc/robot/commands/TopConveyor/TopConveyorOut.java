@@ -5,46 +5,45 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.ColorWheel;
+package frc.robot.commands.TopConveyor;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.ColorWheelConstants;
-import frc.robot.subsystems.ColorWheel;
+import frc.robot.subsystems.TopConveyor;
+import frc.robot.subsystems.Shooter;
 
-public class RotateWheel extends CommandBase {
-  private final ColorWheel m_colorWheel;
+public class TopConveyorOut extends CommandBase {
+  private final TopConveyor m_conveyor;
+  private final Shooter m_shooter;
 
   /**
-   * Creates a new RotateWheel.
+   * Creates a new TopConveyorOut.
    */
-  public RotateWheel(final ColorWheel colorWheel) {
-    m_colorWheel = colorWheel;
-    addRequirements(m_colorWheel);
-    // Use addRequirements() here to declare subsystem dependencies.
+  public TopConveyorOut(final TopConveyor conveyor, final Shooter shooter) {
+    m_conveyor = conveyor;
+    m_shooter = shooter;
+    addRequirements(m_conveyor, m_shooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_colorWheel.resetEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_colorWheel.setMotor(ColorWheelConstants.rotateWheelSpeed);
+    m_conveyor.conveyorOut();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(final boolean interrupted) {
-    m_colorWheel.stopMotor();
-    m_colorWheel.resetEncoder();
+    m_conveyor.stopConveyor();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_colorWheel.getDistance() >= ColorWheelConstants.encoderStopValue;
+    return !m_shooter.isShootable();
   }
 }

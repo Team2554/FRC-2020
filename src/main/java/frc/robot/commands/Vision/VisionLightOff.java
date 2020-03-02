@@ -5,46 +5,44 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.ColorWheel;
+package frc.robot.commands.Vision;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.ColorWheelConstants;
-import frc.robot.subsystems.ColorWheel;
+import frc.robot.subsystems.Vision;
 
-public class RotateWheel extends CommandBase {
-  private final ColorWheel m_colorWheel;
-
+public class VisionLightOff extends CommandBase {
   /**
-   * Creates a new RotateWheel.
+   * Creates a new VisionLightOn.
    */
-  public RotateWheel(final ColorWheel colorWheel) {
-    m_colorWheel = colorWheel;
-    addRequirements(m_colorWheel);
+
+  private final Vision m_vision;
+
+  public VisionLightOff(final Vision vision) {
+    m_vision = vision;
+    addRequirements(m_vision);
+
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_colorWheel.resetEncoder();
+    m_vision.visionLightOff();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_colorWheel.setMotor(ColorWheelConstants.rotateWheelSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(final boolean interrupted) {
-    m_colorWheel.stopMotor();
-    m_colorWheel.resetEncoder();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_colorWheel.getDistance() >= ColorWheelConstants.encoderStopValue;
+    return true;
   }
 }

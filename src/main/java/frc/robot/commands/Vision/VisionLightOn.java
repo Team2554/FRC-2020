@@ -5,38 +5,39 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Conveyor;
+package frc.robot.commands.Vision;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Conveyor;
+import frc.robot.subsystems.Vision;
 
-public class WhenConveyorOut extends CommandBase {
-  private final Conveyor m_conveyor;
-
+public class VisionLightOn extends CommandBase {
   /**
-   * Creates a new WhenConveyorOut.
+   * Creates a new VisionLightOn.
    */
-  public WhenConveyorOut(Conveyor conveyor) {
-    m_conveyor = conveyor;
-    addRequirements(conveyor);
+
+  private final Vision m_vision;
+
+  public VisionLightOn(final Vision vision) {
+    m_vision = vision;
+    addRequirements(m_vision);
+
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
+    m_vision.visionLightOn();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_conveyor.conveyorOut();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    m_conveyor.stopConveyor();
+  public void end(final boolean interrupted) {
   }
 
   // Returns true when the command should end.

@@ -26,11 +26,15 @@ import edu.wpi.first.wpilibj.util.Color;
 public final class Constants {
     public static final class DriveJoystickMappings {
         // TODO: define actual button ids later
-        public static final int intakeIn = 0; // hold to intake ball
-        public static final int runFlywheel = 1; // hold to spin flywheel
-        public static final int angleToVision = 2; // hold to keep align to vision target
-        public static final int reverseDrivetrain = 3; // toggle reverse the drive direction
+        // public static final int intakeIn = 0; // hold to intake ball
+        // public static final int runFlywheel = 1; // hold to spin flywheel
+        // public static final int angleToVision = 2; // hold to keep align to vision
+        // target
+        // public static final int reverseDrivetrain = 3; // toggle reverse the drive
+        // direction
         public static final int quickTurn = 4;
+        public static final int driveStraight = 1; // press to drive straight
+        public static final int rotateToAngle = 2; // press to rotate
         // above is for curvature drive. see:
         // https://first.wpi.edu/FRC/roborio/release/docs/java/edu/wpi/first/wpilibj/drive/DifferentialDrive.html#curvatureDrive(double,double,boolean)
     }
@@ -48,6 +52,12 @@ public final class Constants {
         public static final int setElevatorButtom = 9; // press to set elevator to bottom using limit switch
         public static final int colorWheelTurnToColor = 10; // press to spin the color wheel to a certain color
         public static final int colorWheelSpinNumberOfTimes = 11; // press to spin the color wheel 4 times
+        public static final int levelAdjusterLeft = 12; // Level adjuster left
+        public static final int levelAdjusterRight = 13; // Level adjuster right
+        public static final int intakeAndShoot = 14;
+        public static final int timedConveyors = 15;
+        public static final int bottomConveyorIn = 16;
+        public static int topConveyorOut = 17;
     }
 
     public static final class ColorWheelConstants {
@@ -77,16 +87,31 @@ public final class Constants {
     }
 
     public static final class ShooterConstants {
-        public static final int victorPort = 2;
+        public static final int talonPort = 0; // CanID for talon
     }
 
     public static final class ConveyorConstants {
-        public static final int bottomConveyorPort = 0;
-        public static final int topConveyorPort = 1;
-        public static final double conveyorSpeed = 0.45;
+        public static final int topConveyorVoltage = 3;
+        public static final int leftConveyor1Port = 0;
+        public static final int leftConveyor2Port = 1;
+        public static final int rightConveyor1Port = 2;
+        public static final int rightConveyor2Port = 3;
+
+        // BottomConveyor Constants
+        public static final double stopTime = 0.5;
+        public static final int bottomConveyorPort = 4;
+        public static final int bottomConveyorVoltage = 5;
     }
 
     public static final class IntakeConstants {
         public static final int intakePort = 0;
+    }
+
+    public static final class ElevatorConstants {
+        public static final int bottomSwitch = 0;
+        public static final int topSwitch = 1;
+        public static final int motorPort = 2;
+        public static final int levelAdjusterMotorOnePort = 0;
+        public static final int levelAdjusterMotorTwoPort = 1;
     }
 }

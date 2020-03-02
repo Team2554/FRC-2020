@@ -5,46 +5,54 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.ColorWheel;
+package frc.robot.commands.Vision;
 
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.ColorWheelConstants;
-import frc.robot.subsystems.ColorWheel;
+import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Vision;
 
-public class RotateWheel extends CommandBase {
-  private final ColorWheel m_colorWheel;
-
+public class TurnToTargetIMUAssist extends CommandBase {
   /**
-   * Creates a new RotateWheel.
+   * Creates a new TurnToTargetIMUAssist.
    */
-  public RotateWheel(final ColorWheel colorWheel) {
-    m_colorWheel = colorWheel;
-    addRequirements(m_colorWheel);
+
+  private final Vision m_vision;
+  private final DriveTrain m_driveTrain;
+  private final PIDController pid = new PIDController(0, 0, 0);
+
+  public TurnToTargetIMUAssist(final Vision vision, final DriveTrain driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
+    m_vision = vision;
+    m_driveTrain = driveTrain;
+    addRequirements(m_vision);
+    addRequirements(m_driveTrain);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_colorWheel.resetEncoder();
+    m_vision.visionLightOn();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_colorWheel.setMotor(ColorWheelConstants.rotateWheelSpeed);
+    final double rotOutput = pid.calculate(m_driveTrain.getHeading().getDegrees(),
+        m_driveTrain.getHeading().getDegrees() + m_vision.getHorizAngle());
+
+    m_driveTrain.curvatureDrive(0, rotOutput, true);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(final boolean interrupted) {
-    m_colorWheel.stopMotor();
-    m_colorWheel.resetEncoder();
+    m_vision.visionLightOff();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_colorWheel.getDistance() >= ColorWheelConstants.encoderStopValue;
+    return false;
   }
 }

@@ -5,46 +5,48 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.ColorWheel;
+package frc.robot.commands.BottomConveyor;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.ColorWheelConstants;
-import frc.robot.subsystems.ColorWheel;
+import frc.robot.Constants.ConveyorConstants;
+import frc.robot.subsystems.BottomConveyor;
+import edu.wpi.first.wpilibj.Timer;
 
-public class RotateWheel extends CommandBase {
-  private final ColorWheel m_colorWheel;
-
+public class TimedBottomConveyorIn extends CommandBase {
   /**
-   * Creates a new RotateWheel.
+   * Creates a new BottomConveyorIn.
    */
-  public RotateWheel(final ColorWheel colorWheel) {
-    m_colorWheel = colorWheel;
-    addRequirements(m_colorWheel);
+  Timer bottomTimer;
+  private final double stopTime = ConveyorConstants.stopTime; // Make this a constant
+  private final BottomConveyor m_bottomConveyor;
+
+  public TimedBottomConveyorIn(BottomConveyor bottomConveyor) {
+    m_bottomConveyor = bottomConveyor;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(m_bottomConveyor);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_colorWheel.resetEncoder();
+    bottomTimer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_colorWheel.setMotor(ColorWheelConstants.rotateWheelSpeed);
+    m_bottomConveyor.ballIn();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(final boolean interrupted) {
-    m_colorWheel.stopMotor();
-    m_colorWheel.resetEncoder();
+  public void end(boolean interrupted) {
+    m_bottomConveyor.stopBottomConveyor();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_colorWheel.getDistance() >= ColorWheelConstants.encoderStopValue;
+    return (bottomTimer.get() >= stopTime);
   }
 }

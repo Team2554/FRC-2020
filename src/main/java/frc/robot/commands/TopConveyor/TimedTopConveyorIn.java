@@ -5,46 +5,50 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.ColorWheel;
+package frc.robot.commands.TopConveyor;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.ColorWheelConstants;
-import frc.robot.subsystems.ColorWheel;
+import frc.robot.Constants.ConveyorConstants;
+import frc.robot.subsystems.TopConveyor;
 
-public class RotateWheel extends CommandBase {
-  private final ColorWheel m_colorWheel;
+public class TimedTopConveyorIn extends CommandBase {
 
   /**
-   * Creates a new RotateWheel.
+   * Creates a new TimedTopConveyorIN.
    */
-  public RotateWheel(final ColorWheel colorWheel) {
-    m_colorWheel = colorWheel;
-    addRequirements(m_colorWheel);
+  Timer topTimer;
+
+  private final double stopTime = ConveyorConstants.stopTime; // Make this a constant
+  private final TopConveyor m_topConveyor;
+
+  public TimedTopConveyorIn(TopConveyor topConveyor) {
+    m_topConveyor = topConveyor;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(m_topConveyor);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_colorWheel.resetEncoder();
+    topTimer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_colorWheel.setMotor(ColorWheelConstants.rotateWheelSpeed);
+    m_topConveyor.conveyorIn();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(final boolean interrupted) {
-    m_colorWheel.stopMotor();
-    m_colorWheel.resetEncoder();
+  public void end(boolean interrupted) {
+    m_topConveyor.stopConveyor();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_colorWheel.getDistance() >= ColorWheelConstants.encoderStopValue;
+    return (topTimer.get() >= stopTime);
   }
 }

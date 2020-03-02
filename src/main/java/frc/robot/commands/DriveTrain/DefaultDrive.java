@@ -5,25 +5,31 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Shooter;
+package frc.robot.commands.DriveTrain;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.DriveTrain;
 
-public class ShootCommand extends CommandBase {
-  private final Shooter m_shooter;
-  private final DoubleSupplier m_voltageSupplier;
-
+public class DefaultDrive extends CommandBase {
   /**
-   * Creates a new ShootCommand.
+   * Creates a new DefaultDrive.
    */
-  public ShootCommand(final Shooter shooter, final DoubleSupplier voltageSupplier) {
-    m_shooter = shooter;
-    m_voltageSupplier = voltageSupplier;
 
-    addRequirements(m_shooter);
+  private final DriveTrain m_driveTrain;
+  private final DoubleSupplier speed;
+  private final DoubleSupplier rotation;
+  private final BooleanSupplier quickTurn;
+
+  public DefaultDrive(final DriveTrain driveTrain, final DoubleSupplier speed, final DoubleSupplier rotation,
+      final BooleanSupplier quickTurn) {
+    this.m_driveTrain = driveTrain;
+    this.speed = speed;
+    this.rotation = rotation;
+    this.quickTurn = quickTurn;
+    addRequirements(m_driveTrain);
   }
 
   // Called when the command is initially scheduled.
@@ -31,15 +37,17 @@ public class ShootCommand extends CommandBase {
   public void initialize() {
   }
 
+  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shooter.startMotor(m_voltageSupplier.getAsDouble());
+    m_driveTrain.curvatureDrive(speed.getAsDouble(), rotation.getAsDouble(), quickTurn.getAsBoolean());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(final boolean interrupted) {
-    m_shooter.stop();
+    if (interrupted)
+      m_driveTrain.curvatureDrive(0, 0, false);
   }
 
   // Returns true when the command should end.

@@ -11,32 +11,30 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ConveyorConstants;
 import edu.wpi.first.wpilibj.VictorSP;
 
-public class Conveyor extends SubsystemBase {
+public class BottomConveyor extends SubsystemBase {
   /**
-   * Creates a new Conveyor.
+   * Creates a new BottomConveyor.
    */
-  VictorSP bottomConveyor = new VictorSP(ConveyorConstants.bottomConveyorPort);
-  VictorSP topConveyor = new VictorSP(ConveyorConstants.topConveyorPort);
+  private final VictorSP bottomConveyor = new VictorSP(ConveyorConstants.bottomConveyorPort);
 
-  public Conveyor() {
+  public BottomConveyor() {
+
   }
 
-  public void conveyorIn() {
-    bottomConveyor.set(ConveyorConstants.conveyorSpeed);
-    topConveyor.set(ConveyorConstants.conveyorSpeed);
+  public void ballIn() {
+    bottomConveyor.setVoltage(ConveyorConstants.bottomConveyorVoltage);
   }
 
-  public void conveyorOut() {
-    bottomConveyor.set(-ConveyorConstants.conveyorSpeed);
-    topConveyor.set(-ConveyorConstants.conveyorSpeed);
+  public void ballOut() {
+    bottomConveyor.setVoltage(-ConveyorConstants.bottomConveyorVoltage);
   }
 
-  public void stopConveyor() {
-    bottomConveyor.set(0);
-    topConveyor.set(0);
+  public void stopBottomConveyor() {
+    bottomConveyor.stopMotor();
   }
 
   @Override
   public void periodic() {
+    // This method will be called once per scheduler run
   }
 }
