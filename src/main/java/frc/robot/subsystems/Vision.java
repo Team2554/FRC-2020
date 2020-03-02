@@ -26,7 +26,7 @@ public class Vision extends SubsystemBase {
   private final NetworkTable ntVision = NetworkTableInstance.getDefault().getTable("Shuffleboard")
       .getSubTable("Vision");
 
-  private final Solenoid visionLight = new Solenoid(1);
+  private final Solenoid visionLight = new Solenoid(0);
 
   public Vision() {
     sbVision.add("Hue Start", 80.0).withWidget("Number Slider").withProperties(Map.of("min", 0.0, "max", 180.0));

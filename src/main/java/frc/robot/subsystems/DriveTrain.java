@@ -29,18 +29,20 @@ import frc.robot.Custom.SRXMagEncoder_Relative;
 
 public class DriveTrain extends SubsystemBase {
 
-  private final WPI_TalonSRX tRF = new WPI_TalonSRX(4);
-  private final VictorSPX vRB = new VictorSPX(6);
+  private final WPI_TalonSRX tRF = new WPI_TalonSRX(2);
+  private final VictorSPX vRB = new VictorSPX(9);
 
   private final WPI_TalonSRX tLF = new WPI_TalonSRX(3);
-  private final VictorSPX vLB = new VictorSPX(5);
+  private final VictorSPX vLB = new VictorSPX(7);
 
-  private final SRXMagEncoder_Relative rightEncoder = new SRXMagEncoder_Relative(tRF);
-  private final SRXMagEncoder_Relative leftEncoder = new SRXMagEncoder_Relative(tLF);
+  // private final SRXMagEncoder_Relative rightEncoder = new
+  // SRXMagEncoder_Relative(tRF);
+  // private final SRXMagEncoder_Relative leftEncoder = new
+  // SRXMagEncoder_Relative(tLF);
 
   private final DifferentialDrive driveTrain = new DifferentialDrive(tLF, tRF);
 
-  private final PigeonIMU pigeon = new PigeonIMU(10);
+  private final PigeonIMU pigeon = new PigeonIMU(1);
 
   private final double maxVoltage = 10;
 
@@ -61,6 +63,8 @@ public class DriveTrain extends SubsystemBase {
    * Creates a new DriveTrain.
    */
   public DriveTrain() {
+    driveTrain.setRightSideInverted(false);
+
     tRF.configFactoryDefault();
     tLF.configFactoryDefault();
     vRB.configFactoryDefault();
@@ -77,26 +81,27 @@ public class DriveTrain extends SubsystemBase {
     tLF.enableVoltageCompensation(true);
 
     vRB.follow(tRF);
-    tRF.setInverted(false);
+    tRF.setInverted(true);
     vRB.setInverted(InvertType.FollowMaster);
 
     vLB.follow(tLF);
     tLF.setInverted(false);
     vLB.setInverted(InvertType.FollowMaster);
 
-    leftEncoder.setWheelDiameter(Units.inchesToMeters(wheelDiameterInches));
-    rightEncoder.setWheelDiameter(Units.inchesToMeters(wheelDiameterInches));
+    // leftEncoder.setWheelDiameter(Units.inchesToMeters(wheelDiameterInches));
+    // rightEncoder.setWheelDiameter(Units.inchesToMeters(wheelDiameterInches));
 
-    leftEncoder.configure();
-    rightEncoder.configure();
+    // leftEncoder.configure();
+    // rightEncoder.configure();
 
-    resetEncoders();
+    // resetEncoders();
     resetGyro();
   }
 
-  public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-    return new DifferentialDriveWheelSpeeds(leftEncoder.getVelocity(), rightEncoder.getVelocity());
-  }
+  // public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+  // return new DifferentialDriveWheelSpeeds(leftEncoder.getVelocity(),
+  // rightEncoder.getVelocity());
+  // }
 
   public PIDController getLeftPIDController() {
     return leftPIDController;
@@ -120,18 +125,18 @@ public class DriveTrain extends SubsystemBase {
     driveTrain.feed();
   }
 
-  public void resetEncoders() {
-    leftEncoder.reset();
-    rightEncoder.reset();
-  }
+  // public void resetEncoders() {
+  // leftEncoder.reset();
+  // rightEncoder.reset();
+  // }
 
-  public double getAverageEncoderDistance() {
-    return (leftEncoder.getPosition() + rightEncoder.getPosition()) / 2;
-  }
+  // public double getAverageEncoderDistance() {
+  // return (leftEncoder.getPosition() + rightEncoder.getPosition()) / 2;
+  // }
 
-  public double getAverageEncoderVelocity() {
-    return (leftEncoder.getVelocity() + rightEncoder.getVelocity()) / 2;
-  }
+  // public double getAverageEncoderVelocity() {
+  // return (leftEncoder.getVelocity() + rightEncoder.getVelocity()) / 2;
+  // }
 
   public void resetGyro() {
     pigeon.setYaw(0.0);
@@ -145,9 +150,10 @@ public class DriveTrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-    odometry.update(getHeading(), leftEncoder.getPosition(), rightEncoder.getPosition());
+    // odometry.update(getHeading(), leftEncoder.getPosition(),
+    // rightEncoder.getPosition());
     SmartDashboard.putNumber("Gyro", getHeading().getDegrees());
-    SmartDashboard.putNumber("Velocity", getAverageEncoderVelocity());
+    // SmartDashboard.putNumber("Velocity", getAverageEncoderVelocity());
   }
 
   public Pose2d getPose() {
