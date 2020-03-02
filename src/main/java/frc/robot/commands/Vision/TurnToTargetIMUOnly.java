@@ -19,7 +19,7 @@ public class TurnToTargetIMUOnly extends CommandBase {
 
   private final Vision m_vision;
   private final DriveTrain m_driveTrain;
-  private final PIDController pid = new PIDController(0, 0, 0);
+  private final PIDController pid = new PIDController(0.01, 0.01, 0.00085);
   private double turnAngle;
 
   public TurnToTargetIMUOnly(final Vision vision, final DriveTrain driveTrain) {
