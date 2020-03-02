@@ -7,10 +7,13 @@
 
 package frc.robot;
 
+import java.util.Map;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.DriveJoystickMappings;
@@ -18,6 +21,10 @@ import frc.robot.commands.DriveTrain.DefaultDrive;
 import frc.robot.commands.DriveTrain.DriveStraightNEW;
 import frc.robot.commands.DriveTrain.RotateToAngleNEW;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.ColorWheel;
+import frc.robot.commands.ColorWheel.RotateToColor;
+import frc.robot.commands.ColorWheel.RotateWheel;
+import frc.robot.commands.ColorWheel.WhiteLine;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -40,8 +47,10 @@ public class RobotContainer {
   // Subsystems
   // private final Shooter m_shooter = new Shooter();
   // private final Conveyor m_conveyor = new Conveyor();
-  // private final ColorWheel m_colorWheel = new ColorWheel();
+  public final ColorWheel m_colorWheel = new ColorWheel();
   private final DriveTrain m_driveTrain = new DriveTrain();
+
+  private boolean switchCommand = false;
 
   public RobotContainer() {
     // Configure the button bindings
@@ -50,6 +59,8 @@ public class RobotContainer {
         () -> m_driveJoystick.getX(), () -> m_driveJoystick.getRawButton(DriveJoystickMappings.quickTurn)));
 
     configureButtonBindings();
+
+    m_colorWheel.setDefaultCommand(new WhiteLine(m_colorWheel));
   }
 
   /**
@@ -67,14 +78,17 @@ public class RobotContainer {
     // Constants.ButtonJoystickMappings.conveyorIn)
     // .whenPressed(new WhenConveyorIn(m_conveyor));
 
-    // // Color wheel buttons
-    // new JoystickButton(m_buttonJoystick,
-    // Constants.ButtonJoystickMappings.colorWheelSpinNumberOfTimes)
-    // .whenPressed(new RotateWheel(m_colorWheel));
-    // new JoystickButton(m_buttonJoystick,
-    // Constants.ButtonJoystickMappings.colorWheelTurnToColor)
-    // .whenPressed(new RotateToColor(m_colorWheel,
-    // m_colorWheel::getSelectedColor));
+    // Color wheel buttons
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.colorWheelSpinNumberOfTimes)
+        .whenPressed(new RotateWheel(m_colorWheel));
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.colorWheelTurnToColor)
+        .whenPressed(new RotateToColor(m_colorWheel, m_colorWheel::getSelectedColor));
+
+    new JoystickButton(m_buttonJoystick, 15).whenPressed(new ConditionalCommand(
+        new RotateToColor(m_colorWheel, () -> m_colorWheel.getColorWheelColor()), new WhiteLine(m_colorWheel), () -> {
+          switchCommand = !switchCommand;
+          return switchCommand;
+        }));
 
     // // Shooter button
     // new JoystickButton(m_buttonJoystick,

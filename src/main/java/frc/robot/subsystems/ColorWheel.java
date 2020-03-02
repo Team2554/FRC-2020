@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ColorWheelConstants;
@@ -27,6 +28,10 @@ public class ColorWheel extends SubsystemBase {
   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(m_i2cPort);
   private final ColorMatch m_colorMatcher = new ColorMatch();
 
+  private final I2C.Port m_kmxPort = Port.kMXP;
+  private final ColorSensorV3 m_whiteLineSensor = new ColorSensorV3(m_kmxPort);
+  private final ColorMatch m_whiteLineMatcher = new ColorMatch();
+
   public ColorWheel() {
     // Setup color chooser
     m_colorChooser.addOption("Red", "Red");
@@ -40,14 +45,13 @@ public class ColorWheel extends SubsystemBase {
     m_colorMatcher.addColorMatch(ColorWheelConstants.kGreenTarget);
     m_colorMatcher.addColorMatch(ColorWheelConstants.kRedTarget);
     m_colorMatcher.addColorMatch(ColorWheelConstants.kYellowTarget);
-    m_colorMatcher.addColorMatch(ColorWheelConstants.kWhiteTarget);
 
     m_colorEncoder.setDistancePerPulse(ColorWheelConstants.distancePerPulse);
     m_colorEncoder.setReverseDirection(false);
     resetEncoder();
   }
 
-  public String getColor() {
+  public String getColorWheelColor() {
     final Color detectedColor = m_colorSensor.getColor();
     final ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
 
@@ -60,7 +64,18 @@ public class ColorWheel extends SubsystemBase {
       colorString = "Green";
     } else if (match.color == ColorWheelConstants.kYellowTarget) {
       colorString = "Yellow";
-    } else if (match.color == ColorWheelConstants.kWhiteTarget) {
+    } else {
+      colorString = "Unknown";
+    }
+    return colorString;
+  }
+
+  public String getWhiteLineColor() {
+    final Color detectedColor = m_whiteLineSensor.getColor();
+    final ColorMatchResult match = m_whiteLineMatcher.matchClosestColor(detectedColor);
+
+    String colorString;
+    if (match.color == ColorWheelConstants.kWhiteTarget) {
       colorString = "White";
     } else if (match.color == ColorWheelConstants.kBlackTarget) {
       colorString = "Black";
@@ -72,7 +87,8 @@ public class ColorWheel extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putString("Detected Color", getColor());
+    SmartDashboard.putString("Color Wheel Color", getColorWheelColor());
+    SmartDashboard.putString("White Line Color", getWhiteLineColor());
     SmartDashboard.putNumber("Encoder Distance", getDistance());
     SmartDashboard.putNumber("Encoder Raw Value", m_colorEncoder.getRaw());
   }
