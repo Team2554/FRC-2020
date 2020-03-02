@@ -86,10 +86,10 @@ public class RobotContainer {
                                 .whenPressed(new ElevatorToBottom(m_elevator));
 
                 // Elevator Level Adjuster
-                new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.levelAdjusterLeft)
-                                .whenPressed(new LevelAdjusterLeft(m_elevator));
-                new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.levelAdjusterRight)
-                                .whenPressed(new LevelAdjusterLeft(m_elevator));
+              //  new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.levelAdjusterLeft)
+                //                .whenPressed(new LevelAdjusterLeft(m_elevator));
+                //new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.levelAdjusterRight)
+                  //              .whenPressed(new LevelAdjusterLeft(m_elevator));
 
                 // Color wheel buttons
                 new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.colorWheelSpinNumberOfTimes)
