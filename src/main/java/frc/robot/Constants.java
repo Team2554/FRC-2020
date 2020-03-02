@@ -77,6 +77,9 @@ public final class Constants {
         public static final Color kWhiteTarget = ColorMatch.makeColor(0.267, 0.475, 0.25);
         public static final Color kBlackTarget = ColorMatch.makeColor(0.0, 0.0, 0.0);
 
+        public static final Color kWhiteTargetForWhiteLine = ColorMatch.makeColor(0.267, 0.475, 0.25);
+        public static final Color kBlackTargetForWhiteLine = ColorMatch.makeColor(0.0, 0.0, 0.0);
+
         // Encoder related calculations
         public static final double circumOfColorWheel = 100.0 / 12; // circumference of color wheel (feet)
         public static final double circumOfMotorWheel = (Math.PI * 4) / 12.0; // circumference of motor (feet)

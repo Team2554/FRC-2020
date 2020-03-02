@@ -24,9 +24,10 @@ public class ColorWheel extends SubsystemBase {
       ColorWheelConstants.encoderPorts[1]);
 
   // Color sensor and matcher
-  private final I2C.Port m_i2cPort = I2C.Port.kOnboard;
-  private final ColorSensorV3 m_colorSensor = new ColorSensorV3(m_i2cPort);
+  private final ColorSensorV3 m_colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
+  private final ColorSensorV3 m_whiteLineSensor = new ColorSensorV3(I2C.Port.kMXP);
   private final ColorMatch m_colorMatcher = new ColorMatch();
+  private final ColorMatch m_whiteLineMatcher = new ColorMatch();
 
   public ColorWheel() {
     // Setup color chooser
@@ -42,6 +43,9 @@ public class ColorWheel extends SubsystemBase {
     m_colorMatcher.addColorMatch(ColorWheelConstants.kRedTarget);
     m_colorMatcher.addColorMatch(ColorWheelConstants.kYellowTarget);
     m_colorMatcher.addColorMatch(ColorWheelConstants.kWhiteTarget);
+
+    m_whiteLineMatcher.addColorMatch(ColorWheelConstants.kBlackTargetForWhiteLine);
+    m_whiteLineMatcher.addColorMatch(ColorWheelConstants.kWhiteTargetForWhiteLine);
 
     m_colorEncoder.setDistancePerPulse(ColorWheelConstants.distancePerPulse);
     m_colorEncoder.setReverseDirection(false);
@@ -69,6 +73,13 @@ public class ColorWheel extends SubsystemBase {
       colorString = "Unknown";
     }
     return colorString;
+  }
+
+  public boolean isWhiteLine() {
+    final Color detectedColor = m_whiteLineSensor.getColor();
+    final ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
+
+    return match.color == ColorWheelConstants.kWhiteTargetForWhiteLine;
   }
 
   @Override
