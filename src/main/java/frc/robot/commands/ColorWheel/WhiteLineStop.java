@@ -42,7 +42,8 @@ public class WhiteLineStop extends CommandBase {
     if (m_colorWheel.isWhiteLine()) {
       m_driveTrain.tankDriveVolts(0, 0);
     } else {
-      m_driveTrain.curvatureDrive(m_speed.getAsDouble(), m_rotation.getAsDouble(), m_quickTurn.getAsBoolean());
+      m_driveTrain.curvatureDrive(m_speed.getAsDouble() * 0.25, m_rotation.getAsDouble() * 0.25,
+          m_quickTurn.getAsBoolean());
     }
   }
 
