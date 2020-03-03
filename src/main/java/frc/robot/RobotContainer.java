@@ -24,7 +24,6 @@ import frc.robot.commands.DriveTrain.DriveStraightNEW;
 import frc.robot.commands.DriveTrain.RotateToAngleNEW;
 import frc.robot.commands.Elevator.ElevatorToBottom;
 import frc.robot.commands.Elevator.ElevatorToTop;
-import frc.robot.commands.Elevator.LevelAdjusterLeft;
 import frc.robot.commands.TopConveyor.TopConveyorIn;
 import frc.robot.subsystems.BottomConveyor;
 import frc.robot.subsystems.ColorWheel;
@@ -61,7 +60,7 @@ public class RobotContainer {
         public RobotContainer() {
                 // Configure the button bindings
                 m_driveTrain.setDefaultCommand(new DefaultDrive(m_driveTrain, () -> -m_driveJoystick.getY(),
-                                () -> m_driveJoystick.getX(),
+                        m_driveJoystick::getX,
                                 () -> m_driveJoystick.getRawButton(DriveJoystickMappings.quickTurn)));
 
                 configureButtonBindings();

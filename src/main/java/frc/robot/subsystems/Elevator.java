@@ -40,7 +40,7 @@ public class Elevator extends SubsystemBase {
   }
 
   public void goUp() {
-    elevatorMotor.set(ElevatorConstrants.upSpeed);
+    elevatorMotor.set(ElevatorConstants.upSpeed);
   }
 
   public void goDown() {
