@@ -7,6 +7,9 @@
 
 package frc.robot.subsystems;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -14,6 +17,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -56,6 +60,9 @@ public class DriveTrain extends SubsystemBase {
   private final PIDController rightPIDController = new PIDController(2.95, 0, 0);
 
   private boolean isInverted = false;
+
+  Deque<Double> gyroTimestamps = new ArrayDeque<Double>(100);
+  Deque<Double> gyroAngles = new ArrayDeque<Double>(100);
 
   /**
    * Creates a new DriveTrain.
@@ -155,6 +162,9 @@ public class DriveTrain extends SubsystemBase {
     odometry.update(getHeading(), leftEncoder.getPosition(), rightEncoder.getPosition());
     SmartDashboard.putNumber("Gyro", getHeading().getDegrees());
     SmartDashboard.putNumber("Velocity", getAverageEncoderVelocity());
+
+    gyroTimestamps.add(Timer.getFPGATimestamp());
+    gyroAngles.add(getHeading().getDegrees());
   }
 
   public Pose2d getPose() {
