@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.DriveJoystickMappings;
 import frc.robot.commands.DriveTrain.DefaultDrive;
 import frc.robot.commands.Vision.ToggleVisionLight;
-import frc.robot.commands.Vision.TurnToTargetIMUOnly;
+import frc.robot.commands.Vision.TurnToTargetContinous;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Vision;
 
@@ -62,7 +62,7 @@ public class RobotContainer {
     // vision light toggle
     new JoystickButton(m_driveJoystick, 1).whenPressed(new ToggleVisionLight(m_vision));
 
-    new JoystickButton(m_driveJoystick, 2).whenPressed(new TurnToTargetIMUOnly(m_vision, m_driveTrain));
+    new JoystickButton(m_driveJoystick, 2).whenPressed(new TurnToTargetContinous(m_vision, m_driveTrain));
 
     // new JoystickButton(m_driveJoystick, 2).whenPressed(new TurnToAngle(90.0,
     // m_driveTrain));

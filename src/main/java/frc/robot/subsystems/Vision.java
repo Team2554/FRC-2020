@@ -66,9 +66,8 @@ public class Vision extends SubsystemBase {
     return lastEntry;
   }
 
-  public double[] getHorizAngleAndTimestamp() {
-    double[] toReturn = { lastEntryChange, lastEntry };
-    return toReturn;
+  public double getTimestamp() {
+    return lastEntryChange;
   }
 
   public void toggleVisionLight() {

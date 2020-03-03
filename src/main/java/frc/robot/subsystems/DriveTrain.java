@@ -7,8 +7,8 @@
 
 package frc.robot.subsystems;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
@@ -61,8 +61,8 @@ public class DriveTrain extends SubsystemBase {
 
   private boolean isInverted = false;
 
-  Deque<Double> gyroTimestamps = new ArrayDeque<Double>(100);
-  Deque<Double> gyroAngles = new ArrayDeque<Double>(100);
+  List<Double> gyroTimestamps = new ArrayList<Double>(100);
+  List<Double> gyroAngles = new ArrayList<Double>(100);
 
   /**
    * Creates a new DriveTrain.
@@ -157,6 +157,16 @@ public class DriveTrain extends SubsystemBase {
     return Rotation2d.fromDegrees(Math.IEEEremainder(ypr[0], 360));
   }
 
+  public double getClosestAngle(double timestamp) {
+    int closestIdx = 0;
+    for (int i = 1; i < gyroTimestamps.size(); i++) {
+      if (Math.abs(gyroTimestamps.get(i) - timestamp) > Math.abs(gyroTimestamps.get(closestIdx) - timestamp))
+        closestIdx = i;
+    }
+
+    return gyroAngles.get(closestIdx);
+  }
+
   @Override
   public void periodic() {
     odometry.update(getHeading(), leftEncoder.getPosition(), rightEncoder.getPosition());
@@ -165,6 +175,11 @@ public class DriveTrain extends SubsystemBase {
 
     gyroTimestamps.add(Timer.getFPGATimestamp());
     gyroAngles.add(getHeading().getDegrees());
+
+    if (gyroTimestamps.size() > 100) {
+      gyroTimestamps.remove(0);
+      gyroAngles.remove(0);
+    }
   }
 
   public Pose2d getPose() {
