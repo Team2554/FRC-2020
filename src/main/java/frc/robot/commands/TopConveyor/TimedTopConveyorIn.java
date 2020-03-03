@@ -5,54 +5,50 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Vision;
+package frc.robot.commands.TopConveyor;
 
-import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Vision;
+import frc.robot.Constants.ConveyorConstants;
+import frc.robot.subsystems.TopConveyor;
 
-public class TurnToTargetIMUAssist extends CommandBase {
+public class TimedTopConveyorIn extends CommandBase {
+
   /**
-   * Creates a new TurnToTargetIMUAssist.
+   * Creates a new TimedTopConveyorIN.
    */
+  Timer topTimer;
 
-  private final Vision m_vision;
-  private final DriveTrain m_driveTrain;
-  private final PIDController pid = new PIDController(0, 0, 0);
+  private final double stopTime = ConveyorConstants.stopTime; // Make this a constant
+  private final TopConveyor m_topConveyor;
 
-  public TurnToTargetIMUAssist(final Vision vision, final DriveTrain driveTrain) {
+  public TimedTopConveyorIn(TopConveyor topConveyor) {
+    m_topConveyor = topConveyor;
     // Use addRequirements() here to declare subsystem dependencies.
-    m_vision = vision;
-    m_driveTrain = driveTrain;
-    addRequirements(m_vision);
-    addRequirements(m_driveTrain);
+    addRequirements(m_topConveyor);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_vision.visionLightOn();
+    topTimer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    final double rotOutput = pid.calculate(m_driveTrain.getHeading().getDegrees(),
-        m_driveTrain.getHeading().getDegrees() + m_vision.getHorizAngle());
-
-    m_driveTrain.curvatureDrive(0, rotOutput, true);
+    m_topConveyor.conveyorIn();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(final boolean interrupted) {
-    m_vision.visionLightOff();
+  public void end(boolean interrupted) {
+    m_topConveyor.stopConveyor();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return (topTimer.get() >= stopTime);
   }
 }

@@ -7,8 +7,6 @@
 
 package frc.robot.subsystems;
 
-import java.util.Map;
-
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -22,24 +20,25 @@ public class Vision extends SubsystemBase {
    * Creates a new Vision.
    */
 
-  ShuffleboardTab sbVision = Shuffleboard.getTab("Vision");
-  NetworkTable ntVision = NetworkTableInstance.getDefault().getTable("Shuffleboard").getSubTable("Vision");
+  private final ShuffleboardTab sbVision = Shuffleboard.getTab("Vision");
+  private final NetworkTable ntVision = NetworkTableInstance.getDefault().getTable("Shuffleboard")
+      .getSubTable("Vision");
 
-  Solenoid visionLight = new Solenoid(1);
+  private final Solenoid visionLight = new Solenoid(0);
 
   public Vision() {
-    sbVision.add("Hue Start", 80.0).withWidget("Number Slider").withProperties(Map.of("min", 0.0, "max", 180.0));
-
-    sbVision.add("Hue End", 90.0).withWidget("Number Slider").withProperties(Map.of("min", 0.0, "max", 180.0));
-
-    sbVision.add("Saturation Start", 100.0).withWidget("Number Slider")
-        .withProperties(Map.of("min", 0.0, "max", 255.0));
-
-    sbVision.add("Saturation End", 255.0).withWidget("Number Slider").withProperties(Map.of("min", 0.0, "max", 255.0));
-
-    sbVision.add("Value Start", 0.0).withWidget("Number Slider").withProperties(Map.of("min", 0.0, "max", 255.0));
-
-    sbVision.add("Value End", 255.0).withWidget("Number Slider").withProperties(Map.of("min", 0.0, "max", 255.0));
+    // sbVision.add("Hue Start", 80.0).withWidget("Number
+    // Slider").withProperties(Map.of("min", 0.0, "max", 180.0));
+    // sbVision.add("Hue End", 90.0).withWidget("Number
+    // Slider").withProperties(Map.of("min", 0.0, "max", 180.0));
+    // sbVision.add("Saturation Start", 100.0).withWidget("Number Slider")
+    // .withProperties(Map.of("min", 0.0, "max", 255.0));
+    // sbVision.add("Saturation End", 255.0).withWidget("Number
+    // Slider").withProperties(Map.of("min", 0.0, "max", 255.0));
+    // sbVision.add("Value Start", 0.0).withWidget("Number
+    // Slider").withProperties(Map.of("min", 0.0, "max", 255.0));
+    // sbVision.add("Value End", 255.0).withWidget("Number
+    // Slider").withProperties(Map.of("min", 0.0, "max", 255.0));
   }
 
   @Override

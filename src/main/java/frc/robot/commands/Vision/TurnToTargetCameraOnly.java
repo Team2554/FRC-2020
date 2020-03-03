@@ -17,11 +17,11 @@ public class TurnToTargetCameraOnly extends CommandBase {
    * Creates a new TurnToTargetCameraOnly.
    */
 
-  Vision m_vision;
-  DriveTrain m_driveTrain;
-  PIDController pid = new PIDController(0, 0, 0);
+  private final Vision m_vision;
+  private final DriveTrain m_driveTrain;
+  private final PIDController pid = new PIDController(0, 0, 0);
 
-  public TurnToTargetCameraOnly(Vision vision, DriveTrain driveTrain) {
+  public TurnToTargetCameraOnly(final Vision vision, final DriveTrain driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_vision = vision;
     m_driveTrain = driveTrain;
@@ -44,7 +44,7 @@ public class TurnToTargetCameraOnly extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
+  public void end(final boolean interrupted) {
     m_vision.visionLightOff();
   }
 

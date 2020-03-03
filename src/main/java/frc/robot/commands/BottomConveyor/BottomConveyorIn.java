@@ -5,43 +5,46 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Conveyor;
+package frc.robot.commands.BottomConveyor;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Conveyor;
+import frc.robot.subsystems.BottomConveyor;
+import frc.robot.subsystems.Shooter;
 
-public class WhenConveyorOut extends CommandBase {
-  private final Conveyor m_conveyor;
+public class BottomConveyorIn extends CommandBase {
+  private final BottomConveyor m_bottomConveyor;
+  private final Shooter m_shooter;
 
   /**
-   * Creates a new WhenConveyorOut.
+   * Creates a new BottomConveyorIn.
    */
-  public WhenConveyorOut(Conveyor conveyor) {
-    m_conveyor = conveyor;
-    addRequirements(conveyor);
+  public BottomConveyorIn(final BottomConveyor bottomConveyor, final Shooter shooter) {
+    m_bottomConveyor = bottomConveyor;
+    m_shooter = shooter;
+    addRequirements(m_bottomConveyor, m_shooter);
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_conveyor.conveyorOut();
+    m_bottomConveyor.ballIn();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    m_conveyor.stopConveyor();
+  public void end(final boolean interrupted) {
+    m_bottomConveyor.stopBottomConveyor();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return !m_shooter.isShootable();
   }
 }

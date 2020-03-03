@@ -17,8 +17,8 @@ public class FarShootRight extends SequentialCommandGroup {
   /**
    * Creates a new FarShootRight.
    */
-  public FarShootRight(DriveTrain dT) {
-    super(new DriveStraightNEW(0.9144, 1, 0, dT), new RotateToAngleNEW(90, 1, dT),
-        new DriveStraightNEW(5.1816, 1, 0, dT), new RotateToAngleNEW(180, 1, dT));
+  public FarShootRight(final DriveTrain dT) {
+    super(new DriveStraightNEW(0.9144, 1, 0, dT), new RotateToAngleNEW(90, dT), new DriveStraightNEW(5.1816, 1, 0, dT),
+        new RotateToAngleNEW(180, dT));
   }
 }

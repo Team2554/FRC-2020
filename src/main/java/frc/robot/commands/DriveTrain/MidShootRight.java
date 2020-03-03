@@ -17,8 +17,8 @@ public class MidShootRight extends SequentialCommandGroup {
   /**
    * Creates a new MidShootLeft.
    */
-  public MidShootRight(DriveTrain dT) {
-    super(new DriveStraightNEW(0.9144, 1, 0, dT), new RotateToAngleNEW(90, 1, dT),
-        new DriveStraightNEW(1.2192, 1, 0, dT), new RotateToAngleNEW(180, 1, dT));
+  public MidShootRight(final DriveTrain dT) {
+    super(new DriveStraightNEW(0.9144, 1, 0, dT), new RotateToAngleNEW(90, dT), new DriveStraightNEW(1.2192, 1, 0, dT),
+        new RotateToAngleNEW(180, dT));
   }
 }

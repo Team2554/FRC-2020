@@ -5,49 +5,38 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Vision;
+package frc.robot.commands.Elevator;
 
-import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Vision;
+import frc.robot.subsystems.Elevator;
 
-public class TurnToTargetIMUAssist extends CommandBase {
+public class LevelAdjusterRight extends CommandBase {
+  private final Elevator m_elevator;
+
   /**
-   * Creates a new TurnToTargetIMUAssist.
+   * Creates a new LevelAdjusterRight.
    */
-
-  private final Vision m_vision;
-  private final DriveTrain m_driveTrain;
-  private final PIDController pid = new PIDController(0, 0, 0);
-
-  public TurnToTargetIMUAssist(final Vision vision, final DriveTrain driveTrain) {
+  public LevelAdjusterRight(final Elevator elevator) {
+    m_elevator = elevator;
+    addRequirements(m_elevator);
     // Use addRequirements() here to declare subsystem dependencies.
-    m_vision = vision;
-    m_driveTrain = driveTrain;
-    addRequirements(m_vision);
-    addRequirements(m_driveTrain);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_vision.visionLightOn();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    final double rotOutput = pid.calculate(m_driveTrain.getHeading().getDegrees(),
-        m_driveTrain.getHeading().getDegrees() + m_vision.getHorizAngle());
-
-    m_driveTrain.curvatureDrive(0, rotOutput, true);
+    m_elevator.startLevelAdjuster(1);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(final boolean interrupted) {
-    m_vision.visionLightOff();
+    m_elevator.stopLevelAdjuster();
   }
 
   // Returns true when the command should end.

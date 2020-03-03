@@ -15,11 +15,12 @@ import frc.robot.subsystems.DriveTrain;
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 public class DriveStraightNEW extends PIDCommand {
-  double speed, distance;
+  private final double distance;
 
   private final DriveTrain m_driveTrain;
 
-  public DriveStraightNEW(double distance, double speed, double heading, DriveTrain driveTrain) {
+  public DriveStraightNEW(final double distance, final double speed, final double heading,
+      final DriveTrain driveTrain) {
     super(
         // The controller that the command will use
         new PIDController(0.1, 0, .225, 0.02),
@@ -37,22 +38,23 @@ public class DriveStraightNEW extends PIDCommand {
     // Configure additional PID options by calling `getController` here.
     addRequirements(m_driveTrain);
     getController().enableContinuousInput(-180, 180);
-    this.speed = speed;
     this.distance = distance;
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Math.abs((m_driveTrain.getAverageEncoderDistance())) >= Math.abs(distance));
+    // return (Math.abs((m_driveTrain.getAverageEncoderDistance())) >=
+    // Math.abs(distance));
+    return true;
   }
 
   public void initialize() {
-    m_driveTrain.resetEncoders();
   }
 
   public double returnPIDInput() {
-    return m_driveTrain.getAverageEncoderDistance() - distance;
+    // return m_driveTrain.getAverageEncoderDistance() - distance;
+    return 0;
   }
 
   protected void end() {

@@ -18,12 +18,13 @@ public class DefaultDrive extends CommandBase {
    * Creates a new DefaultDrive.
    */
 
-  DriveTrain m_driveTrain;
-  DoubleSupplier speed;
-  DoubleSupplier rotation;
-  BooleanSupplier quickTurn;
+  private final DriveTrain m_driveTrain;
+  private final DoubleSupplier speed;
+  private final DoubleSupplier rotation;
+  private final BooleanSupplier quickTurn;
 
-  public DefaultDrive(DriveTrain driveTrain, DoubleSupplier speed, DoubleSupplier rotation, BooleanSupplier quickTurn) {
+  public DefaultDrive(final DriveTrain driveTrain, final DoubleSupplier speed, final DoubleSupplier rotation,
+      final BooleanSupplier quickTurn) {
     this.m_driveTrain = driveTrain;
     this.speed = speed;
     this.rotation = rotation;
@@ -44,7 +45,7 @@ public class DefaultDrive extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
+  public void end(final boolean interrupted) {
     if (interrupted)
       m_driveTrain.curvatureDrive(0, 0, false);
   }

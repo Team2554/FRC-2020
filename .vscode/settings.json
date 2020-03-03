@@ -12,5 +12,5 @@
     "**/.settings": true,
     "**/.factorypath": true
   },
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
 }
