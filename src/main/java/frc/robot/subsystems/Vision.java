@@ -7,9 +7,13 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.networktables.EntryListenerFlags;
+import edu.wpi.first.networktables.EntryNotification;
 import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -24,7 +28,12 @@ public class Vision extends SubsystemBase {
   private final NetworkTable ntVision = NetworkTableInstance.getDefault().getTable("Shuffleboard")
       .getSubTable("Vision");
 
+  private final NetworkTableEntry angleEntry = ntVision.getEntry("angleToTarget");
+
   private final Solenoid visionLight = new Solenoid(0);
+
+  private double lastEntryChange;
+  private double lastEntry;
 
   public Vision() {
     // sbVision.add("Hue Start", 80.0).withWidget("Number
@@ -39,6 +48,8 @@ public class Vision extends SubsystemBase {
     // Slider").withProperties(Map.of("min", 0.0, "max", 255.0));
     // sbVision.add("Value End", 255.0).withWidget("Number
     // Slider").withProperties(Map.of("min", 0.0, "max", 255.0));
+
+    angleEntry.addListener(this::onAngleEntryChange, EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
   }
 
   @Override
@@ -46,12 +57,17 @@ public class Vision extends SubsystemBase {
     SmartDashboard.putBoolean("Vision Light", visionLight.get());
   }
 
-  public double getHorizAngle() {
-    return ntVision.getEntry("angleToTarget").getDouble(0.0);
+  public void onAngleEntryChange(EntryNotification event) {
+    lastEntryChange = Timer.getFPGATimestamp();
+    lastEntry = angleEntry.getDouble(0.0);
   }
 
-  public double getHorizPixels() {
-    return ntVision.getEntry("pixelsToTarget").getDouble(0.0);
+  public double getHorizAngle() {
+    return lastEntry;
+  }
+
+  public double getTimestamp() {
+    return lastEntryChange;
   }
 
   public void toggleVisionLight() {

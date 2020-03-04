@@ -12,34 +12,40 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Vision;
 
-public class TurnToTargetCameraOnly extends CommandBase {
+public class TurnToTargetContinous extends CommandBase {
   /**
-   * Creates a new TurnToTargetCameraOnly.
+   * Creates a new TurnToTargetIMUAssist.
    */
 
   private final Vision m_vision;
   private final DriveTrain m_driveTrain;
-  private final PIDController pid = new PIDController(0, 0, 0);
+  private final PIDController pid;
 
-  public TurnToTargetCameraOnly(final Vision vision, final DriveTrain driveTrain) {
+  public TurnToTargetContinous(final Vision vision, final DriveTrain driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_vision = vision;
     m_driveTrain = driveTrain;
     addRequirements(m_vision);
     addRequirements(m_driveTrain);
+
+    pid = new PIDController(0.01, 0.01, 0.00085);
+    pid.setTolerance(0.5);
+    pid.enableContinuousInput(-180, 180);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     m_vision.visionLightOn();
-    pid.setSetpoint(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveTrain.curvatureDrive(0, pid.calculate(m_vision.getHorizAngle()), true);
+    final double rotOutput = pid.calculate(m_driveTrain.getHeading().getDegrees(),
+        m_driveTrain.getClosestAngle(m_vision.getTimestamp()) + m_vision.getHorizAngle());
+
+    m_driveTrain.curvatureDrive(0, rotOutput, true);
   }
 
   // Called once the command ends or is interrupted.

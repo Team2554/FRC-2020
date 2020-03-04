@@ -14,11 +14,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.DriveJoystickMappings;
-import frc.robot.commands.DriveTrain.DefaultDrive;
-import frc.robot.commands.Vision.ToggleVisionLight;
-import frc.robot.commands.Vision.TurnToTargetIMUOnly;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Vision;
 import frc.robot.commands.BottomConveyor.BottomConveyorIn;
 import frc.robot.commands.ColorWheel.RotateToColor;
 import frc.robot.commands.ColorWheel.RotateWheel;
@@ -59,9 +54,9 @@ public class RobotContainer {
   private final TopConveyor m_topConveyor = new TopConveyor();
   private final Intake m_intake = new Intake();
   private final ColorWheel m_colorWheel = new ColorWheel();
-  public final DriveTrain m_driveTrain = new DriveTrain(); // public so that gyro can be reset on teleop init(FOR
-                                                           // TESTING ONLY!!!)
-  // TODO: MAKE ABOVE PRIVATE FOR FINAL ROBOT!!!
+  // TODO: make below private for final code. currently its public so gyro can be
+  // reset on teleop init(see Robot.java teleop init)
+  public final DriveTrain m_driveTrain = new DriveTrain();
   private final BottomConveyor m_bottomConveyor = new BottomConveyor();
 
   public RobotContainer() {
