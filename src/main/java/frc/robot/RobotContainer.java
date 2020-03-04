@@ -59,7 +59,9 @@ public class RobotContainer {
   private final TopConveyor m_topConveyor = new TopConveyor();
   private final Intake m_intake = new Intake();
   private final ColorWheel m_colorWheel = new ColorWheel();
-  private final DriveTrain m_driveTrain = new DriveTrain();
+  public final DriveTrain m_driveTrain = new DriveTrain(); // public so that gyro can be reset on teleop init(FOR
+                                                           // TESTING ONLY!!!)
+  // TODO: MAKE ABOVE PRIVATE FOR FINAL ROBOT!!!
   private final BottomConveyor m_bottomConveyor = new BottomConveyor();
 
   public RobotContainer() {
