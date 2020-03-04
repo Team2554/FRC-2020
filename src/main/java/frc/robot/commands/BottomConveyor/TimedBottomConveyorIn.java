@@ -7,10 +7,10 @@
 
 package frc.robot.commands.BottomConveyor;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.ConveyorConstants;
 import frc.robot.subsystems.BottomConveyor;
-import edu.wpi.first.wpilibj.Timer;
 
 public class TimedBottomConveyorIn extends CommandBase {
   /**

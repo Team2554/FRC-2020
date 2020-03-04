@@ -8,8 +8,8 @@
 package frc.robot.commands.TopConveyor;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.TopConveyor;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.TopConveyor;
 
 public class TopConveyorIn extends CommandBase {
   private final TopConveyor m_conveyor;
