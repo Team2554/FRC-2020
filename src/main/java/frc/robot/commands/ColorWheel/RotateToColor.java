@@ -20,6 +20,7 @@ import frc.robot.subsystems.ColorWheel;
 public class RotateToColor extends CommandBase {
     private final ColorWheel m_colorWheel;
     private final Supplier<String> m_inputColor;
+    private final String m_sensorFinalColor;
     private String m_currentColor;
     private double m_distanceNeeded;
 
@@ -29,9 +30,19 @@ public class RotateToColor extends CommandBase {
     public RotateToColor(final ColorWheel colorWheel, final Supplier<String> inputColor) {
         m_colorWheel = colorWheel;
         m_inputColor = inputColor;
+        if (m_inputColor.get().equals("Red")) {
+            m_sensorFinalColor = "Blue";
+        } else if (m_inputColor.get().equals("Blue")) {
+            m_sensorFinalColor = "Red";
+        } else if (m_inputColor.get().equals("Green")) {
+            m_sensorFinalColor = "Yellow";
+        } else { // m_inputColor.get().equals("Yellow")
+            m_sensorFinalColor = "Green";
+        }
         addRequirements(m_colorWheel);
         m_currentColor = m_colorWheel.getColor();
-        m_distanceNeeded = m_colorWheel.getRequiredDistance(m_inputColor.get(), m_currentColor);
+
+        m_distanceNeeded = m_colorWheel.getRequiredDistance(m_sensorFinalColor, m_currentColor);
     }
 
     // Called when the command is initially scheduled.

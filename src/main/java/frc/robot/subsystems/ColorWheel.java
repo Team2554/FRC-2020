@@ -76,7 +76,7 @@ public class ColorWheel extends SubsystemBase {
 
   public boolean isWhiteLine() {
     final Color detectedColor = m_whiteLineSensor.getColor();
-    final ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
+    final ColorMatchResult match = m_whiteLineMatcher.matchClosestColor(detectedColor);
 
     return match.color == ColorWheelConstants.kWhiteTargetForWhiteLine;
   }
