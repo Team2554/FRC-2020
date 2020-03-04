@@ -85,10 +85,9 @@ public class RobotContainer {
     new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.setElevatorButtom)
         .whenPressed(new ElevatorToBottom(m_elevator));
 
-    // Elevator Level Adjuster
-    // new JoystickButton(m_buttonJoystick,
-    // Constants.ButtonJoystickMappings.levelAdjusterLeft)
-    // .whenPressed(new LevelAdjusterLeft(m_elevator));
+    // Testing White Line Stop Code
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.whiteLineStop)
+     .whenPressed(new WhiteLineStop(m_colorWheel));
     // new JoystickButton(m_buttonJoystick,
     // Constants.ButtonJoystickMappings.levelAdjusterRight)
     // .whenPressed(new LevelAdjusterLeft(m_elevator));

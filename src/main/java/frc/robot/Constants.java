@@ -52,7 +52,7 @@ public final class Constants {
         public static final int setElevatorButtom = 9; // press to set elevator to bottom using limit switch
         public static final int colorWheelTurnToColor = 10; // press to spin the color wheel to a certain color
         public static final int colorWheelSpinNumberOfTimes = 11; // press to spin the color wheel 4 times
-        public static final int levelAdjusterLeft = 12; // Level adjuster left
+        public static final int whiteLineStop = 12; // Level adjuster left
         public static final int levelAdjusterRight = 13; // Level adjuster right
         public static final int intakeAndShoot = 14;
         public static final int timedConveyors = 15;
