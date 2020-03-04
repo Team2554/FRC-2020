@@ -44,14 +44,17 @@ public class DriveStraightNEW extends PIDCommand {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Math.abs((m_driveTrain.getAverageEncoderDistance())) >= Math.abs(distance));
+    // return (Math.abs((m_driveTrain.getAverageEncoderDistance())) >=
+    // Math.abs(distance));
+    return true;
   }
 
   public void initialize() {
   }
 
   public double returnPIDInput() {
-    return m_driveTrain.getAverageEncoderDistance() - distance;
+    // return m_driveTrain.getAverageEncoderDistance() - distance;
+    return 0;
   }
 
   protected void end() {

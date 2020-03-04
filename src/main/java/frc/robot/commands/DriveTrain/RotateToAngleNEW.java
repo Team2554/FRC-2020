@@ -8,51 +8,52 @@
 package frc.robot.commands.DriveTrain;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj2.command.PIDCommand;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class RotateToAngleNEW extends PIDCommand {
+public class RotateToAngleNEW extends CommandBase {
   /**
-   * Creates a new DriveStraightNEW.
+   * Creates a new TurnToAngle.
    */
-  private final DriveTrain m_driveTrain;
 
-  public RotateToAngleNEW(final double targetAngle, final double speed, final DriveTrain driveTrain) {
-    super(
-        // The controller that the command will use
-        new PIDController(0.1, 0.01, 0),
-        // This should return the measurement
-        () -> driveTrain.getHeading().getDegrees(),
-        // This should return the setpoint (can also be a constant)
-        () -> targetAngle,
-        // This uses the output
-        output -> {
-          driveTrain.curvatureDrive(0, speed, true);
-        }, driveTrain);
+  DriveTrain m_driveTrain;
+  double m_targetAngle;
+  PIDController m_pidController;
 
+  public RotateToAngleNEW(double targetAngle, DriveTrain driveTrain) {
+    // Use addRequirements() here to declare subsystem dependencies.
     m_driveTrain = driveTrain;
+    m_targetAngle = targetAngle;
 
     addRequirements(m_driveTrain);
-    // Use addRequirements() here to declare subsystem dependencies.
-    // Configure additional PID options by calling `getController` here.
-    getController().setTolerance(2.5);
-    getController().enableContinuousInput(-180, 180);
+
+    m_pidController = new PIDController(0.0075, 0.0030, 0.00065);
+    m_pidController.setTolerance(1.0);
+    m_pidController.enableContinuousInput(-180, 180);
+  }
+
+  // Called when the command is initially scheduled.
+  @Override
+  public void initialize() {
+    m_pidController.setSetpoint(m_targetAngle);
+    m_pidController.reset();
+  }
+
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {
+    double pidOutput = m_pidController.calculate(m_driveTrain.getHeading().getDegrees());
+    m_driveTrain.tankDriveVolts(10 * pidOutput, -10 * pidOutput);
+  }
+
+  // Called once the command ends or is interrupted.
+  @Override
+  public void end(boolean interrupted) {
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return getController().atSetpoint();
-  }
-
-  public void initialize() {
-  }
-
-  public void stop() {
-    getController().close();
-    m_driveTrain.curvatureDrive(0, 0, true);
+    return m_pidController.atSetpoint();
   }
 }

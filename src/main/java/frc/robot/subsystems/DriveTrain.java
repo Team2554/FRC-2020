@@ -7,6 +7,9 @@
 
 package frc.robot.subsystems;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -14,6 +17,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -29,18 +33,18 @@ import frc.robot.Custom.SRXMagEncoder_Relative;
 
 public class DriveTrain extends SubsystemBase {
 
-  private final WPI_TalonSRX tRF = new WPI_TalonSRX(4);
-  private final VictorSPX vRB = new VictorSPX(6);
+  private final WPI_TalonSRX tRF = new WPI_TalonSRX(2);
+  private final VictorSPX vRB = new VictorSPX(9);
 
   private final WPI_TalonSRX tLF = new WPI_TalonSRX(3);
-  private final VictorSPX vLB = new VictorSPX(5);
+  private final VictorSPX vLB = new VictorSPX(7);
 
   private final SRXMagEncoder_Relative rightEncoder = new SRXMagEncoder_Relative(tRF);
   private final SRXMagEncoder_Relative leftEncoder = new SRXMagEncoder_Relative(tLF);
 
   private final DifferentialDrive driveTrain = new DifferentialDrive(tLF, tRF);
 
-  private final PigeonIMU pigeon = new PigeonIMU(10);
+  private final PigeonIMU pigeon = new PigeonIMU(1);
 
   private final double maxVoltage = 10;
 
@@ -57,10 +61,15 @@ public class DriveTrain extends SubsystemBase {
 
   private boolean isInverted = false;
 
+  List<Double> gyroTimestamps = new ArrayList<Double>(100);
+  List<Double> gyroAngles = new ArrayList<Double>(100);
+
   /**
    * Creates a new DriveTrain.
    */
   public DriveTrain() {
+    driveTrain.setRightSideInverted(false);
+
     tRF.configFactoryDefault();
     tLF.configFactoryDefault();
     vRB.configFactoryDefault();
@@ -77,7 +86,7 @@ public class DriveTrain extends SubsystemBase {
     tLF.enableVoltageCompensation(true);
 
     vRB.follow(tRF);
-    tRF.setInverted(false);
+    tRF.setInverted(true);
     vRB.setInverted(InvertType.FollowMaster);
 
     vLB.follow(tLF);
@@ -137,10 +146,25 @@ public class DriveTrain extends SubsystemBase {
     pigeon.setYaw(0.0);
   }
 
+  public void resetOdometry(Pose2d pose) {
+    resetEncoders();
+    odometry.resetPosition(pose, getHeading());
+  }
+
   public Rotation2d getHeading() {
     final double[] ypr = new double[3];
     pigeon.getYawPitchRoll(ypr);
     return Rotation2d.fromDegrees(Math.IEEEremainder(ypr[0], 360));
+  }
+
+  public double getClosestAngle(double timestamp) {
+    int closestIdx = 0;
+    for (int i = 1; i < gyroTimestamps.size(); i++) {
+      if (Math.abs(gyroTimestamps.get(i) - timestamp) > Math.abs(gyroTimestamps.get(closestIdx) - timestamp))
+        closestIdx = i;
+    }
+
+    return gyroAngles.get(closestIdx);
   }
 
   @Override
@@ -148,6 +172,14 @@ public class DriveTrain extends SubsystemBase {
     odometry.update(getHeading(), leftEncoder.getPosition(), rightEncoder.getPosition());
     SmartDashboard.putNumber("Gyro", getHeading().getDegrees());
     SmartDashboard.putNumber("Velocity", getAverageEncoderVelocity());
+
+    gyroTimestamps.add(Timer.getFPGATimestamp());
+    gyroAngles.add(getHeading().getDegrees());
+
+    if (gyroTimestamps.size() > 100) {
+      gyroTimestamps.remove(0);
+      gyroAngles.remove(0);
+    }
   }
 
   public Pose2d getPose() {
@@ -157,5 +189,4 @@ public class DriveTrain extends SubsystemBase {
   public void inverseInput() {
     isInverted = !isInverted;
   }
-
 }
