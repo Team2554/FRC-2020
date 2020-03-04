@@ -87,7 +87,7 @@ public class RobotContainer {
 
     // Testing White Line Stop Code
     new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.whiteLineStop)
-     .whenPressed(new WhiteLineStop(m_colorWheel));
+     .whileHeld(new WhiteLineStop(m_colorWheel));
     // new JoystickButton(m_buttonJoystick,
     // Constants.ButtonJoystickMappings.levelAdjusterRight)
     // .whenPressed(new LevelAdjusterLeft(m_elevator));
