@@ -21,6 +21,8 @@ import edu.wpi.first.wpilibj.util.Color;
  * It is advised to statically import this class (or one of its inner classes)
  * wherever the constants are needed, to reduce verbosity.
  */
+
+// Sagar lo ve me
 public final class Constants {
     public static final class DriveJoystickMappings {
         // TODO: define actual button ids later
@@ -60,7 +62,7 @@ public final class Constants {
 
     public static final class ColorWheelConstants {
         // Motors/Encoder ports
-        public static final int colorMotorPort = 9;
+        public static final int colorMotorPort = 0;
         public static final int encoderPorts[] = { 1, 2 };
 
         // Motor speeds for different commands
@@ -74,6 +76,9 @@ public final class Constants {
         public static final Color kYellowTarget = ColorMatch.makeColor(0.33, 0.55, 0.13);
         public static final Color kWhiteTarget = ColorMatch.makeColor(0.267, 0.475, 0.25);
         public static final Color kBlackTarget = ColorMatch.makeColor(0.0, 0.0, 0.0);
+
+        public static final Color kWhiteTargetForWhiteLine = ColorMatch.makeColor(0.267, 0.475, 0.25);
+        public static final Color kBlackTargetForWhiteLine = ColorMatch.makeColor(0.0, 0.0, 0.0);
 
         // Encoder related calculations
         public static final double circumOfColorWheel = 100.0 / 12; // circumference of color wheel (feet)
