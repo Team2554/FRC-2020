@@ -5,21 +5,30 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Elevator;
+package frc.robot.commands.ColorWheel;
+
+import java.util.function.BooleanSupplier;
+import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.ColorWheel;
+import frc.robot.subsystems.DriveTrain;
 
-public class LevelAdjusterRight extends CommandBase {
-  private final Elevator m_elevator;
+public class WhiteLineStop extends CommandBase {
+  private final DriveTrain m_driveTrain;
+  private final ColorWheel m_colorWheel;
+  private DoubleSupplier m_speed;
+  private DoubleSupplier m_rotation;
+  private BooleanSupplier m_quickTurn;
 
-  /**
-   * Creates a new LevelAdjusterRight.
-   */
-  public LevelAdjusterRight(final Elevator elevator) {
-    m_elevator = elevator;
-    addRequirements(m_elevator);
+  public WhiteLineStop(final ColorWheel colorWheel, final DriveTrain driveTrain, final DoubleSupplier speed,
+      final DoubleSupplier rotation, final BooleanSupplier quickTurn) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.m_driveTrain = driveTrain;
+    this.m_colorWheel = colorWheel;
+    this.m_speed = speed;
+    this.m_rotation = rotation;
+    this.m_quickTurn = quickTurn;
   }
 
   // Called when the command is initially scheduled.
@@ -30,13 +39,17 @@ public class LevelAdjusterRight extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_elevator.startLevelAdjuster(1);
+    if (m_colorWheel.isWhiteLine()) {
+      m_driveTrain.tankDriveVolts(0, 0);
+    } else {
+      m_driveTrain.curvatureDrive(m_speed.getAsDouble() * 0.25, m_rotation.getAsDouble() * 0.25,
+          m_quickTurn.getAsBoolean());
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(final boolean interrupted) {
-    m_elevator.stopLevelAdjuster();
   }
 
   // Returns true when the command should end.
