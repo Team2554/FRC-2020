@@ -9,6 +9,7 @@ package frc.robot.commands.Vision;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.TurnToAnglePIDConstants;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Vision;
 
@@ -29,8 +30,8 @@ public class TurnToTargetSingleShot extends CommandBase {
     addRequirements(m_vision);
     addRequirements(m_driveTrain);
 
-    pid = new PIDController(0.01, 0.01, 0.00085);
-    pid.setTolerance(0.5);
+    pid = new PIDController(TurnToAnglePIDConstants.kP, TurnToAnglePIDConstants.kI, TurnToAnglePIDConstants.kD);
+    pid.setTolerance(TurnToAnglePIDConstants.kTolerance);
     pid.enableContinuousInput(-180, 180);
   }
 

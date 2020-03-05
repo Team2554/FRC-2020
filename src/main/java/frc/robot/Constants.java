@@ -116,7 +116,14 @@ public final class Constants {
         public static final int downSpeed = -1;
         public static final int topSwitch = 1;
         public static final int motorPort = 2;
-   //     public static final int levelAdjusterMotorOnePort = 0;
-     //   public static final int levelAdjusterMotorTwoPort = 1;
+        // public static final int levelAdjusterMotorOnePort = 0;
+        // public static final int levelAdjusterMotorTwoPort = 1;
+    }
+
+    public static final class TurnToAnglePIDConstants {
+        public static final double kP = 0.01;
+        public static final double kI = 0.01;
+        public static final double kD = 0.00085;
+        public static final double kTolerance = 0.5;
     }
 }
