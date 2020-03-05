@@ -16,16 +16,16 @@ public class TopConveyor extends SubsystemBase {
   /**
    * Creates a new Conveyor.
    */
-  private final VictorSP leftConveyor1 = new VictorSP(ConveyorConstants.leftConveyor1Port);
-  private final VictorSP leftConveyor2 = new VictorSP(ConveyorConstants.leftConveyor2Port);
+  private final WPI_VictorSPX leftConveyor1 = new WPI_VictorSPX(ConveyorConstants.leftConveyor1Port);
+  private final WPI_VictorSPX leftConveyor2 = new WPI_VictorSPX(ConveyorConstants.leftConveyor2Port);
 
   private final SpeedControllerGroup leftConveyor = new SpeedControllerGroup(leftConveyor1, leftConveyor2);
 
-  private final VictorSP rightConveyor1 = new VictorSP(ConveyorConstants.rightConveyor1Port);
-  private final VictorSP rightConveyor2 = new VictorSP(ConveyorConstants.rightConveyor2Port);
+  private final WPI_VictorSPX rightConveyor1 = new WPI_VictorSPX(ConveyorConstants.rightConveyor1Port);
+  private final WPI_VictorSPX rightConveyor2 = new WPI_VictorSPX(ConveyorConstants.rightConveyor2Port);
 
   private final SpeedControllerGroup rightConveyor = new SpeedControllerGroup(rightConveyor1, rightConveyor2);
-
+  private final SpeedControllerGroup leftConveyor = new SpeedControllerGroup(leftConveyor1, leftConveyor2);
   public TopConveyor() {
   }
 
