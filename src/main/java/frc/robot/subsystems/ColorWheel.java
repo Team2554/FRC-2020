@@ -1,5 +1,8 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
@@ -18,7 +21,7 @@ public class ColorWheel extends SubsystemBase {
   private final SendableChooser<String> m_colorChooser = new SendableChooser<>();
 
   // Color motor and encoder
-  private final VictorSP m_colorMotor = new VictorSP(ColorWheelConstants.colorMotorPort);
+  private final WPI_VictorSPX m_colorMotor = new WPI_VictorSPX(ColorWheelConstants.colorMotorPort);
   private final Encoder m_colorEncoder = new Encoder(ColorWheelConstants.encoderPorts[0],
       ColorWheelConstants.encoderPorts[1]);
 

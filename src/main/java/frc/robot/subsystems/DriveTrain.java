@@ -29,15 +29,16 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.DriveTrainPortConstants;
 import frc.robot.Custom.SRXMagEncoder_Relative;
 
 public class DriveTrain extends SubsystemBase {
 
-  private final WPI_TalonSRX tRF = new WPI_TalonSRX(2);
-  private final VictorSPX vRB = new VictorSPX(9);
+  private final WPI_TalonSRX tRF = new WPI_TalonSRX(DriveTrainPortConstants.tRFPort);
+  private final VictorSPX vRB = new VictorSPX(DriveTrainPortConstants.vRBPort);
 
-  private final WPI_TalonSRX tLF = new WPI_TalonSRX(3);
-  private final VictorSPX vLB = new VictorSPX(7);
+  private final WPI_TalonSRX tLF = new WPI_TalonSRX(DriveTrainPortConstants.tLFPort);
+  private final VictorSPX vLB = new VictorSPX(DriveTrainPortConstants.vLBPort);
 
   private final SRXMagEncoder_Relative rightEncoder = new SRXMagEncoder_Relative(tRF);
   private final SRXMagEncoder_Relative leftEncoder = new SRXMagEncoder_Relative(tLF);
