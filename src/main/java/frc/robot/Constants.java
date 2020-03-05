@@ -94,7 +94,7 @@ public final class Constants {
     }
 
     public static final class ConveyorConstants {
-        public static final int topConveyorVoltage = 3;
+        public static final int topConveyorVoltage = 5;
         public static final int leftConveyor1Port = 0;
         public static final int leftConveyor2Port = 1;
         public static final int rightConveyor1Port = 2;
@@ -116,7 +116,7 @@ public final class Constants {
         public static final int downSpeed = -1;
         public static final int topSwitch = 1;
         public static final int motorPort = 2;
-   //     public static final int levelAdjusterMotorOnePort = 0;
-     //   public static final int levelAdjusterMotorTwoPort = 1;
+        // public static final int levelAdjusterMotorOnePort = 0;
+        // public static final int levelAdjusterMotorTwoPort = 1;
     }
 }
