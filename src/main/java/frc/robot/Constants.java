@@ -94,11 +94,12 @@ public final class Constants {
     }
 
     public static final class ConveyorConstants {
-        public static final int topConveyorVoltage = 3;
+        public static final int topConveyorVoltage = 5;
         public static final int leftConveyor1Port = 0;
         public static final int leftConveyor2Port = 1;
         public static final int rightConveyor1Port = 2;
         public static final int rightConveyor2Port = 3;
+        
 
         // BottomConveyor Constants
         public static final double stopTime = 0.5;
