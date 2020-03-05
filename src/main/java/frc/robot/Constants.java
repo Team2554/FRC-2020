@@ -62,7 +62,7 @@ public final class Constants {
 
     public static final class ColorWheelConstants {
         // Motors/Encoder ports
-        public static final int colorMotorPort = 0;
+        public static final int colorMotorPort = 5;
         public static final int encoderPorts[] = { 1, 2 };
 
         // Motor speeds for different commands
@@ -95,20 +95,26 @@ public final class Constants {
 
     public static final class ConveyorConstants {
         public static final int topConveyorVoltage = 5;
-        public static final int leftConveyor1Port = 0;
-        public static final int leftConveyor2Port = 1;
-        public static final int rightConveyor1Port = 2;
-        public static final int rightConveyor2Port = 3;
-        
+        public static final int leftConveyor1Port = 12;
+        public static final int leftConveyor2Port = 8;
+        public static final int rightConveyor1Port = 10;
+        public static final int rightConveyor2Port = 11;
 
         // BottomConveyor Constants
         public static final double stopTime = 0.5;
-        public static final int bottomConveyorPort = 4;
+        public static final int bottomConveyorPort = 7;
         public static final int bottomConveyorVoltage = 5;
     }
 
     public static final class IntakeConstants {
-        public static final int intakePort = 0;
+        public static final int intakePort = 6;
+    }
+
+    public static final class DriveTrainPortConstants {
+        public static final int tRFPort = 5;
+        public static final int vRBPort = 7;
+        public static final int tLFPort = 2;
+        public static final int vLBPort = 9;
     }
 
     public static final class ElevatorConstants {
