@@ -36,7 +36,6 @@ public class IntakeAndShoot extends ParallelCommandGroup {
       final DoubleSupplier voltageSupplier, final Intake intake) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());super();
-    super(new IntakeIn(intake), new ShootCommand(shooter, voltageSupplier),
-        new BottomConveyorIn(bottomConveyor, shooter), new TopConveyorIn(topConveyor, shooter));
+    super(new IntakeIn(intake), new ShootAndConveyorCombined(topConveyor, bottomConveyor, shooter, voltageSupplier));
   }
 }

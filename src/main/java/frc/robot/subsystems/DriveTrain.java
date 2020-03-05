@@ -81,18 +81,18 @@ public class DriveTrain extends SubsystemBase {
     vRB.setNeutralMode(NeutralMode.Brake);
     vLB.setNeutralMode(NeutralMode.Brake);
 
-    tRF.configVoltageCompSaturation(maxVoltage);
     tRF.enableVoltageCompensation(true);
-    tLF.configVoltageCompSaturation(maxVoltage);
+    tRF.configVoltageCompSaturation(maxVoltage);
     tLF.enableVoltageCompensation(true);
+    tLF.configVoltageCompSaturation(maxVoltage);
 
     vRB.follow(tRF);
     tRF.setInverted(true);
-    vRB.setInverted(InvertType.FollowMaster);
+    vRB.setInverted(true);
 
     vLB.follow(tLF);
     tLF.setInverted(false);
-    vLB.setInverted(InvertType.FollowMaster);
+    vLB.setInverted(false);
 
     leftEncoder.setWheelDiameter(Units.inchesToMeters(wheelDiameterInches));
     rightEncoder.setWheelDiameter(Units.inchesToMeters(wheelDiameterInches));

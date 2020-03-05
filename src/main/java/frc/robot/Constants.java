@@ -55,7 +55,7 @@ public final class Constants {
         public static final int whiteLineStop = 12; // Level adjuster left
         public static final int levelAdjusterRight = 13; // Level adjuster right
         public static final int intakeAndShoot = 14;
-        public static final int timedConveyors = 15;
+        public static final int timedConveyors = 2;
         public static final int bottomConveyorIn = 16;
         public static int topConveyorOut = 17;
     }
@@ -111,10 +111,10 @@ public final class Constants {
     }
 
     public static final class DriveTrainPortConstants {
-        public static final int tRFPort = 5;
-        public static final int vRBPort = 7;
-        public static final int tLFPort = 2;
-        public static final int vLBPort = 9;
+        public static final int tRFPort = 2;
+        public static final int vRBPort = 9;
+        public static final int tLFPort = 3;
+        public static final int vLBPort = 7;
     }
 
     public static final class ElevatorConstants {

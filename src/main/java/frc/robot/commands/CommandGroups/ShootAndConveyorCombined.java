@@ -5,50 +5,58 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.TopConveyor;
+package frc.robot.commands.CommandGroups;
 
-import edu.wpi.first.wpilibj.Timer;
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.ConveyorConstants;
+import frc.robot.subsystems.BottomConveyor;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.TopConveyor;
 
-public class TimedTopConveyorIn extends CommandBase {
+public class ShootAndConveyorCombined extends CommandBase {
+  private TopConveyor m_topConveyor;
+  private BottomConveyor m_bottomConveyor;
+  private Shooter m_shooter;
+  private DoubleSupplier m_voltageSupplier;
 
   /**
-   * Creates a new TimedTopConveyorIN.
+   * Creates a new ShootAndConveyorCombined.
    */
-  Timer topTimer = new Timer();
-
-  private final double stopTime = ConveyorConstants.stopTime; // Make this a constant
-  private final TopConveyor m_topConveyor;
-
-  public TimedTopConveyorIn(TopConveyor topConveyor) {
+  public ShootAndConveyorCombined(final TopConveyor topConveyor, final BottomConveyor bottomConveyor,
+      final Shooter shooter, final DoubleSupplier voltageSupplier) {
     m_topConveyor = topConveyor;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_topConveyor);
+    m_bottomConveyor = bottomConveyor;
+    m_shooter = shooter;
+    m_voltageSupplier = voltageSupplier;
+    addRequirements(m_topConveyor, m_bottomConveyor, m_shooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    topTimer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    m_shooter.startMotor(m_voltageSupplier.getAsDouble());
     m_topConveyor.conveyorIn();
+    m_bottomConveyor.ballIn();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_shooter.stop();
     m_topConveyor.stopConveyor();
+    m_bottomConveyor.stopBottomConveyor();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (topTimer.get() >= stopTime);
+    return !m_shooter.isShootable();
   }
 }
