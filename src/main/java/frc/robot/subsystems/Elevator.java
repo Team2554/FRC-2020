@@ -32,6 +32,11 @@ public class Elevator extends SubsystemBase {
   private final DigitalInput topSwitch = new DigitalInput(ElevatorConstants.topSwitch);
 
   public Elevator() {
+    elevatorMotor1.enableVoltageCompensation(true);
+    elevatorMotor1.configVoltageCompSaturation(10);
+
+    elevatorMotor2.enableVoltageCompensation(true);
+    elevatorMotor2.configVoltageCompSaturation(10);
   }
 
   /*
