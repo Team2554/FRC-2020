@@ -112,10 +112,11 @@ public final class Constants {
 
     public static final class ElevatorConstants {
         public static final int bottomSwitch = 0;
-        public static final int upSpeed = 1;
-        public static final int downSpeed = -1;
+        public static final int upVoltage = 1;
+        public static final int downVoltage = -1;
         public static final int topSwitch = 1;
-        public static final int motorPort = 2;
+        public static final int motorPort1 = 8;
+        public static final int motorPort2 = 9;
         // public static final int levelAdjusterMotorOnePort = 0;
         // public static final int levelAdjusterMotorTwoPort = 1;
     }
