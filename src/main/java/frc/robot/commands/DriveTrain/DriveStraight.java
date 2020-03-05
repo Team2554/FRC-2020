@@ -14,13 +14,12 @@ import frc.robot.subsystems.DriveTrain;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class DriveStraightNEW extends PIDCommand {
+public class DriveStraight extends PIDCommand {
   private final double distance;
 
   private final DriveTrain m_driveTrain;
 
-  public DriveStraightNEW(final double distance, final double speed, final double heading,
-      final DriveTrain driveTrain) {
+  public DriveStraight(final double distance, final double speed, final double heading, final DriveTrain driveTrain) {
     super(
         // The controller that the command will use
         new PIDController(0.1, 0, .225, 0.02),

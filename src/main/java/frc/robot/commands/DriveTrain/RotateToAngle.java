@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 
-public class RotateToAngleNEW extends CommandBase {
+public class RotateToAngle extends CommandBase {
   /**
    * Creates a new TurnToAngle.
    */
@@ -20,7 +20,7 @@ public class RotateToAngleNEW extends CommandBase {
   double m_targetAngle;
   PIDController m_pidController;
 
-  public RotateToAngleNEW(double targetAngle, DriveTrain driveTrain) {
+  public RotateToAngle(double targetAngle, DriveTrain driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_driveTrain = driveTrain;
     m_targetAngle = targetAngle;
