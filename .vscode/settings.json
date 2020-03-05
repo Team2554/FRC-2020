@@ -13,4 +13,5 @@
     "**/.factorypath": true
   },
   "editor.formatOnSave": true,
+  "editor.tabSize": 2
 }
