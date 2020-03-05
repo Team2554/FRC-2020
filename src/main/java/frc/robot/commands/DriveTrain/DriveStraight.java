@@ -14,45 +14,49 @@ import frc.robot.subsystems.DriveTrain;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class RotateToAngleNEW extends PIDCommand {
-  /**
-   * Creates a new DriveStraightNEW.
-   */
+public class DriveStraight extends PIDCommand {
+  private final double distance;
+
   private final DriveTrain m_driveTrain;
 
-  public RotateToAngleNEW(double targetAngle, double speed, DriveTrain driveTrain) {
+  public DriveStraight(final double distance, final double speed, final double heading, final DriveTrain driveTrain) {
     super(
         // The controller that the command will use
-        new PIDController(0.1, 0.01, 0),
+        new PIDController(0.1, 0, .225, 0.02),
         // This should return the measurement
         () -> driveTrain.getHeading().getDegrees(),
         // This should return the setpoint (can also be a constant)
-        () -> targetAngle,
+        () -> heading,
         // This uses the output
         output -> {
-          driveTrain.curvatureDrive(0, speed, true);
+          driveTrain.curvatureDrive(speed, 0, true);
         }, driveTrain);
 
     m_driveTrain = driveTrain;
-
-    addRequirements(m_driveTrain);
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
-    getController().setTolerance(2.5);
+    addRequirements(m_driveTrain);
     getController().enableContinuousInput(-180, 180);
+    this.distance = distance;
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return getController().atSetpoint();
+    // return (Math.abs((m_driveTrain.getAverageEncoderDistance())) >=
+    // Math.abs(distance));
+    return true;
   }
 
   public void initialize() {
   }
 
-  public void stop() {
-    getController().close();
+  public double returnPIDInput() {
+    // return m_driveTrain.getAverageEncoderDistance() - distance;
+    return 0;
+  }
+
+  protected void end() {
     m_driveTrain.curvatureDrive(0, 0, true);
   }
 }

@@ -5,44 +5,42 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Vision;
+package frc.robot.commands.Elevator;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Vision;
+import frc.robot.subsystems.Elevator;
 
-public class VisionLightOn extends CommandBase {
+public class ElevatorToBottom extends CommandBase {
+  private final Elevator m_elevator;
+
   /**
-   * Creates a new VisionLightOn.
+   * Creates a new WhenHeldDown.
    */
-
-  private final Vision m_vision;
-
-  public VisionLightOn(final Vision vision) {
-    m_vision = vision;
-    addRequirements(m_vision);
-
+  public ElevatorToBottom(final Elevator elevator) {
+    m_elevator = elevator;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(m_elevator);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_vision.visionLightOn();
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
+  // Called every time the scheduler runs while the command is scheduled
+  public void execute(final boolean reverse) {
+    m_elevator.goDown();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(final boolean interrupted) {
+    m_elevator.stopElevator();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return m_elevator.atBottom();
   }
 }

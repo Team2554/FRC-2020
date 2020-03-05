@@ -1,7 +1,7 @@
 image: ubuntu:18.04
 
 before_script:
-  - apt-get update && apt-get upgrade -y
+  - apt-get update
   - apt-get install -y openjdk-11-jdk
 
 # Disable the Gradle daemon for Continuous Integration servers as correctness

@@ -21,6 +21,8 @@ import edu.wpi.first.wpilibj.util.Color;
  * It is advised to statically import this class (or one of its inner classes)
  * wherever the constants are needed, to reduce verbosity.
  */
+
+// Sagar lo ve me
 public final class Constants {
     public static final class DriveJoystickMappings {
         // TODO: define actual button ids later
@@ -50,11 +52,17 @@ public final class Constants {
         public static final int setElevatorButtom = 9; // press to set elevator to bottom using limit switch
         public static final int colorWheelTurnToColor = 10; // press to spin the color wheel to a certain color
         public static final int colorWheelSpinNumberOfTimes = 11; // press to spin the color wheel 4 times
+        public static final int whiteLineStop = 12; // Level adjuster left
+        public static final int levelAdjusterRight = 13; // Level adjuster right
+        public static final int intakeAndShoot = 14;
+        public static final int timedConveyors = 15;
+        public static final int bottomConveyorIn = 16;
+        public static int topConveyorOut = 17;
     }
 
     public static final class ColorWheelConstants {
         // Motors/Encoder ports
-        public static final int colorMotorPort = 9;
+        public static final int colorMotorPort = 0;
         public static final int encoderPorts[] = { 1, 2 };
 
         // Motor speeds for different commands
@@ -68,6 +76,9 @@ public final class Constants {
         public static final Color kYellowTarget = ColorMatch.makeColor(0.33, 0.55, 0.13);
         public static final Color kWhiteTarget = ColorMatch.makeColor(0.267, 0.475, 0.25);
         public static final Color kBlackTarget = ColorMatch.makeColor(0.0, 0.0, 0.0);
+
+        public static final Color kWhiteTargetForWhiteLine = ColorMatch.makeColor(0.267, 0.475, 0.25);
+        public static final Color kBlackTargetForWhiteLine = ColorMatch.makeColor(0.0, 0.0, 0.0);
 
         // Encoder related calculations
         public static final double circumOfColorWheel = 100.0 / 12; // circumference of color wheel (feet)
@@ -83,12 +94,36 @@ public final class Constants {
     }
 
     public static final class ConveyorConstants {
-        public static final int bottomConveyorPort = 0;
-        public static final int topConveyorPort = 1;
-        public static final double conveyorSpeed = 0.45;
+        public static final int topConveyorVoltage = 3;
+        public static final int leftConveyor1Port = 0;
+        public static final int leftConveyor2Port = 1;
+        public static final int rightConveyor1Port = 2;
+        public static final int rightConveyor2Port = 3;
+
+        // BottomConveyor Constants
+        public static final double stopTime = 0.5;
+        public static final int bottomConveyorPort = 4;
+        public static final int bottomConveyorVoltage = 5;
     }
 
     public static final class IntakeConstants {
         public static final int intakePort = 0;
+    }
+
+    public static final class ElevatorConstants {
+        public static final int bottomSwitch = 0;
+        public static final int upSpeed = 1;
+        public static final int downSpeed = -1;
+        public static final int topSwitch = 1;
+        public static final int motorPort = 2;
+        // public static final int levelAdjusterMotorOnePort = 0;
+        // public static final int levelAdjusterMotorTwoPort = 1;
+    }
+
+    public static final class TurnToAnglePIDConstants {
+        public static final double kP = 0.01;
+        public static final double kI = 0.01;
+        public static final double kD = 0.00085;
+        public static final double kTolerance = 0.5;
     }
 }

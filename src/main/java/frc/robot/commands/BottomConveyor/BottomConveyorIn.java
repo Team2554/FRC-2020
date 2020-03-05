@@ -5,54 +5,46 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Vision;
+package frc.robot.commands.BottomConveyor;
 
-import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Vision;
+import frc.robot.subsystems.BottomConveyor;
+import frc.robot.subsystems.Shooter;
 
-public class TurnToTargetIMUAssist extends CommandBase {
+public class BottomConveyorIn extends CommandBase {
+  private final BottomConveyor m_bottomConveyor;
+  private final Shooter m_shooter;
+
   /**
-   * Creates a new TurnToTargetIMUAssist.
+   * Creates a new BottomConveyorIn.
    */
-
-  Vision m_vision;
-  DriveTrain m_driveTrain;
-  PIDController pid = new PIDController(0, 0, 0);
-
-  public TurnToTargetIMUAssist(Vision vision, DriveTrain driveTrain) {
+  public BottomConveyorIn(final BottomConveyor bottomConveyor, final Shooter shooter) {
+    m_bottomConveyor = bottomConveyor;
+    m_shooter = shooter;
+    addRequirements(m_bottomConveyor, m_shooter);
     // Use addRequirements() here to declare subsystem dependencies.
-    m_vision = vision;
-    m_driveTrain = driveTrain;
-    addRequirements(m_vision);
-    addRequirements(m_driveTrain);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_vision.visionLightOn();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double rotOutput = pid.calculate(m_driveTrain.getHeading().getDegrees(),
-        m_driveTrain.getHeading().getDegrees() + m_vision.getHorizAngle());
-
-    m_driveTrain.curvatureDrive(0, rotOutput, true);
+    m_bottomConveyor.ballIn();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    m_vision.visionLightOff();
+  public void end(final boolean interrupted) {
+    m_bottomConveyor.stopBottomConveyor();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return !m_shooter.isShootable();
   }
 }

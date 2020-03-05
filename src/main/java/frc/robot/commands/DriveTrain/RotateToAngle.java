@@ -5,49 +5,45 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Vision;
+package frc.robot.commands.DriveTrain;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Vision;
 
-public class TurnToTargetIMUOnly extends CommandBase {
+public class RotateToAngle extends CommandBase {
   /**
-   * Creates a new TurnToTargetIMUOnly.
+   * Creates a new TurnToAngle.
    */
 
-  Vision m_vision;
   DriveTrain m_driveTrain;
-  PIDController pid = new PIDController(0, 0, 0);
-  double turnAngle;
+  double m_targetAngle;
+  PIDController m_pidController;
 
-  public TurnToTargetIMUOnly(Vision vision, DriveTrain driveTrain) {
+  public RotateToAngle(double targetAngle, DriveTrain driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_vision = vision;
     m_driveTrain = driveTrain;
-    addRequirements(m_vision);
+    m_targetAngle = targetAngle;
+
     addRequirements(m_driveTrain);
+
+    m_pidController = new PIDController(0.0075, 0.0030, 0.00065);
+    m_pidController.setTolerance(1.0);
+    m_pidController.enableContinuousInput(-180, 180);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    /*
-     * Though the vision light is being turned on here, it is better to turn it on
-     * beforehand and ensure that there is a vision target visible, because right
-     * after turning on the vision light, the code gets the angle from the camera,
-     * and it might take time for the camera to detect a target after the vision
-     * light is turned on.
-     */
-    m_vision.visionLightOn();
-    turnAngle = m_vision.getHorizAngle() + m_driveTrain.getHeading().getDegrees();
+    m_pidController.setSetpoint(m_targetAngle);
+    m_pidController.reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveTrain.curvatureDrive(0, pid.calculate(m_driveTrain.getHeading().getDegrees(), turnAngle), true);
+    double pidOutput = m_pidController.calculate(m_driveTrain.getHeading().getDegrees());
+    m_driveTrain.tankDriveVolts(10 * pidOutput, -10 * pidOutput);
   }
 
   // Called once the command ends or is interrupted.
@@ -58,6 +54,6 @@ public class TurnToTargetIMUOnly extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return m_pidController.atSetpoint();
   }
 }

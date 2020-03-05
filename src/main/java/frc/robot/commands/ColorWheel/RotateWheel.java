@@ -17,7 +17,7 @@ public class RotateWheel extends CommandBase {
   /**
    * Creates a new RotateWheel.
    */
-  public RotateWheel(ColorWheel colorWheel) {
+  public RotateWheel(final ColorWheel colorWheel) {
     m_colorWheel = colorWheel;
     addRequirements(m_colorWheel);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -37,7 +37,7 @@ public class RotateWheel extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
+  public void end(final boolean interrupted) {
     m_colorWheel.stopMotor();
     m_colorWheel.resetEncoder();
   }

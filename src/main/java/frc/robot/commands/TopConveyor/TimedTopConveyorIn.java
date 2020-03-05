@@ -5,44 +5,50 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Vision;
+package frc.robot.commands.TopConveyor;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Vision;
+import frc.robot.Constants.ConveyorConstants;
+import frc.robot.subsystems.TopConveyor;
 
-public class VisionLightOn extends CommandBase {
+public class TimedTopConveyorIn extends CommandBase {
+
   /**
-   * Creates a new VisionLightOn.
+   * Creates a new TimedTopConveyorIN.
    */
+  Timer topTimer;
 
-  private final Vision m_vision;
+  private final double stopTime = ConveyorConstants.stopTime; // Make this a constant
+  private final TopConveyor m_topConveyor;
 
-  public VisionLightOn(final Vision vision) {
-    m_vision = vision;
-    addRequirements(m_vision);
-
+  public TimedTopConveyorIn(TopConveyor topConveyor) {
+    m_topConveyor = topConveyor;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(m_topConveyor);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_vision.visionLightOn();
+    topTimer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    m_topConveyor.conveyorIn();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(final boolean interrupted) {
+  public void end(boolean interrupted) {
+    m_topConveyor.stopConveyor();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return (topTimer.get() >= stopTime);
   }
 }

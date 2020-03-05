@@ -5,44 +5,45 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Vision;
+package frc.robot.commands.TopConveyor;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Vision;
+import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.TopConveyor;
 
-public class VisionLightOn extends CommandBase {
+public class TopConveyorOut extends CommandBase {
+  private final TopConveyor m_conveyor;
+  private final Shooter m_shooter;
+
   /**
-   * Creates a new VisionLightOn.
+   * Creates a new TopConveyorOut.
    */
-
-  private final Vision m_vision;
-
-  public VisionLightOn(final Vision vision) {
-    m_vision = vision;
-    addRequirements(m_vision);
-
-    // Use addRequirements() here to declare subsystem dependencies.
+  public TopConveyorOut(final TopConveyor conveyor, final Shooter shooter) {
+    m_conveyor = conveyor;
+    m_shooter = shooter;
+    addRequirements(m_conveyor, m_shooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_vision.visionLightOn();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    m_conveyor.conveyorOut();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(final boolean interrupted) {
+    m_conveyor.stopConveyor();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return !m_shooter.isShootable();
   }
 }

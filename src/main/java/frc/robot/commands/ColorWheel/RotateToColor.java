@@ -19,26 +19,23 @@ import frc.robot.subsystems.ColorWheel;
 
 public class RotateToColor extends CommandBase {
     private final ColorWheel m_colorWheel;
-    private Supplier<String> m_inputColor;
-    private String m_currentColor;
+    private final Supplier<String> m_inputColor;
     private double m_distanceNeeded;
 
     /**
      * Creates a new RotateToColor.
      */
-    public RotateToColor(ColorWheel colorWheel, Supplier<String> inputColor) {
+    public RotateToColor(final ColorWheel colorWheel, final Supplier<String> inputColor) {
         m_colorWheel = colorWheel;
         m_inputColor = inputColor;
         addRequirements(m_colorWheel);
-        m_currentColor = m_colorWheel.getColor();
+        m_distanceNeeded = m_colorWheel.getRequiredDistance(m_inputColor.get(), m_colorWheel.getColor());
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
         m_colorWheel.resetEncoder();
-        m_currentColor = m_colorWheel.getColor();
-        m_distanceNeeded = m_colorWheel.getRequiredDistance(m_inputColor.get(), m_currentColor);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -53,7 +50,7 @@ public class RotateToColor extends CommandBase {
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {
+    public void end(final boolean interrupted) {
         m_colorWheel.stopMotor();
         m_colorWheel.resetEncoder();
     }
@@ -62,6 +59,8 @@ public class RotateToColor extends CommandBase {
     @Override
     public boolean isFinished() {
         // Need to take absolute value because these distances can be negative
-        return (Math.abs(m_colorWheel.getDistance()) >= Math.abs(m_distanceNeeded));
+        return ((Math.abs(m_colorWheel.getDistance()) >= Math.abs(m_distanceNeeded))
+                && (m_colorWheel.getColor().equals(m_inputColor.get())));
+
     }
 }

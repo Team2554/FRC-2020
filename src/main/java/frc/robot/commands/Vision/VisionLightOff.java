@@ -15,9 +15,9 @@ public class VisionLightOff extends CommandBase {
    * Creates a new VisionLightOn.
    */
 
-  Vision m_vision;
+  private final Vision m_vision;
 
-  public VisionLightOff(Vision vision) {
+  public VisionLightOff(final Vision vision) {
     m_vision = vision;
     addRequirements(m_vision);
 
@@ -37,7 +37,7 @@ public class VisionLightOff extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
+  public void end(final boolean interrupted) {
   }
 
   // Returns true when the command should end.
