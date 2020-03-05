@@ -31,26 +31,26 @@ public class TopConveyor extends SubsystemBase {
 
   public TopConveyor() {
     leftConveyor1.enableVoltageCompensation(true);
-    leftConveyor1.configVoltageCompSaturation(10);
+    leftConveyor1.configVoltageCompSaturation(ConveyorConstants.topConveyorVoltage);
 
     leftConveyor2.enableVoltageCompensation(true);
-    leftConveyor2.configVoltageCompSaturation(10);
+    leftConveyor2.configVoltageCompSaturation(ConveyorConstants.topConveyorVoltage);
 
     rightConveyor1.enableVoltageCompensation(true);
-    rightConveyor1.configVoltageCompSaturation(10);
+    rightConveyor1.configVoltageCompSaturation(ConveyorConstants.topConveyorVoltage);
 
     rightConveyor2.enableVoltageCompensation(true);
-    rightConveyor2.configVoltageCompSaturation(10);
+    rightConveyor2.configVoltageCompSaturation(ConveyorConstants.topConveyorVoltage);
   }
 
   public void conveyorIn() {
-    leftConveyor.set(ConveyorConstants.topConveyorVoltage);
-    rightConveyor.set(-ConveyorConstants.topConveyorVoltage);
+    leftConveyor.set(1);
+    rightConveyor.set(-1);
   }
 
   public void conveyorOut() {
-    leftConveyor.set(-ConveyorConstants.topConveyorVoltage);
-    rightConveyor.set(ConveyorConstants.topConveyorVoltage);
+    leftConveyor.set(-1);
+    rightConveyor.set(1);
   }
 
   public void stopConveyor() {

@@ -33,10 +33,10 @@ public class Elevator extends SubsystemBase {
 
   public Elevator() {
     elevatorMotor1.enableVoltageCompensation(true);
-    elevatorMotor1.configVoltageCompSaturation(10);
+    elevatorMotor1.configVoltageCompSaturation(ElevatorConstants.elevatorVoltage);
 
     elevatorMotor2.enableVoltageCompensation(true);
-    elevatorMotor2.configVoltageCompSaturation(10);
+    elevatorMotor2.configVoltageCompSaturation(ElevatorConstants.elevatorVoltage);
   }
 
   /*
@@ -50,11 +50,11 @@ public class Elevator extends SubsystemBase {
   }
 
   public void goUp() {
-    elevatorMotors.setVoltage(ElevatorConstants.upVoltage);
+    elevatorMotors.set(1);
   }
 
   public void goDown() {
-    elevatorMotors.setVoltage(ElevatorConstants.downVoltage);
+    elevatorMotors.set(-1);
   }
 
   public boolean atTop() {
