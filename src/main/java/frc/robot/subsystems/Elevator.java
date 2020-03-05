@@ -7,13 +7,19 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ElevatorConstants;
 
 public class Elevator extends SubsystemBase {
-  private final VictorSP elevatorMotor = new VictorSP(ElevatorConstants.motorPort);
+  private final WPI_VictorSPX elevatorMotor1 = new WPI_VictorSPX(ElevatorConstants.motorPort1);
+  private final WPI_VictorSPX elevatorMotor2 = new WPI_VictorSPX(ElevatorConstants.motorPort2);
+
+  private final SpeedControllerGroup elevatorMotors = new SpeedControllerGroup(elevatorMotor1, elevatorMotor2);
+
   /*
    * private final VictorSP levelAdjusterMotorOne = new
    * VictorSP(ElevatorConstants.levelAdjusterMotorOnePort); private final VictorSP
@@ -35,15 +41,15 @@ public class Elevator extends SubsystemBase {
    * public void stopLevelAdjuster() { levelAdjuster.stopMotor(); }
    */
   public void stopElevator() {
-    elevatorMotor.stopMotor();
+    elevatorMotors.stopMotor();
   }
 
   public void goUp() {
-    elevatorMotor.set(ElevatorConstants.upSpeed);
+    elevatorMotors.setVoltage(ElevatorConstants.upVoltage);
   }
 
   public void goDown() {
-    elevatorMotor.set(ElevatorConstants.downSpeed);
+    elevatorMotors.setVoltage(ElevatorConstants.downVoltage);
   }
 
   public boolean atTop() {
