@@ -8,33 +8,32 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ElevatorConstants;
 
 public class Elevator extends SubsystemBase {
   private final VictorSP elevatorMotor = new VictorSP(ElevatorConstants.motorPort);
-/*
-  private final VictorSP levelAdjusterMotorOne = new VictorSP(ElevatorConstants.levelAdjusterMotorOnePort);
-  private final VictorSP levelAdjusterMotorTwo = new VictorSP(ElevatorConstants.levelAdjusterMotorTwoPort);
-  private final SpeedControllerGroup levelAdjuster = new SpeedControllerGroup(levelAdjusterMotorOne,
-      levelAdjusterMotorTwo);
-*/
+  /*
+   * private final VictorSP levelAdjusterMotorOne = new
+   * VictorSP(ElevatorConstants.levelAdjusterMotorOnePort); private final VictorSP
+   * levelAdjusterMotorTwo = new
+   * VictorSP(ElevatorConstants.levelAdjusterMotorTwoPort); private final
+   * SpeedControllerGroup levelAdjuster = new
+   * SpeedControllerGroup(levelAdjusterMotorOne, levelAdjusterMotorTwo);
+   */
   private final DigitalInput bottomSwitch = new DigitalInput(ElevatorConstants.bottomSwitch);
   private final DigitalInput topSwitch = new DigitalInput(ElevatorConstants.topSwitch);
 
   public Elevator() {
   }
-/*
-  public void startLevelAdjuster(final int direction) {
-    levelAdjuster.set(direction * 0.3);
-  }
 
-  public void stopLevelAdjuster() {
-    levelAdjuster.stopMotor();
-  }
-*/
+  /*
+   * public void startLevelAdjuster(final int direction) {
+   * levelAdjuster.set(direction * 0.3); }
+   * 
+   * public void stopLevelAdjuster() { levelAdjuster.stopMotor(); }
+   */
   public void stopElevator() {
     elevatorMotor.stopMotor();
   }

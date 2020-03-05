@@ -21,8 +21,8 @@ import frc.robot.commands.ColorWheel.WhiteLineStop;
 import frc.robot.commands.CommandGroups.IntakeAndShoot;
 import frc.robot.commands.CommandGroups.TimedBothConveyors;
 import frc.robot.commands.DriveTrain.DefaultDrive;
-import frc.robot.commands.DriveTrain.DriveStraightNEW;
-import frc.robot.commands.DriveTrain.RotateToAngleNEW;
+import frc.robot.commands.DriveTrain.DriveStraight;
+import frc.robot.commands.DriveTrain.RotateToAngle;
 import frc.robot.commands.Elevator.ElevatorToBottom;
 import frc.robot.commands.Elevator.ElevatorToTop;
 import frc.robot.commands.TopConveyor.TopConveyorIn;
@@ -118,11 +118,11 @@ public class RobotContainer {
 
     // DriveStraight button
     new JoystickButton(m_buttonJoystick, Constants.DriveJoystickMappings.driveStraight)
-        .whenPressed(new DriveStraightNEW(1, 0.2, m_driveTrain.getHeading().getDegrees(), m_driveTrain));
+        .whenPressed(new DriveStraight(1, 0.2, m_driveTrain.getHeading().getDegrees(), m_driveTrain));
 
     // RotateToAngle
     new JoystickButton(m_buttonJoystick, Constants.DriveJoystickMappings.rotateToAngle)
-        .whenPressed(new RotateToAngleNEW(90, m_driveTrain));
+        .whenPressed(new RotateToAngle(90, m_driveTrain));
   }
 
   /**
