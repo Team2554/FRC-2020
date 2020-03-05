@@ -63,7 +63,7 @@ public class Robot extends TimedRobot {
       Mat source = new Mat();
       Mat output = new Mat();
 
-      while(!Thread.interrupted()) {
+      while (!Thread.interrupted()) {
         if (cvSink.grabFrame(source) == 0) {
           continue;
         }
@@ -71,7 +71,6 @@ public class Robot extends TimedRobot {
         outputStream.putFrame(output);
       }
     }).start();
-  }
     // Runs the Scheduler. This is responsible for polling buttons, adding
     // newly-scheduled
     // commands, running already-scheduled commands, removing finished or
@@ -80,6 +79,7 @@ public class Robot extends TimedRobot {
     // robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+
   }
 
   /**
