@@ -23,15 +23,24 @@ public class TopConveyor extends SubsystemBase {
   private final WPI_VictorSPX leftConveyor1 = new WPI_VictorSPX(ConveyorConstants.leftConveyor1Port);
   private final WPI_VictorSPX leftConveyor2 = new WPI_VictorSPX(ConveyorConstants.leftConveyor2Port);
 
-  private final SpeedControllerGroup leftConveyor = new SpeedControllerGroup(leftConveyor1, leftConveyor2);
-
   private final WPI_VictorSPX rightConveyor1 = new WPI_VictorSPX(ConveyorConstants.rightConveyor1Port);
   private final WPI_VictorSPX rightConveyor2 = new WPI_VictorSPX(ConveyorConstants.rightConveyor2Port);
 
-  private final SpeedControllerGroup rightConveyor = new SpeedControllerGroup(rightConveyor1, rightConveyor2);
   private final SpeedControllerGroup leftConveyor = new SpeedControllerGroup(leftConveyor1, leftConveyor2);
+  private final SpeedControllerGroup rightConveyor = new SpeedControllerGroup(rightConveyor1, rightConveyor2);
+
   public TopConveyor() {
-    
+    leftConveyor1.enableVoltageCompensation(true);
+    leftConveyor1.configVoltageCompSaturation(10);
+
+    leftConveyor2.enableVoltageCompensation(true);
+    leftConveyor2.configVoltageCompSaturation(10);
+
+    rightConveyor1.enableVoltageCompensation(true);
+    rightConveyor1.configVoltageCompSaturation(10);
+
+    rightConveyor2.enableVoltageCompensation(true);
+    rightConveyor2.configVoltageCompSaturation(10);
   }
 
   public void conveyorIn() {
