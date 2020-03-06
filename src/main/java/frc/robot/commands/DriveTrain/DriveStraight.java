@@ -9,6 +9,7 @@ package frc.robot.commands.DriveTrain;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
+import frc.robot.Constants.DriveTrainConstants;
 import frc.robot.subsystems.DriveTrain;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -19,7 +20,7 @@ public class DriveStraight extends PIDCommand {
 
   private final DriveTrain m_driveTrain;
 
-  public DriveStraight(final double distance, final double speed, final double heading, final DriveTrain driveTrain) {
+  public DriveStraight(final double distance, final double heading, final DriveTrain driveTrain) {
     super(
         // The controller that the command will use
         new PIDController(0.1, 0, .225, 0.02),
@@ -29,7 +30,7 @@ public class DriveStraight extends PIDCommand {
         () -> heading,
         // This uses the output
         output -> {
-          driveTrain.curvatureDrive(speed, 0, true);
+          driveTrain.curvatureDrive(DriveTrainConstants.robotSpeed, 0, true);
         }, driveTrain);
 
     m_driveTrain = driveTrain;
@@ -43,16 +44,13 @@ public class DriveStraight extends PIDCommand {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // return (Math.abs((m_driveTrain.getAverageEncoderDistance())) >=
-    // Math.abs(distance));
-    return true;
+    return (Math.abs((m_driveTrain.getAverageEncoderDistance())) >= Math.abs(m_distance));
   }
 
   public void initialize() {
   }
 
   public double returnPIDInput() {
-    // return m_driveTrain.getAverageEncoderDistance() - distance;
     return 0;
   }
 

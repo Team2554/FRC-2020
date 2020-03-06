@@ -115,6 +115,9 @@ public final class Constants {
         public static final int talonLeftPort = 3;
         public static final int victorLeftPort = 7;
 
+        // Global constants
+        public static final double robotSpeed = 0.5;
+
         // Wheel constants
         public static final double wheelDiameterInches = 6;
         public static final double differentialWidthMeters = 0.557176939999995;

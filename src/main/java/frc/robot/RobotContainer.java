@@ -115,7 +115,7 @@ public class RobotContainer {
 
         // DriveStraight button
         new JoystickButton(m_buttonJoystick, Constants.DriveJoystickMappings.driveStraight)
-                .whenPressed(new DriveStraight(1, 0.2, m_driveTrain.getHeading().getDegrees(), m_driveTrain));
+                .whenPressed(new DriveStraight(1, m_driveTrain.getHeading().getDegrees(), m_driveTrain));
 
         // RotateToAngle
         new JoystickButton(m_buttonJoystick, Constants.DriveJoystickMappings.rotateToAngle)

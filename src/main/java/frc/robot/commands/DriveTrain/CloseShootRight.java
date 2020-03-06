@@ -18,7 +18,7 @@ public class CloseShootRight extends SequentialCommandGroup {
    * Creates a new CloseShootRight.
    */
   public CloseShootRight(final DriveTrain dT) {
-    super(new DriveStraight(0.9144, 1, 0, dT), new RotateToAngle(-90, dT), new DriveStraight(1.2192, 1, 0, dT),
+    super(new DriveStraight(0.9144, 0, dT), new RotateToAngle(-90, dT), new DriveStraight(1.2192, 0, dT),
         new RotateToAngle(-180, dT));
   }
 }
