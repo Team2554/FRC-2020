@@ -35,9 +35,7 @@ public class DriveStraight extends PIDCommand {
         // This should return the setpoint (can also be a constant)
         () -> heading,
         // This uses the output
-        output -> {
-          driveTrain.curvatureDrive(DriveTrainConstants.robotSpeed, 0, true);
-        }, driveTrain);
+        output -> driveTrain.curvatureDrive(DriveTrainConstants.robotSpeed, 0, true), driveTrain);
 
     m_driveTrain = driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.
