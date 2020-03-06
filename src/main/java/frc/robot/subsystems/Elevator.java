@@ -20,14 +20,6 @@ public class Elevator extends SubsystemBase {
 
   private final SpeedControllerGroup elevatorMotors = new SpeedControllerGroup(elevatorMotor1, elevatorMotor2);
 
-  /*
-   * private final VictorSP levelAdjusterMotorOne = new
-   * VictorSP(ElevatorConstants.levelAdjusterMotorOnePort); private final VictorSP
-   * levelAdjusterMotorTwo = new
-   * VictorSP(ElevatorConstants.levelAdjusterMotorTwoPort); private final
-   * SpeedControllerGroup levelAdjuster = new
-   * SpeedControllerGroup(levelAdjusterMotorOne, levelAdjusterMotorTwo);
-   */
   private final DigitalInput bottomSwitch = new DigitalInput(ElevatorConstants.bottomSwitch);
   private final DigitalInput topSwitch = new DigitalInput(ElevatorConstants.topSwitch);
 
@@ -39,12 +31,6 @@ public class Elevator extends SubsystemBase {
     elevatorMotor2.configVoltageCompSaturation(ElevatorConstants.elevatorVoltage);
   }
 
-  /*
-   * public void startLevelAdjuster(final int direction) {
-   * levelAdjuster.set(direction * 0.3); }
-   * 
-   * public void stopLevelAdjuster() { levelAdjuster.stopMotor(); }
-   */
   public void stopElevator() {
     elevatorMotors.stopMotor();
   }
