@@ -63,7 +63,7 @@ public final class Constants {
     public static final class ColorWheelConstants {
         // Motors/Encoder ports
         public static final int colorMotorPort = 5;
-        public static final int encoderPorts[] = { 1, 2 };
+        public static final int[] encoderPorts = { 1, 2 };
 
         // Motor speeds for different commands
         public static final double rotateWheelSpeed = 0.05;
