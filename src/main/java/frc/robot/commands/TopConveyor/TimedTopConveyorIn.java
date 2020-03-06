@@ -17,7 +17,7 @@ public class TimedTopConveyorIn extends CommandBase {
   /**
    * Creates a new TimedTopConveyorIN.
    */
-  Timer topTimer;
+  Timer topTimer = new Timer();
 
   private final double stopTime = ConveyorConstants.stopTime; // Make this a constant
   private final TopConveyor m_topConveyor;

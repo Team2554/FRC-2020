@@ -88,11 +88,11 @@ public class DriveTrain extends SubsystemBase {
 
     vRB.follow(tRF);
     tRF.setInverted(true);
-    vRB.setInverted(InvertType.FollowMaster);
+    vRB.setInverted(true);
 
     vLB.follow(tLF);
     tLF.setInverted(false);
-    vLB.setInverted(InvertType.FollowMaster);
+    vLB.setInverted(false);
 
     leftEncoder.setWheelDiameter(Units.inchesToMeters(wheelDiameterInches));
     rightEncoder.setWheelDiameter(Units.inchesToMeters(wheelDiameterInches));

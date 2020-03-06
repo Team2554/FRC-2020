@@ -111,10 +111,10 @@ public final class Constants {
     }
 
     public static final class DriveTrainPortConstants {
-        public static final int tRFPort = 5;
-        public static final int vRBPort = 7;
-        public static final int tLFPort = 2;
-        public static final int vLBPort = 9;
+        public static final int tRFPort = 2;
+        public static final int vRBPort = 9;
+        public static final int tLFPort = 3;
+        public static final int vLBPort = 7;
     }
 
     public static final class ElevatorConstants {
