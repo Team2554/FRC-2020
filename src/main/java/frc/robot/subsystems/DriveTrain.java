@@ -48,9 +48,12 @@ public class DriveTrain extends SubsystemBase {
 
   private final double maxVoltage = 10;
 
-  private final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(DriveTrainConstants.differentialWidthMeters);
+  private final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(
+      DriveTrainConstants.differentialWidthMeters);
   private final DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(getHeading());
 
+  // TODO
+  // move this to Constants.java as well
   private final SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(0.3, 1.96, 0.06);
 
   private final PIDController leftPIDController = new PIDController(2.95, 0, 0);

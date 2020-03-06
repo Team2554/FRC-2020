@@ -24,7 +24,7 @@ public class Vision extends SubsystemBase {
    * Creates a new Vision.
    */
 
-  private final ShuffleboardTab sbVision = Shuffleboard.getTab("Vision");
+  // private final ShuffleboardTab sbVision = Shuffleboard.getTab("Vision");
   private final NetworkTable ntVision = NetworkTableInstance.getDefault().getTable("Shuffleboard")
       .getSubTable("Vision");
 
@@ -48,7 +48,6 @@ public class Vision extends SubsystemBase {
     // Slider").withProperties(Map.of("min", 0.0, "max", 255.0));
     // sbVision.add("Value End", 255.0).withWidget("Number
     // Slider").withProperties(Map.of("min", 0.0, "max", 255.0));
-
     angleEntry.addListener(this::onAngleEntryChange, EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
   }
 

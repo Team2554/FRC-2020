@@ -14,14 +14,12 @@ import java.util.function.BooleanSupplier;
 
 public class TopConveyorIn extends CommandBase {
   private final TopConveyor m_conveyor;
-  private final BooleanSupplier m_shooterIsShootable;
 
   /**
    * Creates a new TopConveyorIn.
    */
-  public TopConveyorIn(final TopConveyor conveyor, final BooleanSupplier shooterIsShootable) {
+  public TopConveyorIn(final TopConveyor conveyor) {
     m_conveyor = conveyor;
-    m_shooterIsShootable = shooterIsShootable;
     addRequirements(m_conveyor);
   }
 
@@ -45,6 +43,6 @@ public class TopConveyorIn extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return !m_shooterIsShootable.getAsBoolean();
+    return false;
   }
 }
