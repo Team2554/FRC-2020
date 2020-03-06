@@ -9,6 +9,8 @@ package frc.robot;
 
 import com.revrobotics.ColorMatch;
 
+import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.util.Color;
 
 /**
@@ -116,6 +118,11 @@ public final class Constants {
         // Wheel constants
         public static final double wheelDiameterInches = 6;
         public static final double differentialWidthMeters = 0.557176939999995;
+
+        // Other DriveTrain things
+        public static final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(
+                DriveTrainConstants.differentialWidthMeters);
+        public static final SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(0.3, 1.96, 0.06);
 
         // PID constants
         public static final double kP = 0.95;

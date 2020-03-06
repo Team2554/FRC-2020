@@ -18,11 +18,9 @@ import com.ctre.phoenix.sensors.PigeonIMU;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -48,16 +46,8 @@ public class DriveTrain extends SubsystemBase {
 
   private final double maxVoltage = 10;
 
-  // TODO: move kinematics to constatns, along with differential drive width
-  // meters
-  private final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(
-      DriveTrainConstants.differentialWidthMeters);
   private final DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(getHeading());
 
-  // TODO: move this to Constants.java as well
-  private final SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(0.3, 1.96, 0.06);
-
-  // TODO: move the pid gains to constants
   private final PIDController leftPIDController = new PIDController(DriveTrainConstants.kP, DriveTrainConstants.kI,
       DriveTrainConstants.kD);
   private final PIDController rightPIDController = new PIDController(DriveTrainConstants.kP, DriveTrainConstants.kI,
@@ -121,10 +111,6 @@ public class DriveTrain extends SubsystemBase {
 
   public void curvatureDrive(final double xSpeed, final double zRotation, final boolean isQuickTurn) {
     driveTrain.curvatureDrive(xSpeed * (isInverted ? -1 : 1), zRotation, isQuickTurn);
-  }
-
-  public DifferentialDriveKinematics getKinematics() {
-    return kinematics;
   }
 
   public void tankDriveVolts(final double leftVolts, final double rightVolts) {
