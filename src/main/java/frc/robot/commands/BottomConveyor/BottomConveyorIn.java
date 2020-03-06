@@ -7,17 +7,21 @@
 
 package frc.robot.commands.BottomConveyor;
 
+import java.util.function.BooleanSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BottomConveyor;
 
 public class BottomConveyorIn extends CommandBase {
   private final BottomConveyor m_bottomConveyor;
+  private final BooleanSupplier m_checkIfShootable;
 
   /**
    * Creates a new BottomConveyorIn.
    */
-  public BottomConveyorIn(final BottomConveyor bottomConveyor) {
+  public BottomConveyorIn(final BottomConveyor bottomConveyor, BooleanSupplier checkIfShootable) {
     m_bottomConveyor = bottomConveyor;
+    m_checkIfShootable = checkIfShootable;
     addRequirements(m_bottomConveyor);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -30,7 +34,9 @@ public class BottomConveyorIn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_bottomConveyor.conveyorIn();
+    if (m_checkIfShootable == null || m_checkIfShootable.getAsBoolean()) {
+      m_bottomConveyor.conveyorIn();
+    }
   }
 
   // Called once the command ends or is interrupted.

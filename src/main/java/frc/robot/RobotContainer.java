@@ -107,11 +107,11 @@ public class RobotContainer {
 
         // Just top conveyor Out
         new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.topConveyorOut)
-                .whenPressed(new TopConveyorIn(m_topConveyor));
+                .whenPressed(new TopConveyorIn(m_topConveyor, null));
 
         // Just bottom conveyor in
         new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.bottomConveyorIn)
-                .whenPressed(new BottomConveyorIn(m_bottomConveyor));
+                .whenPressed(new BottomConveyorIn(m_bottomConveyor, null));
 
         // DriveStraight button
         new JoystickButton(m_buttonJoystick, Constants.DriveJoystickMappings.driveStraight)

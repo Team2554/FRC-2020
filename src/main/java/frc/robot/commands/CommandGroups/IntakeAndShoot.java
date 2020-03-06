@@ -35,9 +35,7 @@ public class IntakeAndShoot extends ParallelCommandGroup {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());super();
 
-    // TODO: add custom shooter rpm check and supplier to provide that value
-    // TODO: move shooter voltage to constants
-    super(new IntakeIn(intake), new ShootCommand(shooter), new BottomConveyorIn(bottomConveyor),
-        new TopConveyorIn(topConveyor));
+    super(new IntakeIn(intake), new ShootCommand(shooter), new BottomConveyorIn(bottomConveyor, shooter::isShootable),
+        new TopConveyorIn(topConveyor, shooter::isShootable));
   }
 }

@@ -7,18 +7,22 @@
 
 package frc.robot.commands.TopConveyor;
 
+import java.util.function.BooleanSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.TopConveyor;
 
 public class TopConveyorIn extends CommandBase {
-  private final TopConveyor m_conveyor;
+  private final TopConveyor m_topConveyor;
+  private final BooleanSupplier m_checkIfShootable;
 
   /**
    * Creates a new TopConveyorIn.
    */
-  public TopConveyorIn(final TopConveyor conveyor) {
-    m_conveyor = conveyor;
-    addRequirements(m_conveyor);
+  public TopConveyorIn(final TopConveyor conveyor, BooleanSupplier checkIfShootable) {
+    m_topConveyor = conveyor;
+    m_checkIfShootable = checkIfShootable;
+    addRequirements(m_topConveyor);
   }
 
   // Called when the command is initially scheduled.
@@ -29,13 +33,15 @@ public class TopConveyorIn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_conveyor.conveyorIn();
+    if (m_checkIfShootable == null || m_checkIfShootable.getAsBoolean()) {
+      m_topConveyor.conveyorIn();
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(final boolean interrupted) {
-    m_conveyor.stopConveyor();
+    m_topConveyor.stopConveyor();
   }
 
   // Returns true when the command should end.
