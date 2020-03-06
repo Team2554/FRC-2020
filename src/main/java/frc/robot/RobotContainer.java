@@ -122,7 +122,7 @@ public class RobotContainer {
         new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.timedConveyors)
                 .whenPressed(new TimedBothConveyors(m_topConveyor, m_bottomConveyor));
 
-        new JoystickButton(m_buttonJoystick, 3).whenPressed(new IntakeIn(m_intake));
+        new JoystickButton(m_buttonJoystick, 3).whileHeld(new IntakeIn(m_intake));
 
         // new JoystickButton(m_buttonJoystick, buttonNumber)
         // Just top conveyor Out
