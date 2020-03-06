@@ -13,15 +13,13 @@ import frc.robot.subsystems.TopConveyor;
 
 public class TopConveyorOut extends CommandBase {
   private final TopConveyor m_conveyor;
-  private final Shooter m_shooter;
 
   /**
    * Creates a new TopConveyorOut.
    */
-  public TopConveyorOut(final TopConveyor conveyor, final Shooter shooter) {
+  public TopConveyorOut(final TopConveyor conveyor) {
     m_conveyor = conveyor;
-    m_shooter = shooter;
-    addRequirements(m_conveyor, m_shooter);
+    addRequirements(m_conveyor);
   }
 
   // Called when the command is initially scheduled.
@@ -44,6 +42,6 @@ public class TopConveyorOut extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return !m_shooter.isShootable();
+    return false;
   }
 }
