@@ -30,7 +30,7 @@ public class Intake extends SubsystemBase {
   public void start(final boolean inverse) {
     final double multiplier = SmartDashboard.getNumber("Intake Multiplier", 1);
     final double speed = inverse ? -multiplier : multiplier;
-    intake.set(ControlMode.PercentOutput, 1);
+    intake.set(ControlMode.PercentOutput, speed);
   }
 
   public void stop() {

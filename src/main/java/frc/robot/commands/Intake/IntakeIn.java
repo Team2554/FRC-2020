@@ -28,7 +28,7 @@ public class IntakeIn extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   public void execute() {
-    m_intake.start(true);
+    m_intake.start(false);
   }
 
   // Called once the command ends or is interrupted.
