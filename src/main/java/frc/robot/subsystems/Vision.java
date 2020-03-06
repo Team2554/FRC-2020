@@ -24,7 +24,7 @@ public class Vision extends SubsystemBase {
    * Creates a new Vision.
    */
 
-  private final ShuffleboardTab sbVision = Shuffleboard.getTab("Vision");
+  // private final ShuffleboardTab sbVision = Shuffleboard.getTab("Vision");
   private final NetworkTable ntVision = NetworkTableInstance.getDefault().getTable("Shuffleboard")
       .getSubTable("Vision");
 
