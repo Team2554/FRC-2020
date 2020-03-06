@@ -25,7 +25,6 @@ import frc.robot.commands.DriveTrain.DriveStraight;
 import frc.robot.commands.DriveTrain.RotateToAngle;
 import frc.robot.commands.Elevator.ElevatorToBottom;
 import frc.robot.commands.Elevator.ElevatorToTop;
-import frc.robot.commands.Intake.IntakeIn;
 import frc.robot.commands.TopConveyor.TopConveyorIn;
 import frc.robot.subsystems.BottomConveyor;
 import frc.robot.subsystems.ColorWheel;
@@ -34,8 +33,6 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.TopConveyor;
-
-import java.util.function.BooleanSupplier;
 
 /**
  * This class is where the bulk of the robot should be declared. Since

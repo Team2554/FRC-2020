@@ -10,8 +10,6 @@ package frc.robot.commands.TopConveyor;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.TopConveyor;
 
-import java.util.function.BooleanSupplier;
-
 public class TopConveyorIn extends CommandBase {
   private final TopConveyor m_conveyor;
 

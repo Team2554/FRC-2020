@@ -15,7 +15,7 @@ import frc.robot.subsystems.DriveTrain;
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 public class DriveStraight extends PIDCommand {
-  private final double distance;
+  private final double m_distance;
 
   private final DriveTrain m_driveTrain;
 
@@ -37,7 +37,7 @@ public class DriveStraight extends PIDCommand {
     // Configure additional PID options by calling `getController` here.
     addRequirements(m_driveTrain);
     getController().enableContinuousInput(-180, 180);
-    this.distance = distance;
+    m_distance = distance;
   }
 
   // Returns true when the command should end.

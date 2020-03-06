@@ -7,7 +7,6 @@
 
 package frc.robot.commands.CommandGroups;
 
-import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;

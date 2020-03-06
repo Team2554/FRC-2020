@@ -10,8 +10,6 @@ package frc.robot.commands.BottomConveyor;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BottomConveyor;
 
-import java.util.function.BooleanSupplier;
-
 public class BottomConveyorIn extends CommandBase {
   private final BottomConveyor m_bottomConveyor;
 
