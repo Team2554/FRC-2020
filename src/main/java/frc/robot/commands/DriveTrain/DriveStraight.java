@@ -20,6 +20,12 @@ public class DriveStraight extends PIDCommand {
 
   private final DriveTrain m_driveTrain;
 
+  /**
+   * 
+   * @param distance
+   * @param heading
+   * @param driveTrain
+   */
   public DriveStraight(final double distance, final double heading, final DriveTrain driveTrain) {
     super(
         // The controller that the command will use
