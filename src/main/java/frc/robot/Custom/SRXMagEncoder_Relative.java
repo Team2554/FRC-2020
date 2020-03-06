@@ -12,10 +12,10 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class SRXMagEncoder_Relative {
-    private TalonSRX talon;
-    private boolean reverseDirection = false;
-    private double distancePerRotation = 1;
-    private double ticksPerRotation = 4096;
+    private final TalonSRX m_talon;
+    private boolean m_reverseDirection = false;
+    private double m_distancePerRotation = 1;
+    private double m_ticksPerRotation = 4096;
 
     /**
      * 
@@ -23,8 +23,8 @@ public class SRXMagEncoder_Relative {
      * @param reverseDirection optional reverseDirection parameter
      */
     public SRXMagEncoder_Relative(TalonSRX talonSRX, boolean reverseDirection) {
-        talon = talonSRX;
-        this.reverseDirection = reverseDirection;
+        m_talon = talonSRX;
+        m_reverseDirection = reverseDirection;
     }
 
     /**
@@ -33,8 +33,8 @@ public class SRXMagEncoder_Relative {
      * @param reverseDirection optional reverseDirection parameter
      */
     public SRXMagEncoder_Relative(WPI_TalonSRX talonSRX, boolean reverseDirection) {
-        talon = (TalonSRX) talonSRX;
-        this.reverseDirection = reverseDirection;
+        m_talon = talonSRX;
+        this.m_reverseDirection = reverseDirection;
     }
 
     /**
@@ -42,7 +42,7 @@ public class SRXMagEncoder_Relative {
      * @param talonSRX TalonSRX or WPI_TalonSRX object
      */
     public SRXMagEncoder_Relative(TalonSRX talonSRX) {
-        talon = talonSRX;
+        m_talon = talonSRX;
     }
 
     /**
@@ -50,7 +50,7 @@ public class SRXMagEncoder_Relative {
      * @param talonSRX TalonSRX or WPI_TalonSRX object
      */
     public SRXMagEncoder_Relative(WPI_TalonSRX talonSRX) {
-        talon = (TalonSRX) talonSRX;
+        m_talon = talonSRX;
     }
 
     /**
@@ -58,14 +58,14 @@ public class SRXMagEncoder_Relative {
      * subsystem constructor.
      */
     public void configure() {
-        talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+        m_talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     }
 
     /**
      * resets the encoder
      */
     public void reset() {
-        talon.setSelectedSensorPosition(0);
+        m_talon.setSelectedSensorPosition(0);
     }
 
     /**
@@ -75,7 +75,7 @@ public class SRXMagEncoder_Relative {
      *                            rotation
      */
     public void setRawDistancePerRotation(double distancePerRotation) {
-        this.distancePerRotation = distancePerRotation;
+        this.m_distancePerRotation = distancePerRotation;
     }
 
     /**
@@ -84,7 +84,7 @@ public class SRXMagEncoder_Relative {
      * @param diameter the diameter of the wheel
      */
     public void setWheelDiameter(double diameter) {
-        distancePerRotation = diameter * Math.PI;
+        m_distancePerRotation = diameter * Math.PI;
     }
 
     /**
@@ -93,7 +93,7 @@ public class SRXMagEncoder_Relative {
      * @param radius the radius of the wheel
      */
     public void setWheelRadius(double radius) {
-        distancePerRotation = 2 * radius * Math.PI;
+        m_distancePerRotation = 2 * radius * Math.PI;
     }
 
     /**
@@ -106,7 +106,7 @@ public class SRXMagEncoder_Relative {
      * @param ratio eg, for 100:2, ratio would be 50
      */
     public void setGearRatio(double ratio) {
-        ticksPerRotation = 4096 * ratio;
+        m_ticksPerRotation = 4096 * ratio;
     }
 
     /**
@@ -115,7 +115,7 @@ public class SRXMagEncoder_Relative {
      *         gear ratio. Units are encoder ticks(4096 per encoder shaft rotation)
      */
     public int getRawPosition() {
-        return talon.getSelectedSensorPosition() * (reverseDirection ? -1 : 1);
+        return m_talon.getSelectedSensorPosition() * (m_reverseDirection ? -1 : 1);
     }
 
     /**
@@ -123,7 +123,7 @@ public class SRXMagEncoder_Relative {
      *         not adjusted for gear ratio.
      */
     public int getRawVelocity() {
-        return talon.getSelectedSensorVelocity() * (reverseDirection ? -1 : 1);
+        return m_talon.getSelectedSensorVelocity() * (m_reverseDirection ? -1 : 1);
     }
 
     /**
@@ -131,7 +131,7 @@ public class SRXMagEncoder_Relative {
      *         Output units is [unit of distance per rotation].
      */
     public double getPosition() {
-        return ((double) getRawPosition() / ticksPerRotation) * distancePerRotation;
+        return ((double) getRawPosition() / m_ticksPerRotation) * m_distancePerRotation;
     }
 
     /**
@@ -139,27 +139,27 @@ public class SRXMagEncoder_Relative {
      *         Output units are [unit of distance per rotation] per second.
      */
     public double getVelocity() {
-        return (((double) getRawVelocity() / ticksPerRotation) * distancePerRotation) * 10;
+        return (((double) getRawVelocity() / m_ticksPerRotation) * m_distancePerRotation) * 10;
     }
 
     /**
      * @return the distance per rotation
      */
     public double getDistancePerRotation() {
-        return distancePerRotation;
+        return m_distancePerRotation;
     }
 
     /**
      * @return the ticks per per rotation
      */
     public double getTicksPerRotation() {
-        return ticksPerRotation;
+        return m_ticksPerRotation;
     }
 
     /**
      * @return get whether moving in reverse or not
      */
     public boolean getIsReverse() {
-        return reverseDirection;
+        return m_reverseDirection;
     }
 }
