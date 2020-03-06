@@ -83,7 +83,7 @@ public class RobotContainer {
 
     new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.setElevatorTop)
         .whenPressed(new ElevatorToTop(m_elevator));
-    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.setElevatorButtom)
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.setElevatorButton)
         .whenPressed(new ElevatorToBottom(m_elevator));
 
     // Testing White Line Stop Code

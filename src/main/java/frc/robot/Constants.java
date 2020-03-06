@@ -22,7 +22,6 @@ import edu.wpi.first.wpilibj.util.Color;
  * wherever the constants are needed, to reduce verbosity.
  */
 
-// Sagar lo ve me
 public final class Constants {
     public static final class DriveJoystickMappings {
         // TODO: define actual button ids later
@@ -49,7 +48,7 @@ public final class Constants {
         public static final int elevatorUp = 6; // hold to make elevator go up
         public static final int elevatorDown = 7; // hold to make elevator go down
         public static final int setElevatorTop = 8; // press to set elevator to top using limit switch
-        public static final int setElevatorButtom = 9; // press to set elevator to bottom using limit switch
+        public static final int setElevatorButton = 9; // press to set elevator to bottom using limit switch
         public static final int colorWheelTurnToColor = 10; // press to spin the color wheel to a certain color
         public static final int colorWheelSpinNumberOfTimes = 11; // press to spin the color wheel 4 times
         public static final int whiteLineStop = 12; // Level adjuster left
@@ -110,11 +109,14 @@ public final class Constants {
         public static final int intakePort = 6;
     }
 
-    public static final class DriveTrainPortConstants {
-        public static final int tRFPort = 2;
-        public static final int vRBPort = 9;
-        public static final int tLFPort = 3;
-        public static final int vLBPort = 7;
+    public static final class DriveTrainConstants {
+        public static final int talonRightPort = 2;
+        public static final int victorRightPort = 9;
+        public static final int talonLeftPort = 3;
+        public static final int victorLeftPort = 7;
+
+        public static final double wheelDiameterInches = 6;
+        public static final double differentialWidthMeters = 0.557176939999995;
     }
 
     public static final class ElevatorConstants {
