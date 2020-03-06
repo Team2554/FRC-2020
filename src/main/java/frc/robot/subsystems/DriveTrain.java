@@ -54,8 +54,8 @@ public class DriveTrain extends SubsystemBase {
 
   private boolean isInverted = false;
 
-  List<Double> gyroTimestamps = new ArrayList<>(100);
-  List<Double> gyroAngles = new ArrayList<>(100);
+  final List<Double> gyroTimestamps = new ArrayList<>(100);
+  final List<Double> gyroAngles = new ArrayList<>(100);
 
   /**
    * Creates a new DriveTrain.

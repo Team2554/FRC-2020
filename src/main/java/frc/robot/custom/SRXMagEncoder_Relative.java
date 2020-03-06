@@ -34,7 +34,7 @@ public class SRXMagEncoder_Relative {
    */
   public SRXMagEncoder_Relative(WPI_TalonSRX talonSRX, boolean reverseDirection) {
     m_talon = talonSRX;
-    this.m_reverseDirection = reverseDirection;
+    m_reverseDirection = reverseDirection;
   }
 
   /**

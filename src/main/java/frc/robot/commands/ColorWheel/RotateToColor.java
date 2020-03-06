@@ -20,7 +20,7 @@ import frc.robot.subsystems.ColorWheel;
 public class RotateToColor extends CommandBase {
     private final ColorWheel m_colorWheel;
     private final Supplier<String> m_inputColor;
-    private double m_distanceNeeded;
+    private final double m_distanceNeeded;
 
     /**
      * Creates a new RotateToColor.

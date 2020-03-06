@@ -105,51 +105,54 @@ public class ColorWheel extends SubsystemBase {
   }
 
   public double getRequiredDistance(final String inputColor, final String currentColor) {
-    double distanceNeeded = 0;
-    if (currentColor.equals("Red")) {
-      if (inputColor.equals("Green")) {
-        distanceNeeded = ColorWheelConstants.encoderOneEighth;
-      } else if (inputColor.equals("Blue")) {
-        distanceNeeded = 2 * ColorWheelConstants.encoderOneEighth;
-      } else { // If inputColor is Yellow
-        distanceNeeded = -ColorWheelConstants.encoderOneEighth;
-      }
+    double distanceNeeded;
+    switch (currentColor) {
+      case "Red":
+        if (inputColor.equals("Green")) {
+          distanceNeeded = ColorWheelConstants.encoderOneEighth;
+        } else if (inputColor.equals("Blue")) {
+          distanceNeeded = 2 * ColorWheelConstants.encoderOneEighth;
+        } else { // If inputColor is Yellow
+          distanceNeeded = -ColorWheelConstants.encoderOneEighth;
+        }
+        break;
+
+      case "Yellow":
+        if (inputColor.equals("Red")) {
+          distanceNeeded = ColorWheelConstants.encoderOneEighth;
+        } else if (inputColor.equals("Green")) {
+          distanceNeeded = 2 * ColorWheelConstants.encoderOneEighth;
+        } else { // If inputColor is Blue
+          distanceNeeded = -ColorWheelConstants.encoderOneEighth;
+        }
+        break;
+
+      case "Blue":
+        if (inputColor.equals("Yellow")) {
+          distanceNeeded = ColorWheelConstants.encoderOneEighth;
+        } else if (inputColor.equals("Red")) {
+          distanceNeeded = 2 * ColorWheelConstants.encoderOneEighth;
+        } else { // If inputColor is Green
+          distanceNeeded = -ColorWheelConstants.encoderOneEighth;
+        }
+        break;
+
+      case "Green":
+        if (inputColor.equals("Blue")) {
+          distanceNeeded = ColorWheelConstants.encoderOneEighth;
+        } else if (inputColor.equals("Yellow")) {
+          distanceNeeded = 2 * ColorWheelConstants.encoderOneEighth;
+        } else { // If inputColor is Red
+          distanceNeeded = -ColorWheelConstants.encoderOneEighth;
+        }
+        break;
+
+      default:
+        System.out.println("Incorrect color detected");
+        distanceNeeded = 0;
+        break;
     }
 
-    else if (currentColor.equals("Yellow")) {
-      if (inputColor.equals("Red")) {
-        distanceNeeded = ColorWheelConstants.encoderOneEighth;
-      } else if (inputColor.equals("Green")) {
-        distanceNeeded = 2 * ColorWheelConstants.encoderOneEighth;
-      } else { // If inputColor is Blue
-        distanceNeeded = -ColorWheelConstants.encoderOneEighth;
-      }
-    }
-
-    else if (currentColor.equals("Blue")) {
-      if (inputColor.equals("Yellow")) {
-        distanceNeeded = ColorWheelConstants.encoderOneEighth;
-      } else if (inputColor.equals("Red")) {
-        distanceNeeded = 2 * ColorWheelConstants.encoderOneEighth;
-      } else { // If inputColor is Green
-        distanceNeeded = -ColorWheelConstants.encoderOneEighth;
-      }
-    }
-
-    else if (currentColor.equals("Green")) {
-      if (inputColor.equals("Blue")) {
-        distanceNeeded = ColorWheelConstants.encoderOneEighth;
-      } else if (inputColor.equals("Yellow")) {
-        distanceNeeded = 2 * ColorWheelConstants.encoderOneEighth;
-      } else { // If inputColor is Red
-        distanceNeeded = -ColorWheelConstants.encoderOneEighth;
-      }
-    }
-
-    else {
-      System.out.println("Incorrect color detected");
-      distanceNeeded = 0;
-    }
     SmartDashboard.putNumber("distance needed", distanceNeeded);
     return distanceNeeded;
   }
