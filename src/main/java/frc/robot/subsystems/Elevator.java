@@ -7,11 +7,13 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.ElevatorConstants;
 
 public class Elevator extends SubsystemBase {
@@ -35,7 +37,16 @@ public class Elevator extends SubsystemBase {
     elevatorMotor2.configVoltageCompSaturation(ElevatorConstants.elevatorVoltage);
   }
 
+  public void holdPower() {
+    elevatorMotors.set(Constants.ElevatorConstants.holdPowerConstant);
+  }
+
   public void stopElevator() {
+    elevatorMotors.stopMotor();
+    holdPower();
+  }
+
+  public void forceStopElevator() {
     elevatorMotors.stopMotor();
   }
 
