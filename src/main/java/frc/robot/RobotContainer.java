@@ -99,7 +99,7 @@ public class RobotContainer {
 
         // Intake and shoot the Ball
         new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.intakeAndShoot)
-                .whenPressed(new IntakeAndShoot(m_shooter, m_bottomConveyor, m_topConveyor, 11.5, m_intake));
+                .whenPressed(new IntakeAndShoot(m_shooter, m_bottomConveyor, m_topConveyor, m_intake));
 
         // Run both conveyors for a specified amount of time
         new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.timedConveyors)

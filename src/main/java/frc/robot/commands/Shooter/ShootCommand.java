@@ -8,18 +8,17 @@
 package frc.robot.commands.Shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.Shooter;
 
 public class ShootCommand extends CommandBase {
   private final Shooter m_shooter;
-  private final double kVoltage;
 
   /**
    * Creates a new ShootCommand.
    */
-  public ShootCommand(final Shooter shooter, final double voltage) {
+  public ShootCommand(final Shooter shooter) {
     m_shooter = shooter;
-    kVoltage = voltage;
 
     addRequirements(m_shooter);
   }
@@ -31,7 +30,7 @@ public class ShootCommand extends CommandBase {
 
   @Override
   public void execute() {
-    m_shooter.startMotor(kVoltage);
+    m_shooter.startMotor(ShooterConstants.shooterVoltage);
   }
 
   // Called once the command ends or is interrupted.

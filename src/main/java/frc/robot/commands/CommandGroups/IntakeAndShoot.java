@@ -31,13 +31,13 @@ public class IntakeAndShoot extends ParallelCommandGroup {
    * @param intake
    */
   public IntakeAndShoot(final Shooter shooter, final BottomConveyor bottomConveyor, final TopConveyor topConveyor,
-      final double voltage, final Intake intake) {
+      final Intake intake) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());super();
 
     // TODO: add custom shooter rpm check and supplier to provide that value
     // TODO: move shooter voltage to constants
-    super(new IntakeIn(intake), new ShootCommand(shooter, voltage), new BottomConveyorIn(bottomConveyor),
+    super(new IntakeIn(intake), new ShootCommand(shooter), new BottomConveyorIn(bottomConveyor),
         new TopConveyorIn(topConveyor));
   }
 }

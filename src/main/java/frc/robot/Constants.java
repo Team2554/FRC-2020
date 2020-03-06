@@ -91,7 +91,8 @@ public final class Constants {
     }
 
     public static final class ShooterConstants {
-        public static final int talonPort = 4; // CanID for talon
+        public static final int talonPort = 4;
+        public static final int shooterVoltage = 11;
     }
 
     public static final class ConveyorConstants {
