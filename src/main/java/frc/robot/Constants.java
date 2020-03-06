@@ -95,10 +95,8 @@ public final class Constants {
 
     public static final class ConveyorConstants {
         public static final int topConveyorVoltage = 10;
-        public static final int leftConveyor1Port = 12;
-        public static final int leftConveyor2Port = 8;
-        public static final int rightConveyor1Port = 10;
-        public static final int rightConveyor2Port = 11;
+        public static final int leftConveyorPort = 12;
+        public static final int rightConveyorPort = 11;
 
         // BottomConveyor Constants
         public static final double stopTime = 0.5;
@@ -120,8 +118,8 @@ public final class Constants {
     public static final class ElevatorConstants {
         public static final int bottomSwitch = 0;
         public static final int topSwitch = 1;
-        public static final int motorPort1 = 8;
-        public static final int motorPort2 = 9;
+        public static final int motorPort1 = 10;
+        public static final int motorPort2 = 8;
         public static final int elevatorVoltage = 10;
         // public static final int levelAdjusterMotorOnePort = 0;
         // public static final int levelAdjusterMotorTwoPort = 1;
