@@ -40,7 +40,6 @@ public class SRXMagEncoder_Relative {
     /**
      * 
      * @param talonSRX         TalonSRX or WPI_TalonSRX object
-     * @param reverseDirection optional reverseDirection parameter
      */
     public SRXMagEncoder_Relative(TalonSRX talonSRX) {
         talon = talonSRX;
@@ -49,7 +48,6 @@ public class SRXMagEncoder_Relative {
     /**
      * 
      * @param talonSRX         TalonSRX or WPI_TalonSRX object
-     * @param reverseDirection optional reverseDirection parameter
      */
     public SRXMagEncoder_Relative(WPI_TalonSRX talonSRX) {
         talon = (TalonSRX) talonSRX;
