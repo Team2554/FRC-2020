@@ -43,7 +43,6 @@ public class ShootAndConveyorCombined extends CommandBase {
   public void execute() {
     m_shooter.startMotor(m_voltageSupplier.getAsDouble());
     m_topConveyor.conveyorIn();
-    m_bottomConveyor.ballIn();
   }
 
   // Called once the command ends or is interrupted.
@@ -51,7 +50,6 @@ public class ShootAndConveyorCombined extends CommandBase {
   public void end(boolean interrupted) {
     m_shooter.stop();
     m_topConveyor.stopConveyor();
-    m_bottomConveyor.stopBottomConveyor();
   }
 
   // Returns true when the command should end.
