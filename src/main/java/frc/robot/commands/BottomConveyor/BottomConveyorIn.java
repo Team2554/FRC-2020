@@ -9,19 +9,20 @@ package frc.robot.commands.BottomConveyor;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BottomConveyor;
-import frc.robot.subsystems.Shooter;
+
+import java.util.function.BooleanSupplier;
 
 public class BottomConveyorIn extends CommandBase {
   private final BottomConveyor m_bottomConveyor;
-  private final Shooter m_shooter;
+  private final BooleanSupplier m_shooterIsShootable;
 
   /**
    * Creates a new BottomConveyorIn.
    */
-  public BottomConveyorIn(final BottomConveyor bottomConveyor, final Shooter shooter) {
+  public BottomConveyorIn(final BottomConveyor bottomConveyor, final BooleanSupplier shooterIsShootable) {
     m_bottomConveyor = bottomConveyor;
-    m_shooter = shooter;
-    addRequirements(m_bottomConveyor, m_shooter);
+    m_shooterIsShootable = shooterIsShootable;
+    addRequirements(m_bottomConveyor);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -45,6 +46,6 @@ public class BottomConveyorIn extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return !m_shooter.isShootable();
+    return !m_shooterIsShootable.getAsBoolean();
   }
 }
