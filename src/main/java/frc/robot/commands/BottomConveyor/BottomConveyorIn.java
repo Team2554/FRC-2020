@@ -13,15 +13,13 @@ import frc.robot.subsystems.Shooter;
 
 public class BottomConveyorIn extends CommandBase {
   private final BottomConveyor m_bottomConveyor;
-  private final Shooter m_shooter;
 
   /**
    * Creates a new BottomConveyorIn.
    */
-  public BottomConveyorIn(final BottomConveyor bottomConveyor, final Shooter shooter) {
+  public BottomConveyorIn(final BottomConveyor bottomConveyor) {
     m_bottomConveyor = bottomConveyor;
-    m_shooter = shooter;
-    addRequirements(m_bottomConveyor, m_shooter);
+    addRequirements(m_bottomConveyor);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -45,6 +43,6 @@ public class BottomConveyorIn extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return !m_shooter.isShootable();
+    return false;
   }
 }
