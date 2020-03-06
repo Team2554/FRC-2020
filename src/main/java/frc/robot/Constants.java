@@ -56,7 +56,7 @@ public final class Constants {
         public static final int intakeAndShoot = 14;
         public static final int timedConveyors = 2;
         public static final int bottomConveyorIn = 16;
-        public static int topConveyorOut = 17;
+        public static final int topConveyorOut = 17;
     }
 
     public static final class ColorWheelConstants {
