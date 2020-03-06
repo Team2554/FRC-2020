@@ -136,6 +136,7 @@ public final class Constants {
         public static final int motorPort1 = 10;
         public static final int motorPort2 = 8;
         public static final int elevatorVoltage = 10;
+        public static double holdPowerConstant = 0.1;
     }
 
     public static final class TurnToAnglePIDConstants {
