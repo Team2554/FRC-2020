@@ -7,6 +7,7 @@
 
 package frc.robot.commands.CommandGroups;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -25,7 +26,7 @@ import frc.robot.subsystems.TopConveyor;
 public class IntakeAndShoot extends ParallelCommandGroup {
   /**
    * Creates a new ShooterAndConveyors.
-   * 
+   *
    * @param shooter
    * @param bottomConveyor
    * @param topConveyor
@@ -36,6 +37,7 @@ public class IntakeAndShoot extends ParallelCommandGroup {
       final DoubleSupplier voltageSupplier, final Intake intake) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());super();
-    super(new IntakeIn(intake), new ShootAndConveyorCombined(topConveyor, bottomConveyor, shooter, voltageSupplier));
+    super(new IntakeIn(intake), new ShootCommand(shooter, voltageSupplier), new BottomConveyorIn(bottomConveyor),
+        new TopConveyorIn(topConveyor));
   }
 }

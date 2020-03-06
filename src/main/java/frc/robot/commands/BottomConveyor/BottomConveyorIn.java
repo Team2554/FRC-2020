@@ -9,7 +9,8 @@ package frc.robot.commands.BottomConveyor;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BottomConveyor;
-import frc.robot.subsystems.Shooter;
+
+import java.util.function.BooleanSupplier;
 
 public class BottomConveyorIn extends CommandBase {
   private final BottomConveyor m_bottomConveyor;
@@ -31,13 +32,13 @@ public class BottomConveyorIn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_bottomConveyor.ballIn();
+    m_bottomConveyor.conveyorIn();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(final boolean interrupted) {
-    m_bottomConveyor.stopBottomConveyor();
+    m_bottomConveyor.stopConveyor();
   }
 
   // Returns true when the command should end.

@@ -28,32 +28,28 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.DriveTrainPortConstants;
+import frc.robot.Constants.DriveTrainConstants;
 import frc.robot.Custom.SRXMagEncoder_Relative;
 
 public class DriveTrain extends SubsystemBase {
 
-  private final WPI_TalonSRX tRF = new WPI_TalonSRX(DriveTrainPortConstants.tRFPort);
-  private final VictorSPX vRB = new VictorSPX(DriveTrainPortConstants.vRBPort);
+  private final WPI_TalonSRX talonRight = new WPI_TalonSRX(DriveTrainConstants.talonRightPort);
+  private final VictorSPX victorRight = new VictorSPX(DriveTrainConstants.victorRightPort);
 
-  private final WPI_TalonSRX tLF = new WPI_TalonSRX(DriveTrainPortConstants.tLFPort);
-  private final VictorSPX vLB = new VictorSPX(DriveTrainPortConstants.vLBPort);
+  private final WPI_TalonSRX talonLeft = new WPI_TalonSRX(DriveTrainConstants.talonLeftPort);
+  private final VictorSPX victorLeft = new VictorSPX(DriveTrainConstants.victorLeftPort);
 
-  private final SRXMagEncoder_Relative rightEncoder = new SRXMagEncoder_Relative(tRF);
-  private final SRXMagEncoder_Relative leftEncoder = new SRXMagEncoder_Relative(tLF);
+  private final SRXMagEncoder_Relative rightEncoder = new SRXMagEncoder_Relative(talonRight);
+  private final SRXMagEncoder_Relative leftEncoder = new SRXMagEncoder_Relative(talonLeft);
 
-  private final DifferentialDrive driveTrain = new DifferentialDrive(tLF, tRF);
+  private final DifferentialDrive driveTrain = new DifferentialDrive(talonLeft, talonRight);
 
-  private final PigeonIMU pigeon = new PigeonIMU(1);
+  private final PigeonIMU pigeonIMU = new PigeonIMU(1);
 
   private final double maxVoltage = 10;
 
-  private final double wheelDiameterInches = 6;
-  private final double differentialWidthMeters = 0.557176939999995;
-
-  // TODO
-  // move this and the differential width to Constants.java
-  private final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(differentialWidthMeters);
+  private final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(
+      DriveTrainConstants.differentialWidthMeters);
   private final DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(getHeading());
 
   // TODO
@@ -65,8 +61,8 @@ public class DriveTrain extends SubsystemBase {
 
   private boolean isInverted = false;
 
-  List<Double> gyroTimestamps = new ArrayList<Double>(100);
-  List<Double> gyroAngles = new ArrayList<Double>(100);
+  List<Double> gyroTimestamps = new ArrayList<>(100);
+  List<Double> gyroAngles = new ArrayList<>(100);
 
   /**
    * Creates a new DriveTrain.
@@ -74,31 +70,31 @@ public class DriveTrain extends SubsystemBase {
   public DriveTrain() {
     driveTrain.setRightSideInverted(false);
 
-    tRF.configFactoryDefault();
-    tLF.configFactoryDefault();
-    vRB.configFactoryDefault();
-    vLB.configFactoryDefault();
+    talonRight.configFactoryDefault();
+    talonLeft.configFactoryDefault();
+    victorRight.configFactoryDefault();
+    victorLeft.configFactoryDefault();
 
-    tRF.setNeutralMode(NeutralMode.Brake);
-    tLF.setNeutralMode(NeutralMode.Brake);
-    vRB.setNeutralMode(NeutralMode.Brake);
-    vLB.setNeutralMode(NeutralMode.Brake);
+    talonRight.setNeutralMode(NeutralMode.Brake);
+    talonLeft.setNeutralMode(NeutralMode.Brake);
+    victorRight.setNeutralMode(NeutralMode.Brake);
+    victorLeft.setNeutralMode(NeutralMode.Brake);
 
-    tRF.enableVoltageCompensation(true);
-    tRF.configVoltageCompSaturation(maxVoltage);
-    tLF.enableVoltageCompensation(true);
-    tLF.configVoltageCompSaturation(maxVoltage);
+    talonRight.configVoltageCompSaturation(maxVoltage);
+    talonRight.enableVoltageCompensation(true);
+    talonLeft.configVoltageCompSaturation(maxVoltage);
+    talonLeft.enableVoltageCompensation(true);
 
-    vRB.follow(tRF);
-    tRF.setInverted(true);
-    vRB.setInverted(true);
+    victorRight.follow(talonRight);
+    talonRight.setInverted(true);
+    victorRight.setInverted(true);
 
-    vLB.follow(tLF);
-    tLF.setInverted(false);
-    vLB.setInverted(false);
+    victorLeft.follow(talonLeft);
+    talonLeft.setInverted(false);
+    victorLeft.setInverted(false);
 
-    leftEncoder.setWheelDiameter(Units.inchesToMeters(wheelDiameterInches));
-    rightEncoder.setWheelDiameter(Units.inchesToMeters(wheelDiameterInches));
+    leftEncoder.setWheelDiameter(Units.inchesToMeters(DriveTrainConstants.wheelDiameterInches));
+    rightEncoder.setWheelDiameter(Units.inchesToMeters(DriveTrainConstants.wheelDiameterInches));
 
     leftEncoder.configure();
     rightEncoder.configure();
@@ -128,8 +124,8 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void tankDriveVolts(final double leftVolts, final double rightVolts) {
-    tLF.set(ControlMode.PercentOutput, leftVolts / maxVoltage);
-    tRF.set(ControlMode.PercentOutput, rightVolts / maxVoltage);
+    talonLeft.set(ControlMode.PercentOutput, leftVolts / maxVoltage);
+    talonRight.set(ControlMode.PercentOutput, rightVolts / maxVoltage);
     driveTrain.feed();
   }
 
@@ -147,7 +143,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void resetGyro() {
-    pigeon.setYaw(0.0);
+    pigeonIMU.setYaw(0.0);
   }
 
   public void resetOdometry(Pose2d pose) {
@@ -157,7 +153,7 @@ public class DriveTrain extends SubsystemBase {
 
   public Rotation2d getHeading() {
     final double[] ypr = new double[3];
-    pigeon.getYawPitchRoll(ypr);
+    pigeonIMU.getYawPitchRoll(ypr);
     return Rotation2d.fromDegrees(Math.IEEEremainder(ypr[0], 360));
   }
 

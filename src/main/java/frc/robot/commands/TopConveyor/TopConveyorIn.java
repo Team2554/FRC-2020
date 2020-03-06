@@ -8,11 +8,12 @@
 package frc.robot.commands.TopConveyor;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.TopConveyor;
 
+import java.util.function.BooleanSupplier;
+
 public class TopConveyorIn extends CommandBase {
-  private final TopConveyor m_conveyor;
+  private final TopConveyor m_conveyor
 
   /**
    * Creates a new TopConveyorIn.
@@ -37,7 +38,6 @@ public class TopConveyorIn extends CommandBase {
   @Override
   public void end(final boolean interrupted) {
     m_conveyor.stopConveyor();
-
   }
 
   // Returns true when the command should end.

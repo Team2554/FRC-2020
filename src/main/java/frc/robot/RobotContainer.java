@@ -35,6 +35,8 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.TopConveyor;
 
+import java.util.function.BooleanSupplier;
+
 /**
  * This class is where the bulk of the robot should be declared. Since
  * Command-based is a "declarative" paradigm, very little robot logic should
@@ -55,7 +57,7 @@ public class RobotContainer {
     private final Shooter m_shooter = new Shooter();
     private final TopConveyor m_topConveyor = new TopConveyor();
     private final Intake m_intake = new Intake();
-    // private final ColorWheel m_colorWheel = new ColorWheel();
+    private final ColorWheel m_colorWheel = new ColorWheel();
     // TODO: make below private for final code. currently its public so gyro can be
     // reset on teleop init(see Robot.java teleop init)
     public final DriveTrain m_driveTrain = new DriveTrain();
@@ -77,74 +79,50 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
         // Elevator buttons
-        // new JoystickButton(m_buttonJoystick,
-        // Constants.ButtonJoystickMappings.elevatorUp)
-        // .whileHeld(new ElevatorToTop(m_elevator));
-        // new JoystickButton(m_buttonJoystick,
-        // Constants.ButtonJoystickMappings.elevatorDown)
-        // .whileHeld(new ElevatorToBottom(m_elevator));
+        new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.elevatorUp)
+                .whileHeld(new ElevatorToTop(m_elevator));
+        new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.elevatorDown)
+                .whileHeld(new ElevatorToBottom(m_elevator));
 
-        // new JoystickButton(m_buttonJoystick,
-        // Constants.ButtonJoystickMappings.setElevatorTop)
-        // .whenPressed(new ElevatorToTop(m_elevator));
-        // new JoystickButton(m_buttonJoystick,
-        // Constants.ButtonJoystickMappings.setElevatorButtom)
-        // .whenPressed(new ElevatorToBottom(m_elevator));
+        new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.setElevatorTop)
+                .whenPressed(new ElevatorToTop(m_elevator));
+        new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.setElevatorButton)
+                .whenPressed(new ElevatorToBottom(m_elevator));
 
         // Testing White Line Stop Code
-        // new JoystickButton(m_buttonJoystick,
-        // Constants.ButtonJoystickMappings.whiteLineStop)
-        // .whileHeld(new WhiteLineStop(m_colorWheel, m_driveTrain, () ->
-        // -m_driveJoystick.getY(), m_driveJoystick::getX,
-        // () -> m_driveJoystick.getRawButton(DriveJoystickMappings.quickTurn)));
-        // new JoystickButton(m_buttonJoystick,
-        // Constants.ButtonJoystickMappings.levelAdjusterRight)
-        // .whenPressed(new LevelAdjusterLeft(m_elevator));
+        new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.whiteLineStop)
+                .whileHeld(new WhiteLineStop(m_colorWheel, m_driveTrain, () -> -m_driveJoystick.getY(),
+                        m_driveJoystick::getX, () -> m_driveJoystick.getRawButton(DriveJoystickMappings.quickTurn)));
 
         // Color wheel buttons
-        // new JoystickButton(m_buttonJoystick,
-        // Constants.ButtonJoystickMappings.colorWheelSpinNumberOfTimes)
-        // .whenPressed(new RotateWheel(m_colorWheel));
-        // new JoystickButton(m_buttonJoystick,
-        // Constants.ButtonJoystickMappings.colorWheelTurnToColor)
-        // .whenPressed(new RotateToColor(m_colorWheel,
-        // m_colorWheel::getSelectedColor));
+        new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.colorWheelSpinNumberOfTimes)
+                .whenPressed(new RotateWheel(m_colorWheel));
+        new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.colorWheelTurnToColor)
+                .whenPressed(new RotateToColor(m_colorWheel, m_colorWheel::getSelectedColor));
 
         // Intake and shoot the Ball
-        // new JoystickButton(m_buttonJoystick,
-        // Constants.ButtonJoystickMappings.intakeAndShoot)
-        // .whenPressed(new IntakeAndShoot(m_shooter, m_bottomConveyor, m_topConveyor,
-        // () -> 11.5, m_intake));
-
-        // new JoystickButton(m_b, buttonNumber)
+        new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.intakeAndShoot)
+                .whenPressed(new IntakeAndShoot(m_shooter, m_bottomConveyor, m_topConveyor, () -> 11.5, m_intake));
 
         // Run both conveyors for a specified amount of time
         new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.timedConveyors)
                 .whenPressed(new TimedBothConveyors(m_topConveyor, m_bottomConveyor));
 
-        new JoystickButton(m_buttonJoystick, 3).whileHeld(new IntakeIn(m_intake));
-
-        // new JoystickButton(m_buttonJoystick, buttonNumber)
         // Just top conveyor Out
-        // new JoystickButton(m_buttonJoystick,
-        // Constants.ButtonJoystickMappings.topConveyorOut)
-        // .whenPressed(new TopConveyorIn(m_topConveyor, m_shooter));
+        new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.topConveyorOut)
+                .whenPressed(new TopConveyorIn(m_topConveyor));
 
-        // // Just bottom conveyor in
-        // new JoystickButton(m_buttonJoystick,
-        // Constants.ButtonJoystickMappings.bottomConveyorIn)
-        // .whenPressed(new BottomConveyorIn(m_bottomConveyor, m_shooter));
+        // Just bottom conveyor in
+        new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.bottomConveyorIn)
+                .whenPressed(new BottomConveyorIn(m_bottomConveyor);
 
-        // // DriveStraight button
-        // new JoystickButton(m_buttonJoystick,
-        // Constants.DriveJoystickMappings.driveStraight)
-        // .whenPressed(new DriveStraight(1, 0.2,
-        // m_driveTrain.getHeading().getDegrees(), m_driveTrain));
+        // DriveStraight button
+        new JoystickButton(m_buttonJoystick, Constants.DriveJoystickMappings.driveStraight)
+                .whenPressed(new DriveStraight(1, 0.2, m_driveTrain.getHeading().getDegrees(), m_driveTrain));
 
-        // // RotateToAngle
-        // new JoystickButton(m_buttonJoystick,
-        // Constants.DriveJoystickMappings.rotateToAngle)
-        // .whenPressed(new RotateToAngle(90, m_driveTrain));
+        // RotateToAngle
+        new JoystickButton(m_buttonJoystick, Constants.DriveJoystickMappings.rotateToAngle)
+                .whenPressed(new RotateToAngle(90, m_driveTrain));
     }
 
     /**
