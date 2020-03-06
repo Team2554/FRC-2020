@@ -17,7 +17,7 @@ public class TimedTopConveyorIn extends CommandBase {
   /**
    * Creates a new TimedTopConveyorIN.
    */
-  Timer m_topTimer = new Timer();
+  final Timer m_topTimer = new Timer();
 
   private final TopConveyor m_topConveyor;
 

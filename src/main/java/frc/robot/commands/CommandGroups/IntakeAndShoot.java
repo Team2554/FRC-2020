@@ -27,7 +27,6 @@ public class IntakeAndShoot extends ParallelCommandGroup {
    * @param shooter
    * @param bottomConveyor
    * @param topConveyor
-   * @param voltageSupplier
    * @param intake
    */
   public IntakeAndShoot(final Shooter shooter, final BottomConveyor bottomConveyor, final TopConveyor topConveyor,

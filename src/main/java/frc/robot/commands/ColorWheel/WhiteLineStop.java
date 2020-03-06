@@ -17,9 +17,9 @@ import frc.robot.subsystems.DriveTrain;
 public class WhiteLineStop extends CommandBase {
   private final DriveTrain m_driveTrain;
   private final ColorWheel m_colorWheel;
-  private DoubleSupplier m_speed;
-  private DoubleSupplier m_rotation;
-  private BooleanSupplier m_quickTurn;
+  private final DoubleSupplier m_speed;
+  private final DoubleSupplier m_rotation;
+  private final BooleanSupplier m_quickTurn;
 
   public WhiteLineStop(final ColorWheel colorWheel, final DriveTrain driveTrain, final DoubleSupplier speed,
       final DoubleSupplier rotation, final BooleanSupplier quickTurn) {

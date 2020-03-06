@@ -16,7 +16,7 @@ public class TimedBottomConveyorIn extends CommandBase {
   /**
    * Creates a new BottomConveyorIn.
    */
-  Timer m_bottomTimer = new Timer();
+  final Timer m_bottomTimer = new Timer();
   private final BottomConveyor m_bottomConveyor;
 
   public TimedBottomConveyorIn(BottomConveyor bottomConveyor) {

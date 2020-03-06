@@ -105,7 +105,7 @@ public class ColorWheel extends SubsystemBase {
   }
 
   public double getRequiredDistance(final String inputColor, final String currentColor) {
-    double distanceNeeded = 0;
+    double distanceNeeded;
     if (currentColor.equals("Red")) {
       if (inputColor.equals("Green")) {
         distanceNeeded = ColorWheelConstants.encoderOneEighth;
