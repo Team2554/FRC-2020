@@ -26,6 +26,7 @@ import frc.robot.commands.DriveTrain.RotateToAngle;
 import frc.robot.commands.Elevator.ElevatorToBottom;
 import frc.robot.commands.Elevator.ElevatorToTop;
 import frc.robot.commands.TopConveyor.TopConveyorIn;
+import frc.robot.commands.TopConveyor.TopConveyorOut;
 import frc.robot.subsystems.BottomConveyor;
 import frc.robot.subsystems.ColorWheel;
 import frc.robot.subsystems.DriveTrain;
@@ -101,17 +102,19 @@ public class RobotContainer {
     new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.intakeAndShoot)
         .whenPressed(new IntakeAndShoot(m_shooter, m_bottomConveyor, m_topConveyor, m_intake));
 
-    // Run both conveyors for a specified amount of time
+    // Conveyor buttons
     new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.timedConveyors)
         .whenPressed(new TimedBothConveyors(m_topConveyor, m_bottomConveyor));
 
-    // Just top conveyor Out
-    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.topConveyorOut)
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.topConveyorIn)
         .whenPressed(new TopConveyorIn(m_topConveyor, null));
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.topConveyorOut)
+        .whenPressed(new TopConveyorOut(m_topConveyor));
 
-    // Just bottom conveyor in
     new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.bottomConveyorIn)
         .whenPressed(new BottomConveyorIn(m_bottomConveyor, null));
+    new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.bottomConveyorOut)
+        .whenPressed(new TopConveyorOut(m_topConveyor));
 
     // DriveStraight button
     new JoystickButton(m_buttonJoystick, Constants.DriveJoystickMappings.driveStraight)
