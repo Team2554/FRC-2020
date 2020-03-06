@@ -34,6 +34,8 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.TopConveyor;
 
+import java.util.function.BooleanSupplier;
+
 /**
  * This class is where the bulk of the robot should be declared. Since
  * Command-based is a "declarative" paradigm, very little robot logic should
@@ -110,11 +112,11 @@ public class RobotContainer {
 
     // Just top conveyor Out
     new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.topConveyorOut)
-        .whenPressed(new TopConveyorIn(m_topConveyor, m_shooter));
+        .whenPressed(new TopConveyorIn(m_topConveyor, m_shooter::isShootable));
 
     // Just bottom conveyor in
     new JoystickButton(m_buttonJoystick, Constants.ButtonJoystickMappings.bottomConveyorIn)
-        .whenPressed(new BottomConveyorIn(m_bottomConveyor, m_shooter));
+        .whenPressed(new BottomConveyorIn(m_bottomConveyor, m_shooter::isShootable));
 
     // DriveStraight button
     new JoystickButton(m_buttonJoystick, Constants.DriveJoystickMappings.driveStraight)
