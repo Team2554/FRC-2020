@@ -52,9 +52,13 @@ public class DriveTrain extends SubsystemBase {
   private final double wheelDiameterInches = 6;
   private final double differentialWidthMeters = 0.557176939999995;
 
+  // TODO
+  // move this and the differential width to Constants.java
   private final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(differentialWidthMeters);
   private final DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(getHeading());
 
+  // TODO
+  // move this to Constants.java as well
   private final SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(0.3, 1.96, 0.06);
 
   private final PIDController leftPIDController = new PIDController(2.95, 0, 0);
