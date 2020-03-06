@@ -14,14 +14,14 @@ import frc.robot.subsystems.Shooter;
 
 public class ShootCommand extends CommandBase {
   private final Shooter m_shooter;
-  private final DoubleSupplier m_voltageSupplier;
+  private final double kVoltage;
 
   /**
    * Creates a new ShootCommand.
    */
-  public ShootCommand(final Shooter shooter, final DoubleSupplier voltageSupplier) {
+  public ShootCommand(final Shooter shooter, final double voltage) {
     m_shooter = shooter;
-    m_voltageSupplier = voltageSupplier;
+    kVoltage = voltage;
 
     addRequirements(m_shooter);
   }
@@ -33,7 +33,7 @@ public class ShootCommand extends CommandBase {
 
   @Override
   public void execute() {
-    m_shooter.startMotor(m_voltageSupplier.getAsDouble());
+    m_shooter.startMotor(kVoltage);
   }
 
   // Called once the command ends or is interrupted.

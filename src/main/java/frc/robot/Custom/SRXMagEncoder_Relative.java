@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.Custom;
+package frc.robot.custom;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -39,7 +39,7 @@ public class SRXMagEncoder_Relative {
 
     /**
      * 
-     * @param talonSRX         TalonSRX or WPI_TalonSRX object
+     * @param talonSRX TalonSRX or WPI_TalonSRX object
      */
     public SRXMagEncoder_Relative(TalonSRX talonSRX) {
         talon = talonSRX;
@@ -47,7 +47,7 @@ public class SRXMagEncoder_Relative {
 
     /**
      * 
-     * @param talonSRX         TalonSRX or WPI_TalonSRX object
+     * @param talonSRX TalonSRX or WPI_TalonSRX object
      */
     public SRXMagEncoder_Relative(WPI_TalonSRX talonSRX) {
         talon = (TalonSRX) talonSRX;

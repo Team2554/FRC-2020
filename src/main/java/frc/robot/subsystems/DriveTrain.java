@@ -29,7 +29,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveTrainConstants;
-import frc.robot.Custom.SRXMagEncoder_Relative;
+import frc.robot.custom.SRXMagEncoder_Relative;
 
 public class DriveTrain extends SubsystemBase {
 
@@ -48,14 +48,16 @@ public class DriveTrain extends SubsystemBase {
 
   private final double maxVoltage = 10;
 
+  // TODO: move kinematics to constatns, along with differential drive width
+  // meters
   private final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(
       DriveTrainConstants.differentialWidthMeters);
   private final DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(getHeading());
 
-  // TODO
-  // move this to Constants.java as well
+  // TODO: move this to Constants.java as well
   private final SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(0.3, 1.96, 0.06);
 
+  // TODO: move the pid gains to constants
   private final PIDController leftPIDController = new PIDController(2.95, 0, 0);
   private final PIDController rightPIDController = new PIDController(2.95, 0, 0);
 
