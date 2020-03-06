@@ -17,9 +17,8 @@ public class TimedTopConveyorIn extends CommandBase {
   /**
    * Creates a new TimedTopConveyorIN.
    */
-  Timer topTimer = new Timer();
+  Timer m_topTimer = new Timer();
 
-  private final double stopTime = ConveyorConstants.stopTime; // Make this a constant
   private final TopConveyor m_topConveyor;
 
   public TimedTopConveyorIn(TopConveyor topConveyor) {
@@ -31,7 +30,7 @@ public class TimedTopConveyorIn extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    topTimer.start();
+    m_topTimer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -49,6 +48,6 @@ public class TimedTopConveyorIn extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (topTimer.get() >= stopTime);
+    return m_topTimer.get() >= ConveyorConstants.stopTime;
   }
 }

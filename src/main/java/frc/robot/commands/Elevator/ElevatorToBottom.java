@@ -28,7 +28,7 @@ public class ElevatorToBottom extends CommandBase {
   }
 
   // Called every time the scheduler runs while the command is scheduled
-  public void execute(final boolean reverse) {
+  public void execute() {
     m_elevator.goDown();
   }
 

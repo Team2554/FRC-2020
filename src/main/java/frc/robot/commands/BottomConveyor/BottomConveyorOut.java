@@ -11,17 +11,19 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BottomConveyor;
 import frc.robot.subsystems.Shooter;
 
+import java.util.function.BooleanSupplier;
+
 public class BottomConveyorOut extends CommandBase {
   private final BottomConveyor m_bottomConveyor;
-  private final Shooter m_shooter;
+  private final BooleanSupplier m_shooterIsShootable;
 
   /**
    * Creates a new BottomConveyorOut.
    */
-  public BottomConveyorOut(final BottomConveyor bottomConveyor, final Shooter shooter) {
+  public BottomConveyorOut(final BottomConveyor bottomConveyor, final BooleanSupplier shooterIsShootable) {
     m_bottomConveyor = bottomConveyor;
-    m_shooter = shooter;
-    addRequirements(m_bottomConveyor, m_shooter);
+    m_shooterIsShootable = shooterIsShootable;
+    addRequirements(m_bottomConveyor);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -33,18 +35,18 @@ public class BottomConveyorOut extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_bottomConveyor.ballIn();
+    m_bottomConveyor.conveyorIn();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(final boolean interrupted) {
-    m_bottomConveyor.stopBottomConveyor();
+    m_bottomConveyor.stopConveyor();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return !m_shooter.isShootable();
+    return !m_shooterIsShootable.getAsBoolean();
   }
 }

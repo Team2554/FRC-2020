@@ -15,22 +15,21 @@ public class BottomConveyor extends SubsystemBase {
   /**
    * Creates a new BottomConveyor.
    */
-  private final VictorSP bottomConveyor = new VictorSP(ConveyorConstants.bottomConveyorPort);
+  private final VictorSP m_bottomConveyor = new VictorSP(ConveyorConstants.bottomConveyorPort);
 
   public BottomConveyor() {
-
   }
 
-  public void ballIn() {
-    bottomConveyor.setVoltage(ConveyorConstants.bottomConveyorVoltage);
+  public void conveyorIn() {
+    m_bottomConveyor.setVoltage(ConveyorConstants.bottomConveyorVoltage);
   }
 
-  public void ballOut() {
-    bottomConveyor.setVoltage(-ConveyorConstants.bottomConveyorVoltage);
+  public void conveyorOut() {
+    m_bottomConveyor.setVoltage(-ConveyorConstants.bottomConveyorVoltage);
   }
 
-  public void stopBottomConveyor() {
-    bottomConveyor.stopMotor();
+  public void stopConveyor() {
+    m_bottomConveyor.stopMotor();
   }
 
   @Override

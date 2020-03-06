@@ -24,11 +24,11 @@ public class WhiteLineStop extends CommandBase {
   public WhiteLineStop(final ColorWheel colorWheel, final DriveTrain driveTrain, final DoubleSupplier speed,
       final DoubleSupplier rotation, final BooleanSupplier quickTurn) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.m_driveTrain = driveTrain;
-    this.m_colorWheel = colorWheel;
-    this.m_speed = speed;
-    this.m_rotation = rotation;
-    this.m_quickTurn = quickTurn;
+    m_driveTrain = driveTrain;
+    m_colorWheel = colorWheel;
+    m_speed = speed;
+    m_rotation = rotation;
+    m_quickTurn = quickTurn;
   }
 
   // Called when the command is initially scheduled.

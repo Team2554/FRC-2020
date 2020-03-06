@@ -10,18 +10,17 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 
 public class Intake extends SubsystemBase {
-  private final VictorSPX intake = new VictorSPX(IntakeConstants.intakePort);
+  private final VictorSPX m_intake = new VictorSPX(IntakeConstants.intakePort);
 
   public Intake() {
     SmartDashboard.putNumber("Intake Multiplier", 1);
-    intake.enableVoltageCompensation(true);
-    intake.configVoltageCompSaturation(10);
+    m_intake.enableVoltageCompensation(true);
+    m_intake.configVoltageCompSaturation(10);
   }
 
   @Override
@@ -31,10 +30,10 @@ public class Intake extends SubsystemBase {
   public void start(final boolean inverse) {
     final double multiplier = SmartDashboard.getNumber("Intake Multiplier", 1);
     final double speed = inverse ? -multiplier : multiplier;
-    intake.set(ControlMode.PercentOutput, 1);
+    m_intake.set(ControlMode.PercentOutput, speed);
   }
 
   public void stop() {
-    intake.set(ControlMode.PercentOutput, 0);
+    m_intake.set(ControlMode.PercentOutput, 0);
   }
 }
