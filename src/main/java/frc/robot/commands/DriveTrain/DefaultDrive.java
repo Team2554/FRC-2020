@@ -19,16 +19,16 @@ public class DefaultDrive extends CommandBase {
    */
 
   private final DriveTrain m_driveTrain;
-  private final DoubleSupplier speed;
-  private final DoubleSupplier rotation;
-  private final BooleanSupplier quickTurn;
+  private final DoubleSupplier m_speed;
+  private final DoubleSupplier m_rotation;
+  private final BooleanSupplier m_quickTurn;
 
   public DefaultDrive(final DriveTrain driveTrain, final DoubleSupplier speed, final DoubleSupplier rotation,
       final BooleanSupplier quickTurn) {
-    this.m_driveTrain = driveTrain;
-    this.speed = speed;
-    this.rotation = rotation;
-    this.quickTurn = quickTurn;
+    m_driveTrain = driveTrain;
+    m_speed = speed;
+    m_rotation = rotation;
+    m_quickTurn = quickTurn;
     addRequirements(m_driveTrain);
   }
 
@@ -40,7 +40,7 @@ public class DefaultDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveTrain.curvatureDrive(speed.getAsDouble(), rotation.getAsDouble(), quickTurn.getAsBoolean());
+    m_driveTrain.curvatureDrive(m_speed.getAsDouble(), m_rotation.getAsDouble(), m_quickTurn.getAsBoolean());
   }
 
   // Called once the command ends or is interrupted.

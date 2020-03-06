@@ -16,9 +16,9 @@ public class RotateToAngle extends CommandBase {
    * Creates a new TurnToAngle.
    */
 
-  DriveTrain m_driveTrain;
-  double m_targetAngle;
-  PIDController m_pidController;
+  private final DriveTrain m_driveTrain;
+  private final double m_targetAngle;
+  private final PIDController m_pidController;
 
   public RotateToAngle(double targetAngle, DriveTrain driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
