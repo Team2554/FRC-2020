@@ -58,8 +58,10 @@ public class DriveTrain extends SubsystemBase {
   private final SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(0.3, 1.96, 0.06);
 
   // TODO: move the pid gains to constants
-  private final PIDController leftPIDController = new PIDController(2.95, 0, 0);
-  private final PIDController rightPIDController = new PIDController(2.95, 0, 0);
+  private final PIDController leftPIDController = new PIDController(DriveTrainConstants.kP, DriveTrainConstants.kI,
+      DriveTrainConstants.kD);
+  private final PIDController rightPIDController = new PIDController(DriveTrainConstants.kP, DriveTrainConstants.kI,
+      DriveTrainConstants.kD);
 
   private boolean isInverted = false;
 
@@ -156,6 +158,7 @@ public class DriveTrain extends SubsystemBase {
   public Rotation2d getHeading() {
     final double[] ypr = new double[3];
     pigeonIMU.getYawPitchRoll(ypr);
+
     return Rotation2d.fromDegrees(Math.IEEEremainder(ypr[0], 360));
   }
 

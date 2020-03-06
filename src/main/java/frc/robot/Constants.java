@@ -113,8 +113,14 @@ public final class Constants {
         public static final int talonLeftPort = 3;
         public static final int victorLeftPort = 7;
 
+        // Wheel constants
         public static final double wheelDiameterInches = 6;
         public static final double differentialWidthMeters = 0.557176939999995;
+
+        // PID constants
+        public static final double kP = 0.95;
+        public static final double kI = 0.0;
+        public static final double kD = 0.0;
     }
 
     public static final class ElevatorConstants {
