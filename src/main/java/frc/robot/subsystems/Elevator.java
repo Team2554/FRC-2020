@@ -7,7 +7,6 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -17,10 +16,6 @@ import frc.robot.Constants;
 import frc.robot.Constants.ElevatorConstants;
 
 public class Elevator extends SubsystemBase {
-  // TODO: add holding power function, so that will be running all the time
-  // at the end of any elevator command, run the holding power function and set
-  // the elevator to the holding power voltage(which we will find experimentally)
-
   private final WPI_VictorSPX elevatorMotor1 = new WPI_VictorSPX(ElevatorConstants.motorPort1);
   private final WPI_VictorSPX elevatorMotor2 = new WPI_VictorSPX(ElevatorConstants.motorPort2);
 

@@ -7,8 +7,6 @@
 
 package frc.robot.commands.CommandGroups;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.commands.BottomConveyor.BottomConveyorIn;
 import frc.robot.commands.Intake.IntakeIn;
