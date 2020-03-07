@@ -26,7 +26,7 @@ public class Shooter extends SubsystemBase {
     shootMotor.configFactoryDefault();
     shootMotor.setSensorPhase(true);
     shootMotor.enableVoltageCompensation(true);
-    shootMotor.configVoltageCompSaturation(11);
+    shootMotor.configVoltageCompSaturation(Constants.ShooterConstants.shooterVoltage);
     shootMotor.configNominalOutputForward(0, ShooterConstants.kTimeoutMs);
     shootMotor.configNominalOutputReverse(0, ShooterConstants.kTimeoutMs);
     shootMotor.configPeakOutputForward(1, ShooterConstants.kTimeoutMs);
@@ -40,7 +40,7 @@ public class Shooter extends SubsystemBase {
 
   public void startMotor(final double demand) {
     shootMotor.set(ControlMode.PercentOutput, demand);
-    double target = demand * 500.0 * 4096 / 600;
+    double target = 1.0 * 500.0 * 4096 / 600;
     shootMotor.set(ControlMode.Velocity, target);
   }
 
@@ -49,7 +49,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public void periodic() {
-    SmartDashboard.putNumber("Flywheel Velocity(rotations * 4096/100ms)", getSpeed());
+    SmartDashboard.putNumber("Flywheel Velocity", getSpeed());
   }
 
   public boolean isShootable() {

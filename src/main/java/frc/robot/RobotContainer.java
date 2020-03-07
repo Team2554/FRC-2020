@@ -26,6 +26,7 @@ import frc.robot.commands.DriveTrain.DriveStraight;
 import frc.robot.commands.DriveTrain.RotateToAngle;
 import frc.robot.commands.Elevator.ElevatorToBottom;
 import frc.robot.commands.Elevator.ElevatorToTop;
+import frc.robot.commands.Shooter.ShootCommand;
 import frc.robot.commands.TopConveyor.TopConveyorIn;
 import frc.robot.commands.TopConveyor.TopConveyorOut;
 import frc.robot.commands.Vision.ToggleVisionLight;
@@ -50,25 +51,28 @@ public class RobotContainer {
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
-    private final Joystick m_driveJoystick = new Joystick(0);
-    private final Joystick m_buttonJoystick = new Joystick(1);
+    public Joystick m_driveJoystick = new Joystick(0);
+    private Joystick m_buttonJoystick = new Joystick(1);
 
     // Subsystems
-    private final Elevator m_elevator = new Elevator();
-    private final Shooter m_shooter = new Shooter();
-    private final TopConveyor m_topConveyor = new TopConveyor();
-    private final Intake m_intake = new Intake();
-    private final ColorWheel m_colorWheel = new ColorWheel();
-    private final Vision m_vision = new Vision();
+    // private Elevator m_elevator = new Elevator();
+    private Shooter m_shooter = new Shooter();
+
+    // private TopConveyor m_topConveyor = new TopConveyor();
+    // private Intake m_intake = new Intake();
+    // private ColorWheel m_colorWheel = new ColorWheel();
+    private Vision m_vision = new Vision();
     // TODO: make below private for final code. currently its public so gyro can be
     // reset on teleop init(see Robot.java teleop init)
-    public final DriveTrain m_driveTrain = new DriveTrain();
-    private final BottomConveyor m_bottomConveyor = new BottomConveyor();
+    // public DriveTrain m_driveTrain = new DriveTrain();
+    // private BottomConveyor m_bottomConveyor = new BottomConveyor();
 
     public RobotContainer() {
         // Configure the button bindings
-        m_driveTrain.setDefaultCommand(new DefaultDrive(m_driveTrain, () -> -m_driveJoystick.getY(),
-                m_driveJoystick::getX, () -> m_driveJoystick.getRawButton(DriveJoystickMappings.quickTurn)));
+        // m_driveTrain.setDefaultCommand(new DefaultDrive(m_driveTrain, () ->
+        // -m_driveJoystick.getY(),
+        // m_driveJoystick::getX, () ->
+        // m_driveJoystick.getRawButton(DriveJoystickMappings.quickTurn)));
 
         configureButtonBindings();
     }
@@ -81,18 +85,23 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
         // Elevator buttons
-        // new JoystickButton(m_driveJoystick, 1)
-        //         .whileHeld(new BothConveyorsAndShoot(m_shooter, m_bottomConveyor, m_topConveyor));
+        new JoystickButton(m_driveJoystick, 1).whenHeld(new ShootCommand(m_shooter));
 
-        // new JoystickButton(m_driveJoystick, 4).whileHeld(new TopConveyorIn(m_topConveyor));
-        // new JoystickButton(m_driveJoystick, 6).whileHeld(new TopConveyorOut(m_topConveyor));
+        // new JoystickButton(m_driveJoystick, 4).whileHeld(new
+        // TopConveyorIn(m_topConveyor));
+        // new JoystickButton(m_driveJoystick, 6).whileHeld(new
+        // TopConveyorOut(m_topConveyor));
 
-        // new JoystickButton(m_driveJoystick, 3).whileHeld(new IntakeAndBottom(m_intake, m_bottomConveyor, false));
-        // new JoystickButton(m_driveJoystick, 5).whileHeld(new IntakeAndBottom(m_intake, m_bottomConveyor, true));
+        // new JoystickButton(m_driveJoystick, 3).whileHeld(new
+        // IntakeAndBottom(m_intake, m_bottomConveyor, false));
+        // new JoystickButton(m_driveJoystick, 5).whileHeld(new
+        // IntakeAndBottom(m_intake, m_bottomConveyor, true));
 
-        // new JoystickButton(m_driveJoystick, 2).whenHeld(new TimedBothConveyors(m_topConveyor, m_bottomConveyor));
-   
-        new JoystickButton(m_driveJoystick, 12).whenPressed(new ToggleVisionLight(m_vision));
+        // new JoystickButton(m_driveJoystick, 2).whenHeld(new
+        // TimedBothConveyors(m_topConveyor, m_bottomConveyor));
+
+        // new JoystickButton(m_driveJoystick, 12).whenPressed(new
+        // ToggleVisionLight(m_vision));
     }
 
     /**
@@ -101,7 +110,6 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        return new InstantCommand(() -> {
-        });
+        return null;
     }
 }

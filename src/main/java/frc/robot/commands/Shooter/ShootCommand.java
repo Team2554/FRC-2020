@@ -19,7 +19,6 @@ public class ShootCommand extends CommandBase {
    */
   public ShootCommand(final Shooter shooter) {
     m_shooter = shooter;
-
     addRequirements(m_shooter);
   }
 
@@ -30,7 +29,7 @@ public class ShootCommand extends CommandBase {
 
   @Override
   public void execute() {
-    m_shooter.startMotor(ShooterConstants.shooterVoltage);
+    m_shooter.startMotor(1.0);
   }
 
   // Called once the command ends or is interrupted.
