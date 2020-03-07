@@ -10,6 +10,13 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 
+import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 /**
@@ -21,7 +28,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-
+  private static boolean x;
   private RobotContainer m_robotContainer;
 
   /**
@@ -34,6 +41,8 @@ public class Robot extends TimedRobot {
     // and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+    camera.setResolution(426, 240);
   }
 
   /**
@@ -46,35 +55,7 @@ public class Robot extends TimedRobot {
    * and SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic() {
-    // new Thread(() -> {
-    // UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-    // camera.setResolution(640, 480);
-
-    // CvSink cvSink = CameraServer.getInstance().getVideo();
-    // CvSource outputStream = CameraServer.getInstance().putVideo("Blur", 640,
-    // 480);
-
-    // Mat source = new Mat();
-    // Mat output = new Mat();
-
-    // while (!Thread.interrupted()) {
-    // if (cvSink.grabFrame(source) == 0) {
-    // continue;
-    // }
-    // Imgproc.cvtColor(source, output, Imgproc.COLOR_BGR2GRAY);
-    // outputStream.putFrame(output);
-    // }
-    // }).start();
-    // Runs the Scheduler. This is responsible for polling buttons, adding
-    // newly-scheduled
-    // commands, running already-scheduled commands, removing finished or
-    // interrupted commands,
-    // and running subsystem periodic() methods. This must be called from the
-    // robot's periodic
-    // block in order for anything in the Command-based framework to work.
-    CommandScheduler.getInstance().run();
-
+  public void robotPeriodic() { 
   }
 
   /**
