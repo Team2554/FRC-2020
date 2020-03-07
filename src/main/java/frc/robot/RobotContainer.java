@@ -61,7 +61,7 @@ public class RobotContainer {
     // private TopConveyor m_topConveyor = new TopConveyor();
     // private Intake m_intake = new Intake();
     // private ColorWheel m_colorWheel = new ColorWheel();
-    // private Vision m_vision = new Vision();
+    private Vision m_vision = new Vision();
     // TODO: make below private for final code. currently its public so gyro can be
     // reset on teleop init(see Robot.java teleop init)
     // public DriveTrain m_driveTrain = new DriveTrain();
