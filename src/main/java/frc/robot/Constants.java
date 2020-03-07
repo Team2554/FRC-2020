@@ -104,7 +104,7 @@ public final class Constants {
 
     // BottomConveyor Constants
     public static final double stopTime = 0.5;
-    public static final int bottomConveyorPort = 7;
+    public static final int bottomConveyorPort = 8;
     public static final int bottomConveyorVoltage = 5;
   }
 
