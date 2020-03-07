@@ -28,6 +28,7 @@ import frc.robot.commands.Elevator.ElevatorToBottom;
 import frc.robot.commands.Elevator.ElevatorToTop;
 import frc.robot.commands.TopConveyor.TopConveyorIn;
 import frc.robot.commands.TopConveyor.TopConveyorOut;
+import frc.robot.commands.Vision.ToggleVisionLight;
 import frc.robot.subsystems.BottomConveyor;
 import frc.robot.subsystems.ColorWheel;
 import frc.robot.subsystems.DriveTrain;
@@ -35,6 +36,7 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.TopConveyor;
+import frc.robot.subsystems.Vision;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -57,6 +59,7 @@ public class RobotContainer {
     private final TopConveyor m_topConveyor = new TopConveyor();
     private final Intake m_intake = new Intake();
     private final ColorWheel m_colorWheel = new ColorWheel();
+    private final Vision m_vision = new Vision();
     // TODO: make below private for final code. currently its public so gyro can be
     // reset on teleop init(see Robot.java teleop init)
     public final DriveTrain m_driveTrain = new DriveTrain();
@@ -78,16 +81,18 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
         // Elevator buttons
-        new JoystickButton(m_driveJoystick, 1)
-                .whileHeld(new BothConveyorsAndShoot(m_shooter, m_bottomConveyor, m_topConveyor));
+        // new JoystickButton(m_driveJoystick, 1)
+        //         .whileHeld(new BothConveyorsAndShoot(m_shooter, m_bottomConveyor, m_topConveyor));
 
-        new JoystickButton(m_driveJoystick, 4).whileHeld(new TopConveyorIn(m_topConveyor));
-        new JoystickButton(m_driveJoystick, 6).whileHeld(new TopConveyorOut(m_topConveyor));
+        // new JoystickButton(m_driveJoystick, 4).whileHeld(new TopConveyorIn(m_topConveyor));
+        // new JoystickButton(m_driveJoystick, 6).whileHeld(new TopConveyorOut(m_topConveyor));
 
-        new JoystickButton(m_driveJoystick, 3).whileHeld(new IntakeAndBottom(m_intake, m_bottomConveyor, false));
-        new JoystickButton(m_driveJoystick, 5).whileHeld(new IntakeAndBottom(m_intake, m_bottomConveyor, true));
+        // new JoystickButton(m_driveJoystick, 3).whileHeld(new IntakeAndBottom(m_intake, m_bottomConveyor, false));
+        // new JoystickButton(m_driveJoystick, 5).whileHeld(new IntakeAndBottom(m_intake, m_bottomConveyor, true));
 
-        new JoystickButton(m_driveJoystick, 2).whenHeld(new TimedBothConveyors(m_topConveyor, m_bottomConveyor));
+        // new JoystickButton(m_driveJoystick, 2).whenHeld(new TimedBothConveyors(m_topConveyor, m_bottomConveyor));
+   
+        new JoystickButton(m_driveJoystick, 12).whenPressed(new ToggleVisionLight(m_vision));
     }
 
     /**
