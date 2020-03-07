@@ -12,7 +12,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.Constants.ShooterConstants;
 
 public class Shooter extends SubsystemBase {
@@ -22,11 +21,11 @@ public class Shooter extends SubsystemBase {
    * Creates a new Shooter.
    */
   public Shooter() {
-    shootMotor = new TalonSRX(Constants.ShooterConstants.talonPort);
+    shootMotor = new TalonSRX(ShooterConstants.talonPort);
     shootMotor.configFactoryDefault();
     shootMotor.setSensorPhase(true);
     shootMotor.enableVoltageCompensation(true);
-    shootMotor.configVoltageCompSaturation(Constants.ShooterConstants.shooterVoltage);
+    shootMotor.configVoltageCompSaturation(ShooterConstants.shooterVoltage);
     shootMotor.configNominalOutputForward(0, ShooterConstants.kTimeoutMs);
     shootMotor.configNominalOutputReverse(0, ShooterConstants.kTimeoutMs);
     shootMotor.configPeakOutputForward(1, ShooterConstants.kTimeoutMs);
@@ -38,10 +37,8 @@ public class Shooter extends SubsystemBase {
 
   }
 
-  public void startMotor(final double demand) {
-    shootMotor.set(ControlMode.PercentOutput, demand);
-    double target = 1.0 * 500.0 * 4096 / 600;
-    shootMotor.set(ControlMode.Velocity, target);
+  public void startMotor() {
+    shootMotor.set(ControlMode.Velocity, 500.0 * 4096 / 600);
   }
 
   public int getSpeed() {

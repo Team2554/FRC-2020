@@ -8,7 +8,6 @@
 package frc.robot.commands.Shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.Shooter;
 
 public class ShootCommand extends CommandBase {
@@ -29,7 +28,7 @@ public class ShootCommand extends CommandBase {
 
   @Override
   public void execute() {
-    m_shooter.startMotor(1.0);
+    m_shooter.startMotor();
   }
 
   // Called once the command ends or is interrupted.
