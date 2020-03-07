@@ -25,6 +25,12 @@ public class TopConveyorIn extends CommandBase {
     addRequirements(m_topConveyor);
   }
 
+  public TopConveyorIn(final TopConveyor conveyor) {
+    m_topConveyor = conveyor;
+    m_checkIfShootable = null;
+    addRequirements(m_topConveyor);
+  }
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {

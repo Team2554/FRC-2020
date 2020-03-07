@@ -8,33 +8,24 @@
 package frc.robot.commands.CommandGroups;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.commands.BottomConveyor.BottomConveyorIn;
 import frc.robot.commands.Intake.IntakeIn;
-import frc.robot.commands.Shooter.ShootCommand;
-import frc.robot.commands.TopConveyor.TopConveyorIn;
+import frc.robot.commands.Intake.IntakeOut;
+import frc.robot.commands.BottomConveyor.BottomConveyorIn;
+import frc.robot.commands.BottomConveyor.BottomConveyorOut;
 import frc.robot.subsystems.BottomConveyor;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.TopConveyor;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class IntakeAndShoot extends ParallelCommandGroup {
+public class IntakeAndBottom extends ParallelCommandGroup {
   /**
-   * Creates a new ShooterAndConveyors.
-   *
-   * @param shooter
-   * @param bottomConveyor
-   * @param topConveyor
-   * @param intake
+   * Creates a new IntakeAndBottom.
    */
-  public IntakeAndShoot(final Shooter shooter, final BottomConveyor bottomConveyor, final TopConveyor topConveyor,
-      final Intake intake) {
+  public IntakeAndBottom(Intake intake, BottomConveyor bottomConveyor, boolean isReverse) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());super();
-
-    super(new IntakeIn(intake), new ShootCommand(shooter), new BottomConveyorIn(bottomConveyor, shooter::isShootable),
-        new TopConveyorIn(topConveyor, shooter::isShootable));
+    super(isReverse ? new IntakeOut(intake) : new IntakeIn(intake),
+        isReverse ? new BottomConveyorOut(bottomConveyor) : new BottomConveyorIn(bottomConveyor));
   }
 }
