@@ -24,7 +24,8 @@ public class Shooter extends SubsystemBase {
     shootMotor = new TalonSRX(Constants.ShooterConstants.talonPort);
     shootMotor.setSensorPhase(true);
     shootMotor.enableVoltageCompensation(true);
-    shootMotor.configVoltageCompSaturation(11);
+    shootMotor.configVoltageCompSaturation(Constants.ShooterConstants.shooterVoltage);
+    shootMotor.setInverted(true);
   }
 
   public void startMotor(final double demand) {
@@ -36,7 +37,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public void periodic() {
-    SmartDashboard.putNumber("Flywheel Velocity(rotations * 4096/100ms)", getSpeed());
+    SmartDashboard.putNumber("Flywheel Velocity", getSpeed());
   }
 
   public boolean isShootable() {

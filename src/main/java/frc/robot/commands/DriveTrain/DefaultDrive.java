@@ -10,6 +10,7 @@ package frc.robot.commands.DriveTrain;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 
@@ -40,14 +41,17 @@ public class DefaultDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    SmartDashboard.putNumber("speed", m_speed.getAsDouble());
+    SmartDashboard.putNumber("rotation", m_rotation.getAsDouble());
+    SmartDashboard.putBoolean("quickTUrn", m_quickTurn.getAsBoolean());
     m_driveTrain.curvatureDrive(m_speed.getAsDouble(), m_rotation.getAsDouble(), m_quickTurn.getAsBoolean());
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(final boolean interrupted) {
-    if (interrupted)
-      m_driveTrain.curvatureDrive(0, 0, false);
+    m_driveTrain.curvatureDrive(0, 0, false);
   }
 
   // Returns true when the command should end.

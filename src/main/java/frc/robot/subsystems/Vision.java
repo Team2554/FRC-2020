@@ -28,7 +28,7 @@ public class Vision extends SubsystemBase {
 
   private final NetworkTableEntry angleEntry = ntVision.getEntry("angleToTarget");
 
-  private final Solenoid visionLight = new Solenoid(0);
+  private final Solenoid visionLight = new Solenoid(5);
 
   private double lastEntryChange;
   private double lastEntry;
