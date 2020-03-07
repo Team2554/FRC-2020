@@ -17,13 +17,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
 
 public class Shooter extends SubsystemBase {
-  private final TalonSRX shootMotor;
+  private final TalonSRX shootMotor = new TalonSRX(ShooterConstants.talonPort);
 
   /**
    * Creates a new Shooter.
    */
   public Shooter() {
-    shootMotor = new TalonSRX(ShooterConstants.talonPort);
     shootMotor.configFactoryDefault();
     shootMotor.setSensorPhase(false);
     shootMotor.enableVoltageCompensation(true);
