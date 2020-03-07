@@ -38,7 +38,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public void startMotor() {
-    shootMotor.set(ControlMode.Velocity, 500.0 * 4096 / 600);
+    shootMotor.set(ControlMode.Velocity, 24000);
   }
 
   public int getSpeed() {
