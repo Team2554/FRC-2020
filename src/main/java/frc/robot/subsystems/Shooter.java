@@ -35,7 +35,7 @@ public class Shooter extends SubsystemBase {
     shootMotor.config_kP(ShooterConstants.kPIDLoopIdx, ShooterConstants.kP, ShooterConstants.kTimeoutMs);
     shootMotor.config_kI(ShooterConstants.kPIDLoopIdx, ShooterConstants.kI, ShooterConstants.kTimeoutMs);
     shootMotor.config_kD(ShooterConstants.kPIDLoopIdx, ShooterConstants.kD, ShooterConstants.kTimeoutMs);
-    Shuffleboard.getTab("SmartDashboard").addNumber("Flywheel Velocity", this::getSpeed)
+    Shuffleboard.getTab("SmartDashboard").addNumber("Flywheel Velocity", this::getVelocity)
         .withWidget(BuiltInWidgets.kGraph);
   }
 
@@ -43,7 +43,7 @@ public class Shooter extends SubsystemBase {
     shootMotor.set(ControlMode.Velocity, 24000);
   }
 
-  public int getSpeed() {
+  public int getVelocity() {
     return shootMotor.getSelectedSensorVelocity();
   }
 
@@ -51,7 +51,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public boolean isShootable() {
-    return getSpeed() > 24000;
+    return getVelocity() > 24000;
   }
 
   public void stop() {

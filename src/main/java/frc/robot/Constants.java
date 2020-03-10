@@ -104,6 +104,7 @@ public final class Constants {
     public static final double kF = 1023.0 / 7200.0;
     public static final int kIzone = 300;
     public static final double kPeakOutput = 1.00;
+    public static final double kVelocityTolerance = 0.0;
   }
 
   public static final class ConveyorConstants {
