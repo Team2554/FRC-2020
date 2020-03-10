@@ -40,7 +40,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public void startMotor() {
-    shootMotor.set(ControlMode.Velocity, 24000);
+    shootMotor.set(ControlMode.Velocity, 25000);
   }
 
   public int getVelocity() {
@@ -51,7 +51,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public boolean isShootable() {
-    return getVelocity() > 24000;
+    return getVelocity() > 25000;
   }
 
   public void stop() {
