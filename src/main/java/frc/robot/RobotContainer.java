@@ -26,6 +26,7 @@ import frc.robot.commands.DriveTrain.DriveStraight;
 import frc.robot.commands.DriveTrain.RotateToAngle;
 import frc.robot.commands.Elevator.ElevatorToBottom;
 import frc.robot.commands.Elevator.ElevatorToTop;
+import frc.robot.commands.Shooter.AutonomousShoot;
 import frc.robot.commands.Shooter.ShootCommand;
 import frc.robot.commands.TopConveyor.TopConveyorIn;
 import frc.robot.commands.TopConveyor.TopConveyorOut;
@@ -58,21 +59,19 @@ public class RobotContainer {
     // private Elevator m_elevator = new Elevator();
     private Shooter m_shooter = new Shooter();
 
-    // private TopConveyor m_topConveyor = new TopConveyor();
+    private TopConveyor m_topConveyor = new TopConveyor();
     // private Intake m_intake = new Intake();
     // private ColorWheel m_colorWheel = new ColorWheel();
     private Vision m_vision = new Vision();
     // TODO: make below private for final code. currently its public so gyro can be
     // reset on teleop init(see Robot.java teleop init)
-    // public DriveTrain m_driveTrain = new DriveTrain();
-    // private BottomConveyor m_bottomConveyor = new BottomConveyor();
+    public DriveTrain m_driveTrain = new DriveTrain();
+    private BottomConveyor m_bottomConveyor = new BottomConveyor();
 
     public RobotContainer() {
         // Configure the button bindings
-        // m_driveTrain.setDefaultCommand(new DefaultDrive(m_driveTrain, () ->
-        // -m_driveJoystick.getY(),
-        // m_driveJoystick::getX, () ->
-        // m_driveJoystick.getRawButton(DriveJoystickMappings.quickTurn)));
+        m_driveTrain.setDefaultCommand(new DefaultDrive(m_driveTrain, () -> -m_driveJoystick.getY(),
+                m_driveJoystick::getX, () -> m_driveJoystick.getRawButton(DriveJoystickMappings.quickTurn)));
 
         configureButtonBindings();
     }
@@ -85,7 +84,8 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
         // Elevator buttons
-        new JoystickButton(m_driveJoystick, 1).whenHeld(new ShootCommand(m_shooter));
+        new JoystickButton(m_driveJoystick, 1)
+                .whenHeld(new AutonomousShoot(m_shooter, m_topConveyor, m_bottomConveyor, 25000));
 
         // new JoystickButton(m_driveJoystick, 4).whileHeld(new
         // TopConveyorIn(m_topConveyor));
