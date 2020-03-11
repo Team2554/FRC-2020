@@ -48,6 +48,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public void periodic() {
+    SmartDashboard.putNumber("shooter_velocity", getVelocity());
   }
 
   public boolean isShootable() {
