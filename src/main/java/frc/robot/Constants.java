@@ -95,6 +95,16 @@ public final class Constants {
   public static final class ShooterConstants {
     public static final int talonPort = 4;
     public static final int shooterVoltage = 11;
+    public static final int kSlotIdx = 0;
+    public static final int kPIDLoopIdx = 0;
+    public static final int kTimeoutMs = 30;
+    public static final double kP = 4 * (0.1 * 1023.0) / 1700;
+    public static final double kI = 0;
+    public static final double kD = 16 * kP;
+    public static final double kF = 11.0 / 12 * 1023 / 25000;
+    public static final int kIzone = 300;
+    public static final double kPeakOutput = 1.00;
+    public static final double kVelocityTolerance = 0.0;
   }
 
   public static final class ConveyorConstants {
