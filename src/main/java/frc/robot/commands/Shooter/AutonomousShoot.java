@@ -19,9 +19,11 @@ public class AutonomousShoot extends CommandBase {
   private final Shooter m_shooter;
   private final TopConveyor m_topConveyor;
   private final BottomConveyor m_bottomConveyor;
+
   private final double m_optimalVelocity;
   private final Timer m_conveyorTimer = new Timer();
-  private boolean started;
+
+  private boolean m_conveyorsRunning = false;
 
   /**
    * Creates a new AutonomousShoot.
@@ -46,20 +48,21 @@ public class AutonomousShoot extends CommandBase {
     m_shooter.startMotor();
 
     double currentVelocity = m_shooter.getVelocity();
-    if (m_optimalVelocity - ShooterConstants.kVelocityTolerance <= currentVelocity
-        && currentVelocity <= m_optimalVelocity + ShooterConstants.kVelocityTolerance) {
+    if (Math.abs(currentVelocity - m_optimalVelocity) <= ShooterConstants.kVelocityTolerance) {
       // If within desired velocity for shooter, start conveyors
-      if (!started) { // Start the timer if it hasn't already been started
-        started = true;
+      if (!m_conveyorsRunning) { // Start the timer if it hasn't already been started
+        m_conveyorsRunning = true;
         m_conveyorTimer.start();
       }
+
       m_topConveyor.conveyorIn();
       m_bottomConveyor.conveyorIn();
-    } else if (!started) { // Stop the conveyors if the velocity isn't within desired range and pause
-                           // timer.
-      m_conveyorTimer.stop();
+    } else if (m_conveyorsRunning) {
+      // Stop the conveyors if they've already started and pause timer
       m_topConveyor.stopConveyor();
       m_bottomConveyor.stopConveyor();
+      m_conveyorTimer.stop();
+      m_conveyorsRunning = false;
     }
   }
 
@@ -74,6 +77,6 @@ public class AutonomousShoot extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_conveyorTimer.hasPeriodPassed(3);
+    return m_conveyorTimer.get() > 3;
   }
 }
