@@ -40,15 +40,17 @@ public class AutonomousShoot extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_shooter.startMotor();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shooter.startMotor();
+    // m_shooter.startMotor();
 
     double currentVelocity = m_shooter.getVelocity();
-    if (Math.abs(currentVelocity - m_optimalVelocity) <= ShooterConstants.kVelocityTolerance) {
+    if (Math.abs(
+        currentVelocity - m_optimalVelocity) <= (ShooterConstants.kVelocityTolerance / 100.0 * m_optimalVelocity)) {
       // If within desired velocity for shooter, start conveyors
       if (!m_conveyorsRunning) { // Start the timer if it hasn't already been started
         m_conveyorsRunning = true;
@@ -66,9 +68,7 @@ public class AutonomousShoot extends CommandBase {
       // Stop the conveyors if they've already started and pause timer
       m_topConveyor.stopConveyor();
       m_bottomConveyor.stopConveyor();
-      if (m_conveyorTimer != null) {
-        m_conveyorTimer.stop();
-      }
+      m_conveyorTimer.stop();
       m_conveyorsRunning = false;
     }
   }
@@ -84,6 +84,8 @@ public class AutonomousShoot extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_conveyorTimer.get() > 3;
+    if (m_conveyorTimer == null)
+      return false;
+    return m_conveyorTimer.get() > 5;
   }
 }
