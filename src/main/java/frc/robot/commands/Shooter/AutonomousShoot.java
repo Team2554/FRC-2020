@@ -66,7 +66,9 @@ public class AutonomousShoot extends CommandBase {
       // Stop the conveyors if they've already started and pause timer
       m_topConveyor.stopConveyor();
       m_bottomConveyor.stopConveyor();
-      m_conveyorTimer.stop();
+      if (m_conveyorTimer != null) {
+        m_conveyorTimer.stop();
+      }
       m_conveyorsRunning = false;
     }
   }
