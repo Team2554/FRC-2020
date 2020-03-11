@@ -85,7 +85,7 @@ public class RobotContainer {
     private void configureButtonBindings() {
         // Elevator buttons
         new JoystickButton(m_driveJoystick, 1)
-                .whenHeld(new AutonomousShoot(m_shooter, m_topConveyor, m_bottomConveyor, 25000));
+                .whenPressed(new AutonomousShoot(m_shooter, m_topConveyor, m_bottomConveyor, 25000));
 
         // new JoystickButton(m_driveJoystick, 4).whileHeld(new
         // TopConveyorIn(m_topConveyor));

@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
 
@@ -23,6 +24,7 @@ public class Shooter extends SubsystemBase {
    */
   public Shooter() {
     shootMotor.configFactoryDefault();
+    shootMotor.setInverted(true);
     shootMotor.setSensorPhase(false);
     shootMotor.enableVoltageCompensation(true);
     shootMotor.configVoltageCompSaturation(ShooterConstants.shooterVoltage);
@@ -34,8 +36,6 @@ public class Shooter extends SubsystemBase {
     shootMotor.config_kP(ShooterConstants.kPIDLoopIdx, ShooterConstants.kP, ShooterConstants.kTimeoutMs);
     shootMotor.config_kI(ShooterConstants.kPIDLoopIdx, ShooterConstants.kI, ShooterConstants.kTimeoutMs);
     shootMotor.config_kD(ShooterConstants.kPIDLoopIdx, ShooterConstants.kD, ShooterConstants.kTimeoutMs);
-    Shuffleboard.getTab("SmartDashboard").addNumber("Flywheel Velocity", this::getVelocity)
-        .withWidget(BuiltInWidgets.kGraph);
   }
 
   public void startMotor() {
@@ -47,6 +47,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public void periodic() {
+    SmartDashboard.putNumber("Flywheel", getVelocity());
   }
 
   public boolean isShootable() {
