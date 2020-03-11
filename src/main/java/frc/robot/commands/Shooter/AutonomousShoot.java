@@ -21,8 +21,8 @@ public class AutonomousShoot extends CommandBase {
   private final BottomConveyor m_bottomConveyor;
 
   private final double m_optimalVelocity;
-  private final Timer m_conveyorTimer = new Timer();
 
+  private Timer m_conveyorTimer;
   private boolean m_conveyorsRunning = false;
 
   /**
@@ -52,6 +52,11 @@ public class AutonomousShoot extends CommandBase {
       // If within desired velocity for shooter, start conveyors
       if (!m_conveyorsRunning) { // Start the timer if it hasn't already been started
         m_conveyorsRunning = true;
+
+        if (m_conveyorTimer == null) { // Reset timer before starting timing
+          m_conveyorTimer = new Timer();
+        }
+
         m_conveyorTimer.start();
       }
 
